@@ -13,7 +13,7 @@ typedef struct Joueur
 }Joueur;
 typedef struct Pawn
 {
-        int Joueur;
+        int Joueur.couleur;
         int Coordx;
         int Coordy;
 }Pions;
