@@ -11,7 +11,7 @@ typedef struct Joueur
 
 
 }Joueur;
-typedef struct Pawn
+typedef struct Pions
 {
         int Joueur.couleur;
         int Coordx;
