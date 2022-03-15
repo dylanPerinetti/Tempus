@@ -9,11 +9,11 @@
 
 void CreeJoueurs(Joueur* j,uint8_t c)//pour la crééation d'un nouveaux joueur
 {
-	signed char nom[255];
+	char nom[255];
 
 	printf("Entré votre Pseudo");
-	scnaf("%s",nom);//Corection a Faire!!! Pas de saisie Sécuriser !!!
-	strcpy(p->nom_utilisateur,nom)
+	scanf("%s",nom);//Corection a Faire!!! Pas de saisie Sécuriser !!!
+	strcpy(j->nom_utilisateur,nom)
 	j->couleur=c;
 	j->niveaux_joueur=0;
 	for (int i = 0; i < 16; ++i)
