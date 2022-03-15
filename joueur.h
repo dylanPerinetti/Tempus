@@ -9,13 +9,16 @@ typedef struct Joueur
 	uint8_t couleur;
 	uint8_t niveaux_joueur;
 	Pions pion_possede[16];
-	Ville ville_possede[8];
+	Cite cite_possede[8];
 }Joueur;
 
 
 void CreeJoueurs(Joueur* j,uint8_t c);
 void Cree4Joueurs(Joueur tab[]);
-void AugmenterNiveaux(Joueur* j);
-void AfficherNiveaux(Joueur* j);
+void AugmenterNiveauxJoueur(Joueur* j);
+void AfficherNiveauxJoueur(Joueur* j);
+
+int InventairePions(Joueur* j);
+int InventaireCite(Joueur* j);
 
 #endif
