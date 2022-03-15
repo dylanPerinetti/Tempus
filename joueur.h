@@ -1,6 +1,11 @@
+#ifndef __LIB__
+#define __LIB__
+
+#include <stdio.h>
+
+#endif
 #ifndef __JOUEUR_H__
 #define __JOUEUR_H__
-#include <stdio.h>
 /*-------------------- Joueur ------------------------*/
 
 typedef struct Joueur
