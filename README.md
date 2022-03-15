@@ -13,6 +13,6 @@ Créé par Rémi Perrier-Gustin (MrTNTX) et Dylan Perinetti (dylanPerinetti)
 ```
 git clone https://github.com/dylanPerinetti/tempus
 cd tempus
-gcc tempus.c -o tempus
+gcc *.c -o tempus
 ./tempus
 ```
