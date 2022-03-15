@@ -5,7 +5,7 @@
 
 typedef struct Joueur
 {
-	signed char nom_utilisateur[255];
+	char nom_utilisateur[255];
 	int couleur;
 	int niveaux_joueur;
 	Pions pions_possede[15];
