@@ -1,4 +1,6 @@
-
+#include <stdio.h>
+#include <stdlib.h>
+#include "joueur.h"
 
 void Test_coord(Joueur j,uint8_t c){
 
