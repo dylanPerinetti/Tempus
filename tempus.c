@@ -18,10 +18,17 @@ int main()
     	{
 	        case 1:
 	            system("cls"); //Windows
-	            CreeJoueurs(&joueur1,1);
-	            CreeJoueurs(&joueur2,2);
-	            CreeJoueurs(&joueur3,3);
-	            CreeJoueurs(&joueur4,4);
+	            CreeJoueurs(&joueur1,1);    
+			    /*________________________TEST____________________________*/
+			    printf("Le nom du joueur 1 est :%s,\net son lvl est : %d",joueur1.nom_utilisateur,joueur1.niveaux_joueur);//afficher les changements
+			    /*________________________TEST____________________________*/
+	        	CreeJoueurs(&joueur2,2);
+			    /*________________________TEST____________________________*/
+			    printf("Le nom du joueur 1 est :%s,\net son lvl est : %d",joueur1.nom_utilisateur,joueur1.niveaux_joueur);//afficher les changements
+				/*________________________TEST____________________________*/
+    
+	            //CreeJoueurs(&joueur3,3);
+	            //CreeJoueurs(&joueur4,4);
 	            //DebutJeu();
 	            //AfficherPlateau();
 	            break;
@@ -40,14 +47,6 @@ int main()
 	            break;
 	    }
 	    
-
-	    /*________________________TEST____________________________*/
-	    Joueur joueur1;//créé un joueur
-	    scanf("%s",joueur1.nom_utilisateur);//changer son nom
-	    joueur1.niveaux_joueur=300;
-	    printf("Le nom du joueur est :%s,\net son lvl est : %d",joueur1.nom_utilisateur,joueur1.niveaux_joueur);//afficher les changements
-	    /*________________________TEST____________________________*/
-    
 
     } while (choix_utilisateur!=4);
     
