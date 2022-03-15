@@ -1,57 +1,66 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
 #include "objet.h"
 #include "joueur.h"
 
-#define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
+/*----------------------- Joueur ----------------------*/
 
-int main()
+//////////////////////////
+//		FONCTION		//
+/////////////////////////
+
+void CreeJoueurs(Joueur* j,uint8_t c)	//pour la crééation d'un nouveaux joueur
 {
-	int choix_utilisateur=0;
-	Joueur tableau_joueur[4];
+	//strcpy(j->nom_utilisateur,nom);
+	j->couleur=c;
+	j->niveaux_joueur=0;
+	for (uint8_t i = 0; i < 16; ++i)
+	{
+		Pions pion_i={i,c,-1,-1};
+		j->pion_possede[i]=pion_i;
+	}
+	for (uint8_t i = 0; i < 8; ++i)
+	{
+		Cite cite_i={i,c,-1,-1,0};
+		j->cite_possede[i]=cite_i;
+	}
+}
+void Cree4Joueurs(Joueur tab[])
+{
+	for (uint8_t i = 0; i < 4; ++i)
+		CreeJoueurs(&tab[i],i+1);
+}
+void AugmenterNiveauxJoueur(Joueur* j)
+{
+	++j->niveaux_joueur;
+}
+void AfficherNiveauxJoueur(Joueur* j)
+{
+	printf("\nLe NV du Joueur n°%u est de %u \n", j->couleur, j->niveaux_joueur);
+}
 
+int InventairePions(Joueur* j)
+{
+	int nb_de_pion_dans_le_stuff = 0;
 
-	system(NETTOYER_TERMINAL);					//shell Netoyer le terminal 
-	printf("\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
-	
+	for (uint8_t i = 0; i < 16; ++i)
+	{
+		if(j->pion_possede[i].Coordx == -1 && j->pion_possede[i].Coordy == -1)
+			++nb_de_pion_dans_le_stuff;
+	}
 
-	do{
-	
-		printf("\nMENU:\n\n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
-		scanf("%d",&choix_utilisateur);			//Améliorer la Secu avec fgets ou JCP ...
-	
-	
-		switch(choix_utilisateur)
-    	{
-	        case 1:
-	            system(NETTOYER_TERMINAL);
-	            Cree4Joueurs(tableau_joueur);
-	            //DebutJeu();					//Initialisations du jeu
-	            //AfficherPlateau();
-	            break;
-	        case 2:
-	            system(NETTOYER_TERMINAL);
-	            //AfficherReglesDuJeu();		//Affiche les regles du jeu 
-	            break;
-	        case 3:
-	            system(NETTOYER_TERMINAL);
-	            printf("Merci et a Bientôt ;)\n");
-	            return 0;
-	        default :
-	            system(NETTOYER_TERMINAL);
-	            printf("Veuillez resaisir votre choix");
-	            return 0 ;
-	            break;
-	    }
-	    AugmenterNiveaux(&tableau_joueur[3]);	//TESTE 
-		AfficherNiveaux(&tableau_joueur[1]);	//TESTE
-		AugmenterNiveaux(&tableau_joueur[1]);	//TESTE 
-		AfficherNiveaux(&tableau_joueur[3]);	//TESTE
-	    AugmenterNiveaux(&tableau_joueur[3]);	//TESTE 
-		AfficherNiveaux(&tableau_joueur[1]);	//TESTE
-		AugmenterNiveaux(&tableau_joueur[1]);	//TESTE 
-		AfficherNiveaux(&tableau_joueur[1]);	//TESTE
+	return nb_de_pion_dans_le_stuff;
+}
+int InventaireCite(Joueur* j)
+{
+	int nb_de_cite_dans_le_stuff=0;
 
-    } while (choix_utilisateur!=4);
-    return 0;
+	for (uint8_t i = 0; i < 8; ++i)
+	{
+		if(j->cite_possede[i].Coordx == -1 && j->cite_possede[i].Coordy == -1)
+			++nb_de_cite_dans_le_stuff;
+	}
+
+	return nb_de_cite_dans_le_stuff;
 }
