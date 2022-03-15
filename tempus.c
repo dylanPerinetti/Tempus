@@ -9,8 +9,8 @@ int main()
 {
 	system(NETTOYER_TERMINAL);			//shell Netoyer le terminal 
 	int choix_utilisateur=0;
-	Joueur joueur1 , joueur2 , joueur3 , joueur4;
-	printf("Bonjour, Bienvenue a sur TEMPUS 3.0");
+	Joueur tableau_joueur[4];
+	printf("\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
 	do{
 		printf("\nMENU:\n\n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
 		scanf("%d",&choix_utilisateur);
@@ -18,10 +18,10 @@ int main()
     	{
 	        case 1:
 	            system(NETTOYER_TERMINAL);
-	            CreeJoueurs(&joueur1,1);
-	            CreeJoueurs(&joueur2,2);
-	            CreeJoueurs(&joueur3,3);
-	            CreeJoueurs(&joueur4,4);
+	            CreeJoueurs(&tableau_joueur[0],1);
+	            CreeJoueurs(&tableau_joueur[1],2);
+	            CreeJoueurs(&tableau_joueur[2],3);
+	            CreeJoueurs(&tableau_joueur[3],4);
 	            //DebutJeu();			//Initialisations du jeu
 	            //AfficherPlateau();
 	            break;
@@ -31,7 +31,7 @@ int main()
 	            break;
 	        case 3:
 	            system(NETTOYER_TERMINAL);
-	            printf("Merci et a Bientôt ;)");
+	            printf("Merci et a Bientôt ;)\n");
 	            return 0;
 	        default :
 	            system(NETTOYER_TERMINAL);
@@ -41,3 +41,4 @@ int main()
 	    }
     } while (choix_utilisateur!=4);
     return 0;
+}
