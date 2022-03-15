@@ -1,54 +1,43 @@
-/*-------------------- Biblio ------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "objet.h"
 #include "joueur.h"
 
-/*----------------------------------------------------*/
+#define NETTOYER_TERMINAL "clear"		//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
 int main()
 {
+	system(NETTOYER_TERMINAL);			//shell Netoyer le terminal 
 	int choix_utilisateur=0;
 	Joueur joueur1 , joueur2 , joueur3 , joueur4;
-
+	printf("Bonjour, Bienvenue a sur TEMPUS 3.0");
 	do{
-		printf("\nBienvenue \n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
+		printf("\nMENU:\n\n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
 		scanf("%d",&choix_utilisateur);
 		switch(choix_utilisateur)
     	{
 	        case 1:
-	            system("cls"); //Windows
-	            CreeJoueurs(&joueur1,1);    
-			    /*________________________TEST____________________________*/
-			    printf("Le nom du joueur 1 est :%s,\net son lvl est : %d",joueur1.nom_utilisateur,joueur1.niveaux_joueur);//afficher les changements
-			    /*________________________TEST____________________________*/
-	        	CreeJoueurs(&joueur2,2);
-			    /*________________________TEST____________________________*/
-			    printf("Le nom du joueur 1 est :%s,\net son lvl est : %d",joueur1.nom_utilisateur,joueur1.niveaux_joueur);//afficher les changements
-				/*________________________TEST____________________________*/
-    
-	            //CreeJoueurs(&joueur3,3);
-	            //CreeJoueurs(&joueur4,4);
-	            //DebutJeu();
+	            system(NETTOYER_TERMINAL);
+	            CreeJoueurs(&joueur1,1);
+	            CreeJoueurs(&joueur2,2);
+	            CreeJoueurs(&joueur3,3);
+	            CreeJoueurs(&joueur4,4);
+	            //DebutJeu();			//Initialisations du jeu
 	            //AfficherPlateau();
 	            break;
 	        case 2:
-	            system("cls"); //Windows
-	            //AfficherReglesDuJeu();
+	            system(NETTOYER_TERMINAL);
+	            //AfficherReglesDuJeu();//Affiche les regles du jeu 
 	            break;
 	        case 3:
-	            system("cls"); //Windows
+	            system(NETTOYER_TERMINAL);
 	            printf("Merci et a Bientôt ;)");
 	            return 0;
 	        default :
-	            system("cls"); //Windows
+	            system(NETTOYER_TERMINAL);
 	            printf("Veuillez resaisir votre choix");
 	            return 0 ;
 	            break;
 	    }
-	    
-
     } while (choix_utilisateur!=4);
-    
     return 0;
-}
