@@ -6,10 +6,10 @@
 typedef struct Joueur
 {
 	//char nom_utilisateur[255];
-	int couleur;
-	int niveaux_joueur;
-	Pions pions_possede[15];
-	Ville ville_possede[7];
+	uint8_t couleur;
+	uint8_t niveaux_joueur;
+	Pions pion_possede[16];
+	Ville ville_possede[8];
 }Joueur;
 
 
