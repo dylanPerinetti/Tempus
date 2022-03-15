@@ -11,15 +11,15 @@ typedef struct Pions
 }Pions;
 
 
-/*-------------------- Ville ------------------------*/
+/*-------------------- CITE -------------------------*/
 
-typedef struct Ville
+typedef struct Cite
 {
-        uint8_t id_ville;       //identification de la piece
+        uint8_t id_cite;       //identification de la piece
         uint8_t couleur;        //Car la couleur est un Héritage du joueur 
         int Coordx;             //tableux ?
         int Coordy;             //tableux ?
-        uint8_t niveaux_ville;
-}Ville;
+        uint8_t niveaux_cite;
+}Cite;
 
 #endif
