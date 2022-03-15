@@ -5,7 +5,7 @@
 typedef struct Pions
 {       
         uint8_t id_pion;// uint8_t sigifie un nb entier non signer sur 1 Octer contre 4 Octer pour un simple int 
-        int couleur;//Car la couleur est un Héritage du joueur 
+        uint8_t couleur;//Car la couleur est un Héritage du joueur 
         int Coordx;//tableux ?
         int Coordy;//tableux ?
 }Pions;
