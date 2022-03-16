@@ -36,19 +36,19 @@ int main()
 	            break;
 	        case 3:
 	            system(NETTOYER_TERMINAL);
-	            printf("Merci et a Bientôt ;)\n");
+	            printf("Merci et à Bientôt ;)\n");
 	            return 0;
 	        default :
 	            system(NETTOYER_TERMINAL);
 	            printf("Veuillez resaisir votre choix");
 	            return 0 ;
 	            break;
-	    }
-	    /*
+	    }/*
 	    printf("\n%d\n",InventaireCite(&tableau_joueur[1]));//TESTE
 	    printf("\n%d\n",InventairePions(&tableau_joueur[1]));//TEST
 	    AugmenterNiveauxJoueur(&tableau_joueur[3]);			//TESTE 
 		AfficherNiveauxJoueur(&tableau_joueur[1]);			//TESTE
+		AfficherInventaireJoueur(&tableau_joueur[1]);
 		*/
     }while (choix_utilisateur!=4);
     return 0;
