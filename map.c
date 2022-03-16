@@ -6,13 +6,15 @@ typedef struct CarteTerrain
   //Salut MrTNTX peut tu me mettre au courrant quand tu vois ce messsage pour 
   //que l'on se mette d'accord sur la structure de terrain et surtout d'une uniter de surface
   //FAIT LE MAR 15 MARS 21:34
+
+  
 #include <stdio.h>
 #include <SDL.h>
 #include <time.h>
 #include <string.h>
+#define TAILLE_FENETRE 1200
 
-
-//---------------------------------Rémi 16/03/2022-------------------------------//
+//---------------------------------Rémi 17/03/2022-------------------------------//
 
 int Randomizer();
 void erreur(int error);
@@ -27,19 +29,27 @@ int main(int argc, char* argv[])
     SDL_Texture *tex_ocean = NULL;
     int i=0;
     int j=0;
-    int carte[9][9];            //Carte pour le programme
+    int d=0;
+    int carte[10][10];                 //Carte pour le programme
+    for(j=0;j<10;j++)
+    {
+        for(i=0;i<10;i++)
+        {
+            carte[i][j]=7;             //Remplit la carte d'espaces vides (7)
+        }
+    }            
 
     
    
     SDL_Rect Fond_ocean;  //Definition du rectangle pour le fond océan
     Fond_ocean.x = 0;
     Fond_ocean.y = 0;
-    Fond_ocean.w = 1024;
-    Fond_ocean.h = 1024;
+    Fond_ocean.w = TAILLE_FENETRE;
+    Fond_ocean.h = TAILLE_FENETRE;
     
     SDL_Rect Hexagone;   //Definition du rectangle pour stocker texture de l'hexagone
-    Hexagone.x = 62;
-    Hexagone.y = 200;
+    Hexagone.x = (TAILLE_FENETRE-624)/2;
+    Hexagone.y = 100;
     Hexagone.w = 100;
     Hexagone.h = 100;
     
@@ -56,7 +66,7 @@ int main(int argc, char* argv[])
     
     //-----------------------------------Création de la fenetre et du rendu--------------------------------//
     
-    SDL_CreateWindowAndRenderer(1200, 1200, 0, &fenetre, &rendu);
+    SDL_CreateWindowAndRenderer(TAILLE_FENETRE, TAILLE_FENETRE, 0, &fenetre, &rendu);
     
     //-----------------------------------Création et Application de la Texture du fond océan--------------------------------//
     
@@ -83,12 +93,12 @@ int main(int argc, char* argv[])
 
 
 
-    //-----------------------------------Génération Random de la map (à compléter)--------------------------------//
+    //-----------------------------------Génération Random Partie Haute--------------------------------//
     
 
-    for(j=0;j<7;j++)
+    for(j=6;j<10;j++)
     {
-        for(i=0;i<9;i++)
+        for(i=0;i<j;i++)
         {
             int terrain = Randomizer();                         //Donne une valeur random entre 0 et 4 a terrain
             switch(terrain)
@@ -99,48 +109,136 @@ int main(int argc, char* argv[])
                 case 3 : image = SDL_LoadBMP("src/Case_Montagne_Dim.bmp"); break;      //donne un dossier bmp différent a image
                 case 4 : image = SDL_LoadBMP("src/Case_Colline_Dim.bmp"); break; 
             }
-
-            carte[i][j] = terrain;                                                     //Stocke la valeur terrain dans la carte 
             SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
 
             //Rogne le blanc autour des hexagones stockés dans image
-    
+            
+            if (d%2==0){carte[i+2-(d/2)][d]=terrain;}                                  //Remplissage Carte (un peu mystique)
+            else if (d==1){carte[i+1][d]=terrain;}
+            else {carte[i][d]=terrain;}
+            
             tex_case = SDL_CreateTextureFromSurface(rendu, image);                     //Crée une texture a partir de image
             if (tex_case == NULL)
             {
                 erreur(6);
             }
             SDL_FreeSurface(image);
-            if (SDL_QueryTexture(tex_case, NULL, NULL, &Hexagone.w, &Hexagone.h) != 0)  //Donne la texture a la forme Hexagone
+            if (SDL_QueryTexture(tex_case, NULL, NULL, &Hexagone.w, &Hexagone.h) != 0)     //Donne la texture a la forme Hexagone
             {
                 erreur(7);
             }
-            if (SDL_RenderCopy(rendu, tex_case, NULL, &Hexagone) != 0)            //Met la forme Hexagone dans le rendu
+            if (SDL_RenderCopy(rendu, tex_case, NULL, &Hexagone) != 0)          //Met la forme Hexagone dans le rendu
             {
                 erreur(8);
             }
             SDL_RenderPresent(rendu);                                             //Applique les modification au rendu
             Hexagone.x = Hexagone.x + 102;
         }
-
+    d++;                                                                          
     Hexagone.y = Hexagone.y + 88;                                                 //Se décale en fonction de la ligne
-    if(j%2==0) Hexagone.x = 10;
-    else Hexagone.x = 62;
+    Hexagone.x = (TAILLE_FENETRE-624)/2-(50*d);
     }
 
-    for(j=0;j<7;j++)                                                              //"imprime" la carte dans le terminal
+    //-----------------------------------Génération Random Milieu--------------------------------//
+    
+    for(i=0;i<10;i++)
     {
-        for (i=0;i<9;i++)
+        int terrain = Randomizer();                        
+        switch(terrain)
         {
-            printf("%d ",carte[i][j]);
+            case 0 : image = SDL_LoadBMP("src/Case_Champ_Dim.bmp"); break;          
+            case 1 : image = SDL_LoadBMP("src/Case_Foret_Dim.bmp"); break;
+            case 2 : image = SDL_LoadBMP("src/Case_Prairie_Dim.bmp"); break;       
+            case 3 : image = SDL_LoadBMP("src/Case_Montagne_Dim.bmp"); break;      
+            case 4 : image = SDL_LoadBMP("src/Case_Colline_Dim.bmp"); break; 
         }
-        printf("\n");
+                                              
+        SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
+        carte[i][4]=terrain;
+    
+        tex_case = SDL_CreateTextureFromSurface(rendu, image);                    
+        if (tex_case == NULL)
+        {
+            erreur(6);
+        }
+        SDL_FreeSurface(image);
+        if (SDL_QueryTexture(tex_case, NULL, NULL, &Hexagone.w, &Hexagone.h) != 0)  
+        {
+            erreur(7);
+        }
+        if (SDL_RenderCopy(rendu, tex_case, NULL, &Hexagone) != 0)           
+        {
+            erreur(8);
+        }
+        SDL_RenderPresent(rendu);                                             
+        Hexagone.x = Hexagone.x + 102;
     }
+    d--;
+    Hexagone.y = Hexagone.y + 88;
+    Hexagone.x = (TAILLE_FENETRE-624)/2-(50*d);
+    
+
+    //-----------------------------------Génération Random Partie Basse--------------------------------//
+    
+    for(j=9;j>5;j--)
+    {
+        for(i=0;i<j;i++)
+        {
+            int terrain = Randomizer();                         
+            switch(terrain)
+            {
+                case 0 : image = SDL_LoadBMP("src/Case_Champ_Dim.bmp"); break;          
+                case 1 : image = SDL_LoadBMP("src/Case_Foret_Dim.bmp"); break;
+                case 2 : image = SDL_LoadBMP("src/Case_Prairie_Dim.bmp"); break;       
+                case 3 : image = SDL_LoadBMP("src/Case_Montagne_Dim.bmp"); break;      
+                case 4 : image = SDL_LoadBMP("src/Case_Colline_Dim.bmp"); break; 
+            }
+            SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
+
+            if (d==3){carte[i][8-d]=terrain;}
+            else if (d==2){carte[i+1][8-d]=terrain;}
+            else if (d==1){carte[i+1][8-d]=terrain;}
+            else if (d==0){carte[i+2][8-d]=terrain;}
+
+            tex_case = SDL_CreateTextureFromSurface(rendu, image);                     
+            if (tex_case == NULL)
+            {
+                erreur(6);
+            }
+            SDL_FreeSurface(image);
+            if (SDL_QueryTexture(tex_case, NULL, NULL, &Hexagone.w, &Hexagone.h) != 0)  
+            {
+                erreur(7);
+            }
+            if (SDL_RenderCopy(rendu, tex_case, NULL, &Hexagone) != 0)            
+            {
+                erreur(8);
+            }
+            SDL_RenderPresent(rendu);                                             
+            Hexagone.x = Hexagone.x + 102;
+        }
+    d--;
+    Hexagone.y = Hexagone.y + 88;                                                 
+    Hexagone.x = (TAILLE_FENETRE-624)/2-(50*d);
+    }
+
+
+//-----------------------------------Imprime la carte--------------------------------//
+
+
+for(j=0;j<10;j++)
+    {
+        for(i=0;i<10;i++)
+        {
+            printf("%d ",carte[i][j]);            
+        }
+    printf("\n");
+    }    
 
 
 //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
-    SDL_Delay(20000);
+    SDL_Delay(10000);
 
     SDL_DestroyTexture(tex_ocean);                                               
     SDL_DestroyTexture(tex_case);
@@ -164,11 +262,6 @@ void erreur(int error)
 {
     printf("Erreur %d, %s\n", error, SDL_GetError());
 }
-
-
-// gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2
-
-
 
 }CarteTerrain;
 #endif
