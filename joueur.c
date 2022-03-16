@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <string.h>
 #include "objet.h"
 #include "joueur.h"
 
@@ -28,7 +27,7 @@ void CreeJoueur(Joueur* j,uint8_t c)	//pour la crééation d'un nouveaux joueur
 		j->cite_possede[i]=cite_i;
 	}
 }
-void Cree4Joueurs(Joueur tab[])			//Pour Créé 4 Joueur
+void Cree4Joueurs(Joueur tab[])		//Pour Créé 4 Joueur
 {
 	for (uint8_t i = 0; i < 4; ++i)
 		CreeJoueur(&tab[i],i+1);
@@ -60,7 +59,7 @@ int InventairePions(Joueur* j)			//Pour Répertorier les Pions d'un joueur dans 
 
 	for (uint8_t i = 0; i < 16; ++i)
 	{
-		if(j->pion_possede[i].Coordx == -1 && j->pion_possede[i].Coordy == -1)
+		if(j->pion_possede[i].coord_x == -1 && j->pion_possede[i].coord_y == -1)
 			++nb_de_pion_dans_le_stuff;
 	}
 
@@ -72,9 +71,22 @@ int InventaireCite(Joueur* j)			//Pour Répertorier les Cite d'un joueur dans l'
 
 	for (uint8_t i = 0; i < 8; ++i)
 	{
-		if(j->cite_possede[i].Coordx == -1 && j->cite_possede[i].Coordy == -1)
+		if(j->cite_possede[i].coord_x == -1 && j->cite_possede[i].coord_y == -1)
 			++nb_de_cite_dans_le_stuff;
 	}
 
 	return nb_de_cite_dans_le_stuff;
+}/*
+void PlacerPionSurMap(Joueur* j,Pions* p,int x_,int y_)	//placer Pion du stuff du joueur sur la map au coordoner x,y
+{
+}
+void PlacerCiteSurMap(Joueur* j,Cite* c_,int x_,int y_)	//plcer Citer du stuff du joueur sur la map au coordoner x,y
+{
+}
+void RecupererPion(Joueur* j,Pions* p)					//Placer un pion dans le stuff du joueur
+{
+}*/
+void ChangerCouleurCite(Joueur voleur,Cite* c_)		//Changer la couleur d'une Cite par celle du joueur
+{
+	(*c_).couleur = voleur.couleur;
 }
