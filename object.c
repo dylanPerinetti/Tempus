@@ -4,20 +4,113 @@
 #include "objet.h"
 #include "joueur.h"
 
+#define X_MIN 0
+#define X_MAX 8
+#define Y_MIN 0
+#define Y_MAX 8
+
 void AfficherCouleurCite(Cite c_)
 {
 	char nom_couleur[6]={0};				//Update a faire avec un switch
-	if(((c_).couleur) == 0)
-		strcpy(nom_couleur,"Bleu ");
-	if(((c_).couleur) == 1)
-		strcpy(nom_couleur,"Blanc");
-	if(((c_).couleur) == 2)
-		strcpy(nom_couleur,"Rouge");
-	if(((c_).couleur) == 3)
-		strcpy(nom_couleur,"Rose ");
+	switch((c_).couleur)
+	{
+		case 0:
+			strcpy(nom_couleur,"Bleu ");
+			break;
+		case 1:
+			strcpy(nom_couleur,"Blanc");
+			break;
+		case 2:
+			strcpy(nom_couleur,"Rouge");
+			break;
+		case 3:
+			strcpy(nom_couleur,"Rose ");
+			break;
+		default :
+			strcpy(nom_couleur,"ERROR");
+	}
 
-	printf("La couleur de cette cité est %s\n",nom_couleur);//
+	printf("\nLa couleur de cette cité est %s\n",nom_couleur);//
 }
+void AfficherCouleurPion(Pions p)
+{
+	char nom_couleur[6]={0};				//Update a faire avec un switch
+	switch(p.couleur)
+	{
+		case 0:
+			strcpy(nom_couleur,"Bleu ");
+			break;
+		case 1:
+			strcpy(nom_couleur,"Blanc");
+			break;
+		case 2:
+			strcpy(nom_couleur,"Rouge");
+			break;
+		case 3:
+			strcpy(nom_couleur,"Rose ");
+			break;
+		default :
+			strcpy(nom_couleur,"ERROR");
+	}
+
+	printf("\nLa couleur de ce pion est %s\n",nom_couleur);
+}
+
+void AfficherIDCite(Cite c_)
+{
+	printf("\nL'ID de cette cité est %u",(c_).id_cite);
+}
+void AfficherIDPion(Pions p)
+{
+	printf("\nL'ID de ce pion est %u",(p).id_pion);
+}
+int DeplacerPionDroite(Pions* p)
+{
+	if((p->coord_x)<X_MAX)p->coord_x++;
+	else return 1;
+	return 0;
+}
+int DeplacerPionGauche(Pions* p)
+{
+	if((p->coord_x)>X_MIN)p->coord_x--;
+	else return 1;
+	return 0;
+}
+int DeplacerPionHautDroite(Pions* p)
+{
+	if((p->coord_x)<X_MAX)p->coord_x++;
+	else return 1;
+	if((p->coord_y)>Y_MIN)p->coord_y--;
+	else return 1;
+	return 0;
+}
+int DeplacerPionHautGauche(Pions* p)
+{
+	if((p->coord_x)>X_MIN)p->coord_x--;
+	else return 1;
+	if((p->coord_y)>Y_MIN)p->coord_y--;
+	else return 1;
+	return 0;
+}
+int DeplacerPionBasGauche(Pions* p)
+{
+	if((p->coord_x)>X_MIN)p->coord_x--;
+	else return 1;
+	if((p->coord_y)<Y_MAX)p->coord_y++;
+	else return 1;
+	return 0;
+}
+int DeplacerPionBasDroite(Pions* p)
+{
+	if((p->coord_x)<X_MAX)p->coord_x++;
+	else return 1;
+	if((p->coord_y)<Y_MAX)p->coord_y++;
+	else return 1;
+	return 0;
+}
+
+
+
 /*
 void Test_coord(Joueur j,uint8_t c){
 
