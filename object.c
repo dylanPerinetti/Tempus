@@ -5,9 +5,9 @@
 #include "joueur.h"
 
 #define X_MIN 0
-#define X_MAX 8
+#define X_MAX 10
 #define Y_MIN 0
-#define Y_MAX 8
+#define Y_MAX 10
 
 void AfficherCouleurCite(Cite c_)
 {
@@ -64,6 +64,28 @@ void AfficherIDPion(Pions p)
 {
 	printf("\nL'ID de ce pion est %u",(p).id_pion);
 }
+void AfficherCoordonneesCite(Pions p)
+{
+	int x = p.coord_x;
+	int y = p.coord_y;
+	if(x != -1 && y != -1)
+		printf("Le pion a pour coordonnées x = [%d]et y = [%d]\n",x,y);
+	else if (x == -1 && y == -1)
+		printf("Le pion n°%u est dans votre inventaire !",p.id_cite);
+	else
+		printf("ERROR");
+}
+void AfficherCoordonneesCite(Cite c_)
+{
+	int x = (c_).coord_x;
+	int y = (c_).coord_y;
+	if(x != -1 && y != -1)
+		printf("La Cité a pour coordonnées [x][y]\n     [%d][%d]\n",x,y);
+	else if (x == -1 && y == -1)
+	printf("La Cité n°%u est dans votre inventaire !",(c_).id_cite);
+	else
+		printf("ERROR");
+}
 int DeplacerPionDroite(Pions* p)
 {
 	if((p->coord_x)<X_MAX)p->coord_x++;
@@ -108,20 +130,3 @@ int DeplacerPionBasDroite(Pions* p)
 	else return 1;
 	return 0;
 }
-
-
-
-/*
-void Test_coord(Joueur j,uint8_t c){
-
-    for (int i = 0; i < 16; ++i)
-	{
-		printf("Pion %d se trouve en x=%d y=%d",i,j.pions_possede[i].Coordx,j.pions_possede[i].Coordy);
-	}
-	for (int i = 0; i < 8; ++i)
-	{
-		Ville ville_i={i,c,-1,-1};
-		printf("Ville %d se trouve en x=%d y=%d",i,j.ville_possede[i].Coordx,j.ville_possede[i].Coordy);
-	}
-}
-*/
