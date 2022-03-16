@@ -19,7 +19,7 @@ int main()
 	do{
 	
 		printf("\nMENU:\n\n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
-		scanf("%d",&choix_utilisateur);			//Améliorer la Secu avec fgets ou JCP ...
+		scanf("%1d",&choix_utilisateur);			//Améliorer la Secu avec fgets ou JCP ...
 	
 	
 		switch(choix_utilisateur)
@@ -41,15 +41,16 @@ int main()
 	        default :
 	            system(NETTOYER_TERMINAL);
 	            printf("Veuillez resaisir votre choix");
-	            return 0 ;
 	            break;
-	    }/*
-	    printf("\n%d\n",InventaireCite(&tableau_joueur[1]));//TESTE
-	    printf("\n%d\n",InventairePions(&tableau_joueur[1]));//TEST
-	    AugmenterNiveauxJoueur(&tableau_joueur[3]);			//TESTE 
-		AfficherNiveauxJoueur(&tableau_joueur[1]);			//TESTE
-		AfficherInventaireJoueur(&tableau_joueur[1]);
-		*/
+	    }
+	    printf("\n%d\n",InventaireCite(&tableau_joueur[1]));	//TESTE
+	    printf("\n%d\n",InventairePions(&tableau_joueur[1]));	//TEST
+	    AugmenterNiveauxJoueur(&tableau_joueur[3]);				//TESTE 
+		AfficherNiveauxJoueur(&tableau_joueur[1]);				//TESTE
+		AfficherInventaireJoueur(&tableau_joueur[1]);			//TESTE
+		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
+		ChangerCouleurCite(tableau_joueur[1],&tableau_joueur[2].cite_possede[2]);//TESTE
+		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
     }while (choix_utilisateur!=4);
     return 0;
 }
