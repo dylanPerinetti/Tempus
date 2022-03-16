@@ -16,11 +16,17 @@ typedef struct Cite
         int coord_y;                    //tableux ?
         uint8_t niveaux_cite;
 }Cite;                                  //Cree la structure d'une Cité
+typedef struct Carte_Idee
+{
+        uint8_t Type_de_terrain;
+}Carte_Idee;
 
 void AfficherCouleurCite(Cite c_);      //Afficher Couleur dune cité
 void AfficherCouleurPion(Pions p);      //Afficher Couleur d'un Pion
 void AfficherIDCite(Cite c_);           //Afficher id_cite d'une cité
 void AfficherIDPion(Pions p);           //Afficher id_pion d'un Pion
+void AfficherCoordonneesPion(Pions p);  //Afficher les coordonnees d'un Pion
+void AfficherCoordonneesCite(Cite c_);  //Afficher les coordonnees d'une Cite
 
 int DeplacerPionDroite(Pions* p);       //Déplacer pion a Droite
 int DeplacerPionGauche(Pions* p);      //Déplacer pion a Gauche
@@ -28,4 +34,5 @@ int DeplacerPionHautDroite(Pions* p);   //Déplacer pion en Haut a Droite
 int DeplacerPionHautGauche(Pions* p);  //Déplacer pion en Haut a Gauche
 int DeplacerPionBasDroite(Pions* p);    //Déplacer pion en Bas a Droite
 int DeplacerPionBasGauche(Pions* p);   //Déplacer pion en Bas a Gauche
+
 #endif
