@@ -64,14 +64,14 @@ void AfficherIDPion(Pions p)
 {
 	printf("\nL'ID de ce pion est %u",(p).id_pion);
 }
-void AfficherCoordonneesCite(Pions p)
+void AfficherCoordonneesPion(Pions p)
 {
 	int x = p.coord_x;
 	int y = p.coord_y;
 	if(x != -1 && y != -1)
 		printf("Le pion a pour coordonnées x = [%d]et y = [%d]\n",x,y);
 	else if (x == -1 && y == -1)
-		printf("Le pion n°%u est dans votre inventaire !",p.id_cite);
+		printf("Le pion n°%u est dans votre inventaire !",p.id_pion);
 	else
 		printf("ERROR");
 }
