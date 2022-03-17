@@ -9,7 +9,10 @@
 
 #define TAILLE_FENETRE 1200
 #define TEMPS_FENETRE 1000          //YEP
-
+#define X_MIN 0
+#define X_MAX 10
+#define Y_MIN 0
+#define Y_MAX 10
 
 int main(int argc, char* argv[])
 {
@@ -23,9 +26,9 @@ int main(int argc, char* argv[])
     uint8_t j=0;                    //YEP
     int d=0;
     int carte[10][10];                 //Carte pour le programme
-    for(j = 0; j < 10; j++)
+    for(j = Y_MIN; j < Y_MAX; j++)  //YEP
     {
-        for(i = 0; i < 10; i++)
+        for(i = X_MIN; i < X_MAX; i++)//YEP
         {
             carte[i][j]=7;             //Remplit la carte d'espaces vides (7)
         }
@@ -78,9 +81,9 @@ int main(int argc, char* argv[])
     //-----------------------------------Génération Random Partie Haute--------------------------------//
     
 
-    for(j=6;j<10;j++)
+    for(j = 6; j < X_MAX; j++)  //YEP
     {
-        for(i=0;i<j;i++)
+        for(i = 0; i < j; i++)
         {
             ImageAleatoir(&image);  //YEP   Pas SUR que sa marche 
             SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
@@ -106,7 +109,7 @@ int main(int argc, char* argv[])
 
     //-----------------------------------Génération Random Milieu--------------------------------//
     
-    for(i=0;i<10;i++)
+    for(i=0;i<X_MAX;i++)        //YEP
     {
         ImageAleatoir(&image);  //YEP   Pas SUR que sa marche                                     
         SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
@@ -134,11 +137,11 @@ int main(int argc, char* argv[])
 
     //-----------------------------------Génération Random Partie Basse--------------------------------//
     
-    for(j = 9; j > 5; j--)
+    for(j = X_MAX-1; j > X_MAX/2; j--)  //YEP
     {
-        for(i = 0; i < j; i++)
+        for(i = 0; i < j; i++)          //YEP
         {
-            ImageAleatoir(&image);  //YEP   Pas SUR que sa marche 
+            ImageAleatoir(&image);      //YEP   Pas SUR que sa marche 
             SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
 
             if (d==3)carte[i][8-d]=terrain;         //YEP
@@ -163,9 +166,9 @@ int main(int argc, char* argv[])
 //-----------------------------------Imprime la carte--------------------------------//
 
 
-for(j = 0; j < 10; j++)
+for(j = Y_MIN; j < Y_MAX; j++)          //YEP
     {
-        for(i = 0; i < 10; i++)
+        for(i = X_MIN; i < X_MAX; i++)  //YEP
         {
             printf("%d ",carte[i][j]);            
         }
@@ -188,6 +191,20 @@ for(j = 0; j < 10; j++)
 
 
 //-----------------------------------Sous-Programmes--------------------------------//
+
+
+void ImageAleatoir(SDL_Surface* image)  //YEP
+{
+    int terrain = Aleatoir();           //YEP      //Donne une valeur random entre 0 et 4 a terrain
+    switch(terrain)
+        {
+            case 0 : *image = SDL_LoadBMP("src/Case_Champ_Dim.bmp"); break;     //YEP     
+            case 1 : *image = SDL_LoadBMP("src/Case_Foret_Dim.bmp"); break;     //YEP
+            case 2 : *image = SDL_LoadBMP("src/Case_Prairie_Dim.bmp"); break;   //YEP    //En fonction de la valeur de terrain,
+            case 3 : *image = SDL_LoadBMP("src/Case_Montagne_Dim.bmp"); break;  //YEP   //donne un dossier bmp différent a image
+            case 4 : *image = SDL_LoadBMP("src/Case_Colline_Dim.bmp"); break;   //YEP
+        }
+}
     
 int Aleatoir()          //YEP  (CAR TOUTES ES EN FRANÇAIS )
     {
