@@ -7,8 +7,9 @@
 #include <time.h>
 #include <string.h>
 
+
+void ImageAleatoir(SDL_Surface* image);// PAS SUR QUE LA FONCTION FONCTIONNE !!!
 int Aleatoir();
 void Erreur(int error);
-void ImageAleatoir(SDL_Surface* image);// PAS SUR QUE LA FONCTION FONCTIONNE !!!
 
 #endif
