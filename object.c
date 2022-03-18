@@ -12,15 +12,13 @@
 #define NOMBRE_CITE 8
 
 
-int* GenerateurID(Id_Objet *_id)
+void GenerateurID(Id_Objet *_id,uint8_t _couleur)
 {
 	static uint8_t _numeros_serie = 0;
 	_numeros_serie++;
-	char _lettre_serie[5]="AZER";
-	uint8_t _letre = rand()%5;
+	char _lettre_serie[5]="EAUS";;
 	_id->numero_serie = _numeros_serie;
-	_id->lettre_serie = _lettre_serie[_letre];
-	return _id;
+	_id->lettre_serie = _lettre_serie[_couleur];
 }
 
 
@@ -56,17 +54,17 @@ void InitialiserNiveauCite(Cite* _cite)
 }
 
 
-void Initialiser16Pions(Pions* _pion,uint8_t _couleur)
+void InitialiserPions(Pions* _pion,uint8_t _couleur)
 {
-	GenerateurID(&_pion->id_pion);
+	GenerateurID(&_pion->id_pion,_couleur);
 	InitialiserCouleurPion(_pion,_couleur);
 	InitialiserCoordonneesPion(_pion);
 }
 
 
-void Initialiser8Cite(Cite* _cite,uint8_t _couleur)
+void InitialiserCite(Cite* _cite,uint8_t _couleur)
 {
-	GenerateurID(&_cite->id_cite);
+	GenerateurID(&(_cite->id_cite),_couleur);
 	InitialiserCouleurCite(_cite,_couleur);
 	InitialiserCoordonneesCite(_cite);
 	InitialiserNiveauCite(_cite);
