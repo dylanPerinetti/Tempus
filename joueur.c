@@ -1,5 +1,10 @@
+#include <stdio.h>
+#include <stdint.h>
 #include "objet.h"
 #include "joueur.h"
+
+#define NOMBRE_PION 16
+#define NOMBRE_CITE 8
 
 
 void CreeJoueur(Joueur* _joueur,uint8_t _couleur)//pour la crééation d'un nouveaux joueur
@@ -9,13 +14,13 @@ void CreeJoueur(Joueur* _joueur,uint8_t _couleur)//pour la crééation d'un nouv
 	//strcpy(j->nom_utilisateur,nom);
 	InitialiserCouleurJoueur(_joueur,_couleur);
 	InitialiserNiveauJoueur(_joueur);
-	for (uint8_t i = 0; i < 16; ++i)
+	for (uint8_t i = 0; i < NOMBRE_PION; ++i)
 	{
 		Pions _pion_i;
 		InitialiserPions(&_pion_i, _couleur);
 		_joueur->pion_possede[i]=_pion_i;
 	}
-	for (uint8_t i = 0; i < 8; ++i)
+	for (uint8_t i = 0; i < NOMBRE_CITE; ++i)
 	{
 		Cite _cite_i;
 		InitialiserCite(&_cite_i, _couleur);
