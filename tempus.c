@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include "objet.h"
 #include "joueur.h"
-//#include "map.h"
+#include "map.h"
 
-#define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
+#define NETTOYER_TERMINAL "cls"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
-int main(void)
+int main(int argc, char* argv[])
 {
 	int choix_utilisateur=0;
 	Joueur tableau_joueur[4];
@@ -27,7 +27,7 @@ int main(void)
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
 	            //DebutJeu();					//Initialisations du jeu
-	            //AfficherPlateau();
+	            GeneMap();
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
