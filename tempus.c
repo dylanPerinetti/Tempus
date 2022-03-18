@@ -35,7 +35,7 @@ int main(void)
 	            break;
 	        case 3:
 	            system(NETTOYER_TERMINAL);
-	            printf("Merci et à Bientôt ;)\n");
+	            printf("\n\n\n\n\n\nMerci et à Bientôt ;)\n\n\n\n\n\n");
 	            return 0;
 	        default :
 	            system(NETTOYER_TERMINAL);
@@ -54,13 +54,13 @@ int main(void)
 		AfficherIDCite(tableau_joueur[2].cite_possede[7]);
 		printf("\n%d\n",InventaireCite(&tableau_joueur[1]));	//TESTE
 		printf("\n%d\n",InventairePions(&tableau_joueur[1]));	//TEST
-	   	AugmenterNiveauxJoueur(&tableau_joueur[1]);				//TESTE 
-		AfficherNiveauxJoueur(&tableau_joueur[1]);				//TESTE
+	   	AugmenterNiveauJoueur(&tableau_joueur[1]);				//TESTE 
+		AfficherNiveauJoueur(&tableau_joueur[1]);				//TESTE
 		AfficherInventaireJoueur(&tableau_joueur[1]);			//TESTE
 		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(tableau_joueur[1],&tableau_joueur[2].cite_possede[2]);//TESTE
+		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
 		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(tableau_joueur[3],&tableau_joueur[2].cite_possede[2]);//TESTE
+		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
 	    AfficherCoordonneesCite(tableau_joueur[2].cite_possede[7]);
 	    DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]);     //Déplacer pion a Droite
 		DeplacerPionGauche(&tableau_joueur[2].pion_possede[7]);     //Déplacer pion a Gauche
@@ -72,13 +72,13 @@ int main(void)
 	    AfficherIDPion(tableau_joueur[2].pion_possede[7]);
 	    printf("\n%d\n",InventaireCite(&tableau_joueur[1]));	//TESTE
 	    printf("\n%d\n",InventairePions(&tableau_joueur[1]));	//TEST
-	    AugmenterNiveauxJoueur(&tableau_joueur[3]);				//TESTE 
-		AfficherNiveauxJoueur(&tableau_joueur[1]);				//TESTE
+	    AugmenterNiveauJoueur(&tableau_joueur[3]);				//TESTE 
+		AfficherNiveauJoueur(&tableau_joueur[1]);				//TESTE
 		AfficherInventaireJoueur(&tableau_joueur[1]);			//TESTE
 		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(tableau_joueur[1],&tableau_joueur[2].cite_possede[2]);//TESTE
+		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
 		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(tableau_joueur[3],&tableau_joueur[2].cite_possede[2]);//TESTE
+		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
 		
 		//_____________________   FIN ZONE TESTE   _______________________//
     }while (choix_utilisateur!=4);
