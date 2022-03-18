@@ -6,10 +6,7 @@
 //Modif par Dylan Perinetti
 //Signer par YEP + map.h
 //LE 17/03/2022
-#include <stdio.h>
-#include <SDL.h>
-#include <time.h>
-#include <string.h>
+
 #define TAILLE_FENETRE 1200
 #define UNITE_X 102
 #define UNITE_Y 88
@@ -22,10 +19,6 @@
 #define PRCT_LAC 10
 
 //---------------------------------Rémi 16/03/2022-------------------------------//
-
-char Aleatoire();
-void Erreur(int error);
-void DeplacePion(int joueur, int departx, int departy, int arriveex, int arriveey, int nombre_pions_depart, int nombre_pions_arrivee, int case_depart, SDL_Renderer* rendu);
 
 int main(int argc, char* argv[])
 {
