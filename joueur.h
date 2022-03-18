@@ -2,7 +2,6 @@
 #define __JOUEUR_H__
 #include <stdio.h>
 #include <stdint.h>
-/*---------------------- Joueur ----------------------*/
 
 typedef struct Joueur
 {
@@ -28,5 +27,6 @@ int InventairePions(Joueur* j);					//Pour Répertorier les Pions d'un joueur da
 int InventaireCite(Joueur* j);					//Pour Répertorier les Cite d'un joueur dans l'inventaire
 
 void RecupererPion(Joueur* j,Pions* p);			//Placer un pion dans le stuff du joueur
+
 
 #endif
