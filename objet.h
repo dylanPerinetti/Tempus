@@ -24,7 +24,7 @@ typedef struct Carte_Idee
 {
         uint8_t Type_de_terrain;
 }Carte_Idee;
-int* GenerateurID(Id_Objet *_id);
+void GenerateurID(Id_Objet *_id,uint8_t _couleur);
 
 void InitialiserCouleurPion(Pions* _pion,uint8_t _couleur);     //Initialiser la couleur d'un pion <_couleur>
 void InitialiserCouleurCite(Cite* _cite,uint8_t _couleur);      //Initialiser la couleur d'une cité <_couleur>
