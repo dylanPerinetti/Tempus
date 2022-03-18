@@ -7,6 +7,7 @@
 //Signer par YEP + map.h
 //LE 17/03/2022
 
+#include "map.h"
 #define TAILLE_FENETRE 1200
 #define UNITE_X 102
 #define UNITE_Y 88
@@ -20,7 +21,9 @@
 
 //---------------------------------Rémi 16/03/2022-------------------------------//
 
-int main(int argc, char* argv[])
+
+
+int GeneMap()
 {
     srand(time(NULL));
     SDL_Window *fenetre = NULL;  //initialisation de toutes le fenetres/rendus/textures
@@ -39,7 +42,7 @@ int main(int argc, char* argv[])
             carte[i][j]=7;             //Remplit la carte d'espaces vides (7)
         }
     }
-    char fichier_terrain[]="src/Case_9_Dim.bmp";        
+    char fichier_terrain[]="src/Img/Case/Case_9_Dim.bmp";        
 
     
    
@@ -73,7 +76,7 @@ int main(int argc, char* argv[])
     
     //--------------------Création et Application de la Texture du fond océan-----------------------------//
     
-    image = SDL_LoadBMP("src/Sea.bmp");                          //Donne temporairement a image le chemin vers Sea.cmp
+    image = SDL_LoadBMP("src/Img/Case/Sea.bmp");                          //Donne temporairement a image le chemin vers Sea.cmp
     tex_ocean = SDL_CreateTextureFromSurface(rendu, image);      //Crée une texture a partir de Sea.cmp
     if (tex_ocean == NULL)
     {
@@ -104,7 +107,7 @@ int main(int argc, char* argv[])
         for(i=0;i<j;i++)
         {                       
             char terrain = Aleatoire();                        
-            fichier_terrain[9] = terrain;
+            fichier_terrain[18] = terrain;
             image = SDL_LoadBMP(fichier_terrain);
             
             SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));     //Rogne le blanc autour des hexagones stockés dans image
@@ -141,7 +144,7 @@ int main(int argc, char* argv[])
     for(i=0;i<10;i++)
     {
         char terrain = Aleatoire();                        
-        fichier_terrain[9] = terrain;
+        fichier_terrain[18] = terrain;
         image = SDL_LoadBMP(fichier_terrain);
                                               
         SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
@@ -177,7 +180,7 @@ int main(int argc, char* argv[])
         for(i=0;i<j;i++)
         {
             char terrain = Aleatoire();                        
-            fichier_terrain[9] = terrain;
+            fichier_terrain[18] = terrain;
 
 
             image = SDL_LoadBMP(fichier_terrain);
@@ -226,7 +229,10 @@ int main(int argc, char* argv[])
 
 //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
-    DeplacePionMap(1,3,3,6,6,1,1,0,rendu);
+    DeplacePionMap(0,3,3,6,6,1,1,0,rendu);
+    DeplacePionMap(1,2,3,5,6,1,1,0,rendu);
+    DeplacePionMap(2,8,3,2,6,1,1,0,rendu);
+    DeplacePionMap(3,7,7,1,2,1,1,0,rendu);
     SDL_Delay(5000);
 
     SDL_DestroyTexture(tex_ocean);                                               
@@ -234,8 +240,6 @@ int main(int argc, char* argv[])
     SDL_DestroyRenderer(rendu);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
-    
-    return 0;
 }
 
 
@@ -273,7 +277,7 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
     SDL_Surface *image2 = NULL;
     SDL_Texture *tex_pion = NULL;
     SDL_Rect Pion;
-    char pion_type[] = "src/Pion9_9.bmp";
+    char pion_type[] = "src/Img/Pions/Pion9_9.bmp";
     printf("%s\n",pion_type);
     Pion.x = 88 + arriveex*UNITE_X + (104/2) - (DIM_PION/2);                                      //Coordonees X et Y du pion sur le rendu
     Pion.y = 100 + arriveey*UNITE_Y + (120/2) - (DIM_PION/2);
@@ -284,8 +288,8 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
     {
         Pion.x = Pion.x+50;                                              //Decallage en fonction de la ligne
     }
-    pion_type[8] = joueur+48;
-    pion_type[10] = nombre_pions_arrivee+48;
+    pion_type[18] = joueur+48;
+    pion_type[20] = nombre_pions_arrivee+48;
     printf("%s\n",pion_type);
     image2 = SDL_LoadBMP(pion_type);
     
@@ -334,7 +338,7 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
     else 
 
     {
-        pion_type[10] = nombre_pions_depart+48;
+        pion_type[20] = nombre_pions_depart+48;
 
         SDL_LoadBMP(pion_type);
 
@@ -358,3 +362,5 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
     }
 
 }
+// gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2                 
+
