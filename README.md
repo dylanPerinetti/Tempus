@@ -16,4 +16,7 @@ cd tempus
 gcc *.c -o tempus
 ./tempus
 ```
-![IMG](https://user-images.githubusercontent.com/101599798/158646783-4ce43688-70bc-44d6-9bf2-ec8391e891eb.png)
+#IMAGE 15/03/2022
+![IMG_1](https://user-images.githubusercontent.com/101599798/158646783-4ce43688-70bc-44d6-9bf2-ec8391e891eb.png)
+#IMAGE 17/03/2022
+![IMG_2](https://user-images.githubusercontent.com/101599798/159054534-625011f0-507d-407e-b094-87c1c73bb3c4.png)
