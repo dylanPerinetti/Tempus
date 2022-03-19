@@ -9,11 +9,9 @@ En savoir plus sur leur utilisation dans le ficheier "objet.h".
 
 Fait par dylan le 15/03/2022
 Dernière modifications par dylanPerinetti le 19/03/2022
+
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "objet.h"
 #include "joueur.h"
 
@@ -29,7 +27,7 @@ void GenerateurID(Id_Objet *_id,unsigned char _couleur)
 {
 	static unsigned char _numeros_serie = 0;
 	_numeros_serie++;
-	char _lettre_serie[5]="EAUS";;
+	char _lettre_serie[5]="BROP";;
 	_id->numero_serie = _numeros_serie;
 	_id->lettre_serie = _lettre_serie[_couleur];
 }
@@ -154,7 +152,7 @@ void AfficherCoordonneesPion(Pions _pion)
 	int x = _pion.coord_x;
 	int y = _pion.coord_y;
 	if(x != -1 && y != -1)
-		printf("Le pion a pour coordonnées x = [%d] et y = [%d]\n",x,y);
+		printf("Le pion a pour coordonnes x = [%d] et y = [%d]\n",x,y);
 	else if (x == -1 && y == -1)
 		printf("Le pion %u%c est dans votre inventaire !",_pion.id_pion.numero_serie,_pion.id_pion.lettre_serie);
 	else
@@ -167,9 +165,9 @@ void AfficherCoordonneesCite(Cite _cite)
 	int x = _cite.coord_x;
 	int y = _cite.coord_y;
 	if(x != -1 && y != -1)
-		printf("La Cite a pour coordonnées x = [%d] et y = [%d]\n",x,y);
+		printf("La Cite a pour coordonnees x = [%d] et y = [%d]\n",x,y);
 	else if (x == -1 && y == -1)
-	printf("La Cité %u%c est dans votre inventaire !",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
+	printf("La Cite %u%c est dans votre inventaire !",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
 	else
 		printf("ERROR");
 }
@@ -270,22 +268,26 @@ void ChangerCouleurCite(Cite* c_,unsigned char _couleur)		//Changer la couleur d
 }
 
 
-void AfficherErreurDeplacement(int _erreur)
+void AfficherErreurDeplacementObjet(int _erreur)
 {
 	switch(_erreur)
 	{
 		case 0:
 			break;
 		case 1:
-			printf("Erreur%d Probleme le pion n'est pas dans l'inventaire",_erreur);
+			printf("\nErreur%d Probleme le pion n'est pas dans l'inventaire",_erreur);
 			break;
 		case 2:
-			printf("Erreur%d Probleme coordonnees X",_erreur);
+			printf("\nErreur%d Probleme coordonnees X",_erreur);
+			break;
+		case 11:
+			printf("\nErreur%d Probleme couleur objet differrente de celle du joueur",_erreur);
 			break;
 		case 22:
-			printf("Erreur%d Probleme coordonnees Y",_erreur);
+			printf("\nErreur%d Probleme coordonnees Y",_erreur);
 			break;
 		default:
-			printf("Erreur Inconnue");
+			printf("\nErreur Inconnue");
 	}
 }
+
