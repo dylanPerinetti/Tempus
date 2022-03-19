@@ -17,8 +17,6 @@ Dernière modifications par dylanPerinetti le 19/03/2022
 
 #ifndef __JOUEUR_H__
 #define __JOUEUR_H__
-#include <stdio.h>
-#include <stdint.h>
 
 typedef struct Joueur
 {
@@ -39,11 +37,11 @@ void AugmenterNiveauJoueur(Joueur* j);			//Pour Indenter le niveux d'un joueuer
 void AfficherNiveauJoueur(Joueur* j);			//Pour Afficher le niveaux d'un joueur
 void AfficherInventaireJoueur(Joueur* j);		//Pour Afficher L'inventaire d'un joueur
 
-int* InventaireJoueur(Joueur* _joueur);				//Pour Ranger l'inventaire dans un tableau[<PIONS>,<CITE>]
-int InventairePions(Joueur* _joueur);				//Pour Répertorier les Pions d'un joueur dans l'inventaire
-int InventaireCite(Joueur* _joueur);				//Pour Répertorier les Cite d'un joueur dans l'inventaire
+int* InventaireJoueur(Joueur* _joueur);			//Pour Ranger l'inventaire dans un tableau[<PIONS>,<CITE>]
+int InventairePions(Joueur* _joueur);			//Pour Répertorier les Pions d'un joueur dans l'inventaire
+int InventaireCite(Joueur* _joueur);			//Pour Répertorier les Cite d'un joueur dans l'inventaire
 
-int RecupererPion(Joueur* _joueur,Pions* _pion);	//Placer un pion dans le stuff du joueur
+int RecupererPion(Joueur _joueur,Pions* _pion);	//Placer un pion dans le stuff du joueur
 
 
 #endif
