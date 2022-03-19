@@ -11,13 +11,9 @@ Fait par dylan le 14/03/2022
 Dernière modifications par dylanPerinetti le 19/03/2022
 
 Je suis acctuellement en train de develloper les fonction:
-	- RecupererPion()
-	- 
+	-
 
 */
-
-#include <stdio.h>
-#include <stdint.h>
 #include "objet.h"
 #include "joueur.h"
 
@@ -83,15 +79,15 @@ void AfficherNiveauJoueur(Joueur* j)	//Pour Afficher le niveaux d'un joueur
 void AfficherInventaireJoueur(Joueur* j)//Pour Afficher L'inventaire d'un joueur
 {
 	int *tab=InventaireJoueur(j);
-	printf("Le joueur %d Possède %d Pions et Possède %d Cite",j->couleur ,tab[0],tab[1]);
+	printf("Le joueur %d Possede %d Pions et Possede %d Cite",j->couleur ,tab[0],tab[1]);
 }
 
 
 int* InventaireJoueur(Joueur* _joueur)	//Pour Ranger l'inventaire dans un tableau[<PIONS>,<CITE>]
 {
 	static int tab[2];
-	tab[0] = InventairePions(j);
-	tab[1] = InventaireCite(j);
+	tab[0] = InventairePions(_joueur);
+	tab[1] = InventaireCite(_joueur);
 	return tab;
 }
 
@@ -123,9 +119,13 @@ int InventaireCite(Joueur* _joueur)		//Pour Répertorier les Cite d'un joueur da
 	return nb_de_cite_dans_le_stuff;
 }
 
-int RecupererPion(Joueur* _joueur,Pions* _pion)
-{
-	_pion->coord_y=-1;
-	_pion->coord_x=-1;
-	return 0;
+int RecupererPion(Joueur _joueur,Pions* _pion)
+{	
+	if(_joueur.couleur == _pion->couleur)
+	{
+		InitialiserCoordonneesPion(_pion); 
+		return 0;
+	}
+	else return 11;
 }
+
