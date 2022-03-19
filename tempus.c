@@ -10,12 +10,11 @@ Fait par dylan le 14/03/2022
 Dernière modifications par dylanPerinetti le 19/03/2022
 */
 
-
 #include "objet.h"
 #include "joueur.h"
-//#include "map.h"
+#include "map.h"
 
-#define NETTOYER_TERMINAL "cls"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
+#define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
 int main(int argc, char* argv[])
 {
@@ -23,7 +22,7 @@ int main(int argc, char* argv[])
 	Joueur tableau_joueur[4];
 
 
-	system(NETTOYER_TERMINAL);					//shell Netoyer le terminal 
+	system(NETTOYER_TERMINAL);					//Netoyer le terminal 
 	printf("\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
 	
 
@@ -38,7 +37,7 @@ int main(int argc, char* argv[])
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
 	            //DebutJeu();					//Initialisations du jeu
-	            //GeneMap();
+	            GeneMap();
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
@@ -72,8 +71,8 @@ int main(int argc, char* argv[])
 		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
 		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
 		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
-	    	AfficherCoordonneesCite(tableau_joueur[2].cite_possede[7]);
-	    	DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]);     //Déplacer pion a Droite
+	    AfficherCoordonneesCite(tableau_joueur[2].cite_possede[7]);
+	    DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]);     //Déplacer pion a Droite
 		DeplacerPionGauche(&tableau_joueur[2].pion_possede[7]);     //Déplacer pion a Gauche
 		DeplacerPionHautDroite(&tableau_joueur[2].pion_possede[7]); //Déplacer pion en Haut a Droite
 		DeplacerPionHautGauche(&tableau_joueur[2].pion_possede[7]); //Déplacer pion en Haut a Gauche
@@ -91,6 +90,19 @@ int main(int argc, char* argv[])
 		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
 		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
 		
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
+		AfficherErreurDeplacementObjet(RecupererPion(tableau_joueur[2],(&tableau_joueur[2].pion_possede[7])));
+		AfficherErreurDeplacementObjet(RecupererPion(tableau_joueur[3],(&tableau_joueur[2].pion_possede[7])));
 		//_____________________   FIN ZONE TESTE   _______________________//
     }while (choix_utilisateur!=4);
     return 0;
