@@ -6,15 +6,15 @@
 typedef struct Joueur
 {
 	char* nom_utilisateur;
-	uint8_t couleur;
-	uint8_t niveaux_joueur;
+	unsigned char couleur;
+	unsigned char niveaux_joueur;
 	Pions pion_possede[16];
 	Cite cite_possede[32];
 }Joueur;										//Pour Cree la Structure d'un joueur
 
-void InitialiserCouleurJoueur(Joueur* _joueur,uint8_t _couleur);//Pour Initialiser la couleur de joueur a 0
-void InitialiserNiveauJoueur(Joueur* _joueur);					//Pour Initialiser le niveux de joueur a 0
-void CreeJoueur(Joueur* _joueur,uint8_t _couleur);				//Pour la crééation d'un nouveaux joueur
+void InitialiserCouleurJoueur(Joueur* _joueur,unsigned char _couleur);	//Pour Initialiser la couleur de joueur a 0
+void InitialiserNiveauJoueur(Joueur* _joueur);							//Pour Initialiser le niveux de joueur a 0
+void CreeJoueur(Joueur* _joueur,unsigned char _couleur);				//Pour la crééation d'un nouveaux joueur
 void Cree4Joueurs(Joueur tab[]);								//Pour Créé 4 Joueur
 
 void AugmenterNiveauJoueur(Joueur* j);			//Pour Indenter le niveux d'un joueuer 
