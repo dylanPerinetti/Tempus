@@ -7,20 +7,20 @@
 #define NOMBRE_CITE 8
 
 
-void CreeJoueur(Joueur* _joueur,uint8_t _couleur)//pour la crééation d'un nouveaux joueur
+void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'un nouveaux joueur
 {
 	//malloc(sizeof(char)*);
 	//free();
 	//strcpy(j->nom_utilisateur,nom);
 	InitialiserCouleurJoueur(_joueur,_couleur);
 	InitialiserNiveauJoueur(_joueur);
-	for (uint8_t i = 0; i < NOMBRE_PION; ++i)
+	for (unsigned char i = 0; i < NOMBRE_PION; ++i)
 	{
 		Pions _pion_i;
 		InitialiserPions(&_pion_i, _couleur);
 		_joueur->pion_possede[i]=_pion_i;
 	}
-	for (uint8_t i = 0; i < NOMBRE_CITE; ++i)
+	for (unsigned char i = 0; i < NOMBRE_CITE; ++i)
 	{
 		Cite _cite_i;
 		InitialiserCite(&_cite_i, _couleur);
@@ -31,12 +31,12 @@ void CreeJoueur(Joueur* _joueur,uint8_t _couleur)//pour la crééation d'un nouv
 
 void Cree4Joueurs(Joueur tab[])			//Pour Créé 4 Joueur
 {
-	for (uint8_t i = 0; i < 4; ++i)
+	for (unsigned char i = 0; i < 4; ++i)
 	{
 		CreeJoueur(&tab[i],i+1);
 	}
 }
-void InitialiserCouleurJoueur(Joueur* _joueur,uint8_t _couleur)
+void InitialiserCouleurJoueur(Joueur* _joueur,unsigned char _couleur)
 {
 	_joueur->couleur=_couleur;
 }
@@ -53,12 +53,12 @@ void AugmenterNiveauJoueur(Joueur* j)	//Pour Indenter le niveux d'un joueuer
 }
 void AfficherNiveauJoueur(Joueur* j)	//Pour Afficher le niveaux d'un joueur
 {
-	printf("\nLe NV du Joueur n°%u est de %u \n", j->couleur, j->niveaux_joueur);
+	printf("\nLe niveau du Joueur%u est %u \n", j->couleur, j->niveaux_joueur);
 }
 void AfficherInventaireJoueur(Joueur* j)//Pour Afficher L'inventaire d'un joueur
 {
 	int *tab=InventaireJoueur(j);
-	printf("Le joueur n°%d Possède %d Pions et Possède %d Cite",j->couleur ,tab[0],tab[1]);
+	printf("Le joueur %d Possède %d Pions et Possède %d Cite",j->couleur ,tab[0],tab[1]);
 }
 
 
@@ -73,7 +73,7 @@ int InventairePions(Joueur* j)			//Pour Répertorier les Pions d'un joueur dans 
 {
 	int nb_de_pion_dans_le_stuff = 0;
 
-	for (uint8_t i = 0; i < 16; ++i)
+	for (unsigned char i = 0; i < 16; ++i)
 	{
 		if(j->pion_possede[i].coord_x == -1 && j->pion_possede[i].coord_y == -1)
 			nb_de_pion_dans_le_stuff++;
@@ -85,7 +85,7 @@ int InventaireCite(Joueur* j)			//Pour Répertorier les Cite d'un joueur dans l'
 {
 	int nb_de_cite_dans_le_stuff=0;
 
-	for (uint8_t i = 0; i < 8; ++i)
+	for (unsigned char i = 0; i < 8; ++i)
 	{
 		if(j->cite_possede[i].coord_x == -1 && j->cite_possede[i].coord_y == -1)
 			nb_de_cite_dans_le_stuff++;
