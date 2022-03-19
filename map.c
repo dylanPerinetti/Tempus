@@ -26,33 +26,30 @@
 int GeneMap()
 {
     srand(time(NULL));
-    SDL_Window *fenetre = NULL;  //initialisation de toutes le fenetres/rendus/textures
+    SDL_Window *fenetre = NULL;  
     SDL_Renderer *rendu = NULL;
+    SDL_Texture *tex_ocean = NULL;
     SDL_Surface *image = NULL;
     SDL_Texture *tex_case = NULL;
-    SDL_Texture *tex_ocean = NULL;
     int i=0;
     int j=0;
     int d=0;
-    int carte[10][10];                 //Carte pour le programme
+    int carte[10][10];                 
     for(j=0;j<10;j++)
     {
         for(i=0;i<10;i++)
         {
-            carte[i][j]=7;             //Remplit la carte d'espaces vides (7)
+            carte[i][j]=7;             
         }
-    }
-    char fichier_terrain[]="src/Img/Case/Case_9_Dim.bmp";        
+    }       
 
-    
-   
-    SDL_Rect Fond_ocean;  //Definition du rectangle pour le fond océan
+    SDL_Rect Fond_ocean; 
     Fond_ocean.x = 0;
     Fond_ocean.y = 0;
     Fond_ocean.w = TAILLE_FENETRE;
     Fond_ocean.h = TAILLE_FENETRE;
     
-    SDL_Rect Hexagone;   //Definition du rectangle pour stocker texture de l'hexagone
+    SDL_Rect Hexagone;                    
     Hexagone.x = (TAILLE_FENETRE-624)/2;
     Hexagone.y = 100;
     Hexagone.w = 104;
@@ -74,26 +71,27 @@ int GeneMap()
     
     SDL_CreateWindowAndRenderer(TAILLE_FENETRE, TAILLE_FENETRE, 0, &fenetre, &rendu);
     
+    
     //--------------------Création et Application de la Texture du fond océan-----------------------------//
     
-    image = SDL_LoadBMP("src/Img/Case/Sea.bmp");                          //Donne temporairement a image le chemin vers Sea.cmp
-    tex_ocean = SDL_CreateTextureFromSurface(rendu, image);      //Crée une texture a partir de Sea.cmp
+    image = SDL_LoadBMP("src/Img/Case/Sea.bmp");                         
+    tex_ocean = SDL_CreateTextureFromSurface(rendu, image);             
     if (tex_ocean == NULL)
     {
-        Erreur(8);
+        Erreur(2);
     }
 
-    SDL_FreeSurface(image);                                      //Libère la Variable image pour plus tard
+    SDL_FreeSurface(image);                                      
     
-    if (SDL_QueryTexture(tex_ocean, NULL, NULL, &Fond_ocean.w, &Fond_ocean.h) != 0)     //Donne la texture a la forme
-    {                                                                                   //Fond_ocean
-        Erreur(6);
+    if (SDL_QueryTexture(tex_ocean, NULL, NULL, &Fond_ocean.w, &Fond_ocean.h) != 0)     
+    {                                                                                   
+        Erreur(3);
     }
-    if (SDL_RenderCopy(rendu, tex_ocean, NULL, &Fond_ocean) != 0)                       //Met le fond océan dans le rendu
+    if (SDL_RenderCopy(rendu, tex_ocean, NULL, &Fond_ocean) != 0)                       
     {
-        Erreur(7);
+        Erreur(4);
     }
-    SDL_RenderPresent(rendu);                                    //Applique les modifications au rendu
+    SDL_RenderPresent(rendu);                                   
 
     
 
@@ -107,36 +105,16 @@ int GeneMap()
         for(i=0;i<j;i++)
         {                       
             char terrain = Aleatoire();                        
-            fichier_terrain[18] = terrain;
-            image = SDL_LoadBMP(fichier_terrain);
-            
-            SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));     //Rogne le blanc autour des hexagones stockés dans image
-
-            tex_case = SDL_CreateTextureFromSurface(rendu, image);                     //Crée une texture a partir de image
-            if (tex_case == NULL)
-            {
-                Erreur(6);
-            }
-            SDL_FreeSurface(image);
-            if (SDL_QueryTexture(tex_case, NULL, NULL, &Hexagone.w, &Hexagone.h) != 0)     //Donne la texture a la forme Hexagone
-            {
-                Erreur(7);
-            }
-            if (SDL_RenderCopy(rendu, tex_case, NULL, &Hexagone) != 0)          //Met la forme Hexagone dans le rendu
-            {
-                Erreur(8);
-            }
-            SDL_RenderPresent(rendu);                                             //Applique les modification au rendu
-            Hexagone.x = Hexagone.x + UNITE_X;
+            TextureSurRendu(terrain, rendu, &Hexagone);                                          
+            DecallageHexagoneX(&Hexagone);
 
             if (d==3){carte[i][d]=terrain-48;}
             else if (d==2){carte[i+1][d]=terrain-48;}
-            else if (d==1){carte[i+1][d]=terrain-48;}
+            else if (d==1){carte[i+1][d]=terrain-48;}                                  
             else if (d==0){carte[i+2][d]=terrain-48;}
         }
         d++;                                                                          
-        Hexagone.y = Hexagone.y + UNITE_Y;                                                 //Se décale en fonction de la ligne
-        Hexagone.x = (TAILLE_FENETRE-624)/2-(50*d);
+        DecallageHexagoneY(&Hexagone,d);
     }
 
     //-----------------------------------Génération Random Milieu--------------------------------//
@@ -144,33 +122,13 @@ int GeneMap()
     for(i=0;i<10;i++)
     {
         char terrain = Aleatoire();                        
-        fichier_terrain[18] = terrain;
-        image = SDL_LoadBMP(fichier_terrain);
-                                              
-        SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
+        TextureSurRendu(terrain, rendu, &Hexagone);                                  
+        DecallageHexagoneX(&Hexagone);
         
-    
-        tex_case = SDL_CreateTextureFromSurface(rendu, image);                    
-        if (tex_case == NULL)
-        {
-            Erreur(6);
-        }
-        SDL_FreeSurface(image);
-        if (SDL_QueryTexture(tex_case, NULL, NULL, &Hexagone.w, &Hexagone.h) != 0)  
-        {
-            Erreur(7);
-        }
-        if (SDL_RenderCopy(rendu, tex_case, NULL, &Hexagone) != 0)           
-        {
-            Erreur(8);
-        }
-        SDL_RenderPresent(rendu);                                             
-        Hexagone.x = Hexagone.x + UNITE_X;
         carte[i][4]=terrain-48;
     }
     d--;
-    Hexagone.y = Hexagone.y + UNITE_Y;
-    Hexagone.x = (TAILLE_FENETRE-624)/2-(50*d);
+    DecallageHexagoneY(&Hexagone, d);
     
 
     //-----------------------------------Génération Random Partie Basse--------------------------------//
@@ -180,29 +138,8 @@ int GeneMap()
         for(i=0;i<j;i++)
         {
             char terrain = Aleatoire();                        
-            fichier_terrain[18] = terrain;
-
-
-            image = SDL_LoadBMP(fichier_terrain);
-            SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
-
-
-            tex_case = SDL_CreateTextureFromSurface(rendu, image);                     
-            if (tex_case == NULL)
-            {
-                Erreur(6);
-            }
-            SDL_FreeSurface(image);
-            if (SDL_QueryTexture(tex_case, NULL, NULL, &Hexagone.w, &Hexagone.h) != 0)  
-            {
-                Erreur(7);
-            }
-            if (SDL_RenderCopy(rendu, tex_case, NULL, &Hexagone) != 0)            
-            {
-                Erreur(8);
-            }
-            SDL_RenderPresent(rendu);                                             
-            Hexagone.x = Hexagone.x + UNITE_X;
+            TextureSurRendu(terrain, rendu, &Hexagone);                                         
+            DecallageHexagoneX(&Hexagone);
             
             if (d==3){carte[i][8-d]=terrain-48;}
             else if (d==2){carte[i+1][8-d]=terrain-48;}
@@ -210,11 +147,9 @@ int GeneMap()
             else if (d==0){carte[i+2][8-d]=terrain-48;}
         }
         d--;
-        Hexagone.y = Hexagone.y + UNITE_Y;                                                 
-        Hexagone.x = (TAILLE_FENETRE-624)/2-(50*d);
+        DecallageHexagoneY(&Hexagone, d);
     }
-
-    //-----------------------------------Imprime la carte--------------------------------//
+//-----------------------------------Imprime la carte-------------------------------------------------//
 
 
     for(j=0;j<10;j++)
@@ -229,12 +164,13 @@ int GeneMap()
 
 //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
-    DeplacePionMap(0,3,3,6,6,1,1,0,rendu);
-    DeplacePionMap(1,2,3,5,6,1,1,0,rendu);
-    DeplacePionMap(2,8,3,2,6,1,1,0,rendu);
-    DeplacePionMap(3,7,7,1,2,1,1,0,rendu);
+    DeplacePionMap(0,3,3,6,6,1,1,0,rendu,&Hexagone);
+    DeplacePionMap(1,2,3,5,6,1,1,0,rendu,&Hexagone);
+    DeplacePionMap(2,8,3,2,6,1,1,0,rendu,&Hexagone);
+    DeplacePionMap(3,7,7,1,2,1,1,0,rendu,&Hexagone);
+    SDL_Delay(2000);
+    DeplacePionMap(2,4,3,7,2,0,1,0,rendu,&Hexagone);
     SDL_Delay(5000);
-
     SDL_DestroyTexture(tex_ocean);                                               
     SDL_DestroyTexture(tex_case);
     SDL_DestroyRenderer(rendu);
@@ -243,20 +179,17 @@ int GeneMap()
 }
 
 
-//-----------------------------------Sous-Programmes--------------------------------//
+//-----------------------------------Sous-Programmes--------------------------------------------------//
     
-char Texture_Rendu(char fichier_terrain[18], SDL_Surface *image, SDL_Texture *tex_case, SDL_Renderer *rendu, SDL_Rect Hexagone)
-{}
-
 
 char Aleatoire()
     {
         int random = rand()%101;
         if (random<PRCT_PRAIRIE){return *"0";}
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE){return *"1";}  //Generation Montagnes
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET){return *"2";}  //Generation Foret
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE){return *"3";} //Generation Colline
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP){return *"4";} //Generation Champs
+        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE){return *"1";}  
+        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET){return *"2";}  
+        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE){return *"3";} 
+        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP){return *"4";} 
         else {return *"5";}
         
     }
@@ -264,76 +197,80 @@ char Aleatoire()
 
 void Erreur(int error)
 {
-    printf("Erreur %d, %s\n", error, SDL_GetError());
+    printf("\nErreur %d, %s\n", error, SDL_GetError());
     exit(EXIT_FAILURE);
 }
 
 
 
-//------------------------------------------------------/Placement d'un pion/-----------------------------------------------------//
+//---------------------------------/Placement d'un pion/--------------------------------------------//
 
-void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arriveey, int nombre_pions_depart, int nombre_pions_arrivee, int case_depart, SDL_Renderer* rendu)
+void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arriveey, int nombre_pions_depart, int nombre_pions_arrivee, int case_depart, SDL_Renderer* rendu, SDL_Rect *Hex)
 {
-    SDL_Surface *image2 = NULL;
+    SDL_Surface *image = NULL;
     SDL_Texture *tex_pion = NULL;
     SDL_Rect Pion;
     char pion_type[] = "src/Img/Pions/Pion9_9.bmp";
     printf("%s\n",pion_type);
-    Pion.x = 88 + arriveex*UNITE_X + (104/2) - (DIM_PION/2);                                      //Coordonees X et Y du pion sur le rendu
+    Pion.x = 88 + arriveex*UNITE_X + (104/2) - (DIM_PION/2);                                      
     Pion.y = 100 + arriveey*UNITE_Y + (120/2) - (DIM_PION/2);
     Pion.w = DIM_PION;
     Pion.h = DIM_PION;
 
-    if (arriveex%2!=0)                                                                
+    if (arriveey%2!=0)                                                                
     {
-        Pion.x = Pion.x+50;                                              //Decallage en fonction de la ligne
+        Pion.x = Pion.x+50;                                              
     }
+
+
     pion_type[18] = joueur+48;
     pion_type[20] = nombre_pions_arrivee+48;
     printf("%s\n",pion_type);
-    image2 = SDL_LoadBMP(pion_type);
+    image = SDL_LoadBMP(pion_type);
     
-    SDL_SetColorKey(image2, SDL_TRUE, SDL_MapRGB(image2->format, 255, 255, 255));    
+    SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
 
-        tex_pion = SDL_CreateTextureFromSurface(rendu, image2);                    
+        tex_pion = SDL_CreateTextureFromSurface(rendu, image);                    
         if (tex_pion == NULL)
         {
-            Erreur(6);
+            Erreur(2);
         }
-        SDL_FreeSurface(image2);
+        SDL_FreeSurface(image);
         if (SDL_QueryTexture(tex_pion, NULL, NULL, &Pion.w, &Pion.h) != 0)  
         {
-            Erreur(7);
+            Erreur(3);
         }
         if (SDL_RenderCopy(rendu, tex_pion, NULL, &Pion) != 0)           
         {
-            Erreur(8);
+            Erreur(4);
         }
         SDL_RenderPresent(rendu);
 
-    //IMPLEMENTER GENERATION DE LA TEXTURE DANS LE RENDU//
 
 //------------------------------------------------/Reset de la texture d'origine/-------------------------------------------//
 
     
     Pion.x = 88 + departx*UNITE_X + (104/2) - (DIM_PION/2);                                      
     Pion.y = 100 + departy*UNITE_Y + (120/2) - (DIM_PION/2);
-    if (departx%2!=0)                                                                
+    
+    if (departy%2!=0)                                                                
     {
-        Pion.x = Pion.x+50;                                              //Decallage en fonction de la ligne
+        Pion.x = Pion.x+50;                                              
     }
 
     if(nombre_pions_depart==0)
     {
-        switch(case_depart)
-            {
-                case 0 : image2 = SDL_LoadBMP("src/Case_0_Dim.bmp"); break;          
-                case 1 : image2 = SDL_LoadBMP("src/Case_1_Dim.bmp"); break;
-                case 2 : image2 = SDL_LoadBMP("src/Case_2_Dim.bmp"); break;       
-                case 3 : image2 = SDL_LoadBMP("src/Case_3_Dim.bmp"); break;      
-                case 4 : image2 = SDL_LoadBMP("src/Case_4_Dim.bmp"); break; 
-                case 5 : image2 = SDL_LoadBMP("src/Case_5_Dim.bmp"); break;
-            }
+        Hex->x = 88 + departx*UNITE_X*2;
+        
+        if (departy%2!=0)                                                                
+        {
+            Hex->x = Hex->x+50;                                              
+        }
+        
+        Hex->y = 100 + departy*UNITE_Y-3;
+        
+        printf("\n%d\n",IntEnChar(case_depart));
+        TextureSurRendu(IntEnChar(case_depart), rendu, Hex);
     }
     else 
 
@@ -342,25 +279,78 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
 
         SDL_LoadBMP(pion_type);
 
-         SDL_SetColorKey(image2, SDL_TRUE, SDL_MapRGB(image2->format, 255, 255, 255));    
+         SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
 
-        tex_pion = SDL_CreateTextureFromSurface(rendu, image2);                    
+        tex_pion = SDL_CreateTextureFromSurface(rendu, image);                    
         if (tex_pion == NULL)
         {
-            Erreur(6);
+            Erreur(2);
         }
-        SDL_FreeSurface(image2);
+        SDL_FreeSurface(image);
         if (SDL_QueryTexture(tex_pion, NULL, NULL, &Pion.w, &Pion.h) != 0)  
         {
-            Erreur(7);
+            Erreur(3);
         }
         if (SDL_RenderCopy(rendu, tex_pion, NULL, &Pion) != 0)           
         {
-            Erreur(8);
+            Erreur(4);
         }
         SDL_RenderPresent(rendu);
     }
 
 }
+
+//--------------------------------------------/Decallage Nouvel hexagon/--------------------------------------------------//
+
+void DecallageHexagoneX(SDL_Rect *Hex)
+{
+    Hex->x = Hex->x + UNITE_X;
+}
+
+
+//--------------------------------------------/Decallage Nouvelle ligne/--------------------------------------------------//
+
+void DecallageHexagoneY(SDL_Rect *Hex, int d)
+{
+    Hex->y = Hex->y + UNITE_Y;
+    Hex->x = (TAILLE_FENETRE-624)/2-(50*d);
+}
+
+//--------------------------------------------/Generation de la Texture et Application sur le Rendu/---------------------//
+
+void TextureSurRendu(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
+{
+    SDL_Texture *tex_case = NULL;
+    SDL_Surface *image = NULL;
+
+    char fichier_terrain[]="src/Img/Case/Case_9_Dim.bmp";
+    fichier_terrain[18] = terrain;
+    
+    image = SDL_LoadBMP(fichier_terrain);
+            
+    SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));     
+
+    tex_case = SDL_CreateTextureFromSurface(rendu, image);                    
+    if (tex_case == NULL)
+        {
+            Erreur(2);
+        }
+    SDL_FreeSurface(image);
+    if (SDL_QueryTexture(tex_case, NULL, NULL, &Hex->w, &Hex->h) != 0)     
+        {
+            Erreur(3);
+        }
+    if (SDL_RenderCopy(rendu, tex_case, NULL, Hex) != 0)          
+        {
+            Erreur(4);
+        }
+    SDL_RenderPresent(rendu);                                            
+}
+
+char IntEnChar(int Entier)
+{
+    return (char) Entier+48;
+}
+
 // gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2                 
 
