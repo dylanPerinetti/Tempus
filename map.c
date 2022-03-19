@@ -31,6 +31,7 @@ int GeneMap()
     SDL_Texture *tex_ocean = NULL;
     SDL_Surface *image = NULL;
     SDL_Texture *tex_case = NULL;
+    SDL_bool programme_lance = SDL_TRUE;
     int i=0;
     int j=0;
     int d=0;
@@ -74,6 +75,7 @@ int GeneMap()
     
     //--------------------Création et Application de la Texture du fond océan-----------------------------//
     
+
     image = SDL_LoadBMP("src/Img/Case/Sea.bmp");                         
     tex_ocean = SDL_CreateTextureFromSurface(rendu, image);             
     if (tex_ocean == NULL)
@@ -165,17 +167,52 @@ int GeneMap()
 //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
     DeplacePionMap(3,2,2,3,3,1,1,carte,rendu,&Hexagone);
-    SDL_Delay(2000);
     DeplacePionMap(3,3,3,4,4,0,1,carte,rendu,&Hexagone);
-    SDL_Delay(2000);
     NouvelleCite(0,5,5,2,rendu,&Hexagone);
-    SDL_Delay(5000);
+    
+
+    while(programme_lance)
+    {
+    SDL_Event event;
+    while(SDL_PollEvent(&event))
+        switch(event.type)
+        {
+            case SDL_QUIT: programme_lance = SDL_FALSE; break;
+            default : break;
+        }
+    } 
+
     SDL_DestroyTexture(tex_ocean);                                               
     SDL_DestroyTexture(tex_case);
     SDL_DestroyRenderer(rendu);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //-----------------------------------Sous-Programmes--------------------------------------------------//
     
@@ -349,6 +386,7 @@ void TextureRendu(SDL_Surface *image, SDL_Texture *texture, SDL_Renderer* rendu,
         }
         SDL_RenderPresent(rendu);
 }
+
 
 
 
