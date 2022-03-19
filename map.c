@@ -105,7 +105,7 @@ int GeneMap()
         for(i=0;i<j;i++)
         {                       
             char terrain = Aleatoire();                        
-            TextureSurRendu(terrain, rendu, &Hexagone);                                          
+            GenerationHexagone(terrain, rendu, &Hexagone);                                          
             DecallageHexagoneX(&Hexagone);
 
             if (d==3){carte[i][d]=terrain-48;}
@@ -122,7 +122,7 @@ int GeneMap()
     for(i=0;i<10;i++)
     {
         char terrain = Aleatoire();                        
-        TextureSurRendu(terrain, rendu, &Hexagone);                                  
+        GenerationHexagone(terrain, rendu, &Hexagone);                                  
         DecallageHexagoneX(&Hexagone);
         
         carte[i][4]=terrain-48;
@@ -138,7 +138,7 @@ int GeneMap()
         for(i=0;i<j;i++)
         {
             char terrain = Aleatoire();                        
-            TextureSurRendu(terrain, rendu, &Hexagone);                                         
+            GenerationHexagone(terrain, rendu, &Hexagone);                                         
             DecallageHexagoneX(&Hexagone);
             
             if (d==3){carte[i][8-d]=terrain-48;}
@@ -164,12 +164,9 @@ int GeneMap()
 
 //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
-    DeplacePionMap(0,3,3,6,6,1,1,0,rendu,&Hexagone);
-    DeplacePionMap(1,2,3,5,6,1,1,0,rendu,&Hexagone);
-    DeplacePionMap(2,8,3,2,6,1,1,0,rendu,&Hexagone);
-    DeplacePionMap(3,7,7,1,2,1,1,0,rendu,&Hexagone);
+    DeplacePionMap(3,2,2,3,3,1,1,carte,rendu,&Hexagone);
     SDL_Delay(2000);
-    DeplacePionMap(2,4,3,7,2,0,1,0,rendu,&Hexagone);
+    DeplacePionMap(3,3,3,4,4,0,1,carte,rendu,&Hexagone);
     SDL_Delay(5000);
     SDL_DestroyTexture(tex_ocean);                                               
     SDL_DestroyTexture(tex_case);
@@ -177,7 +174,6 @@ int GeneMap()
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
 }
-
 
 //-----------------------------------Sous-Programmes--------------------------------------------------//
     
@@ -205,13 +201,12 @@ void Erreur(int error)
 
 //---------------------------------/Placement d'un pion/--------------------------------------------//
 
-void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arriveey, int nombre_pions_depart, int nombre_pions_arrivee, int case_depart, SDL_Renderer* rendu, SDL_Rect *Hex)
+void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arriveey, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex)
 {
     SDL_Surface *image = NULL;
     SDL_Texture *tex_pion = NULL;
     SDL_Rect Pion;
     char pion_type[] = "src/Img/Pions/Pion9_9.bmp";
-    printf("%s\n",pion_type);
     Pion.x = 88 + arriveex*UNITE_X + (104/2) - (DIM_PION/2);                                      
     Pion.y = 100 + arriveey*UNITE_Y + (120/2) - (DIM_PION/2);
     Pion.w = DIM_PION;
@@ -219,32 +214,16 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
 
     if (arriveey%2!=0)                                                                
     {
-        Pion.x = Pion.x+50;                                              
+        Pion.x = Pion.x+46;                                              
     }
 
 
-    pion_type[18] = joueur+48;
-    pion_type[20] = nombre_pions_arrivee+48;
+    pion_type[18] = IntEnChar(joueur);
+    pion_type[20] = IntEnChar(nombre_pions_arrivee);
     printf("%s\n",pion_type);
     image = SDL_LoadBMP(pion_type);
     
-    SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
-
-        tex_pion = SDL_CreateTextureFromSurface(rendu, image);                    
-        if (tex_pion == NULL)
-        {
-            Erreur(2);
-        }
-        SDL_FreeSurface(image);
-        if (SDL_QueryTexture(tex_pion, NULL, NULL, &Pion.w, &Pion.h) != 0)  
-        {
-            Erreur(3);
-        }
-        if (SDL_RenderCopy(rendu, tex_pion, NULL, &Pion) != 0)           
-        {
-            Erreur(4);
-        }
-        SDL_RenderPresent(rendu);
+    TextureRendu(image, tex_pion, rendu, &Pion); 
 
 
 //------------------------------------------------/Reset de la texture d'origine/-------------------------------------------//
@@ -260,7 +239,7 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
 
     if(nombre_pions_depart==0)
     {
-        Hex->x = 88 + departx*UNITE_X*2;
+        Hex->x = 88 + departx*UNITE_X;
         
         if (departy%2!=0)                                                                
         {
@@ -268,34 +247,22 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
         }
         
         Hex->y = 100 + departy*UNITE_Y-3;
+        printf("Type de case : %d\n",carte[departx][departy]);
+        printf("Coordonees de Depart : %d %d\n",departx, departy);
+
+        int case_depart = carte[departx][departy];
         
         printf("\n%d\n",IntEnChar(case_depart));
-        TextureSurRendu(IntEnChar(case_depart), rendu, Hex);
+        GenerationHexagone(IntEnChar(case_depart), rendu, Hex);
     }
     else 
 
     {
         pion_type[20] = nombre_pions_depart+48;
 
-        SDL_LoadBMP(pion_type);
+        image = SDL_LoadBMP(pion_type);
 
-         SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
-
-        tex_pion = SDL_CreateTextureFromSurface(rendu, image);                    
-        if (tex_pion == NULL)
-        {
-            Erreur(2);
-        }
-        SDL_FreeSurface(image);
-        if (SDL_QueryTexture(tex_pion, NULL, NULL, &Pion.w, &Pion.h) != 0)  
-        {
-            Erreur(3);
-        }
-        if (SDL_RenderCopy(rendu, tex_pion, NULL, &Pion) != 0)           
-        {
-            Erreur(4);
-        }
-        SDL_RenderPresent(rendu);
+        TextureRendu(image, tex_pion, rendu, &Pion);
     }
 
 }
@@ -316,9 +283,9 @@ void DecallageHexagoneY(SDL_Rect *Hex, int d)
     Hex->x = (TAILLE_FENETRE-624)/2-(50*d);
 }
 
-//--------------------------------------------/Generation de la Texture et Application sur le Rendu/---------------------//
+//--------------------------------/Generation de la Texture d'un Hexagone/---------------------------------//
 
-void TextureSurRendu(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
+void GenerationHexagone(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
 {
     SDL_Texture *tex_case = NULL;
     SDL_Surface *image = NULL;
@@ -328,23 +295,7 @@ void TextureSurRendu(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
     
     image = SDL_LoadBMP(fichier_terrain);
             
-    SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));     
-
-    tex_case = SDL_CreateTextureFromSurface(rendu, image);                    
-    if (tex_case == NULL)
-        {
-            Erreur(2);
-        }
-    SDL_FreeSurface(image);
-    if (SDL_QueryTexture(tex_case, NULL, NULL, &Hex->w, &Hex->h) != 0)     
-        {
-            Erreur(3);
-        }
-    if (SDL_RenderCopy(rendu, tex_case, NULL, Hex) != 0)          
-        {
-            Erreur(4);
-        }
-    SDL_RenderPresent(rendu);                                            
+    TextureRendu(image, tex_case, rendu, Hex);                                            
 }
 
 char IntEnChar(int Entier)
@@ -352,5 +303,53 @@ char IntEnChar(int Entier)
     return (char) Entier+48;
 }
 
-// gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2                 
+//--------------------------------------------/Generation ou Prise d'une Cité/---------------------------------------------//
+
+void NouvelleCite(int joueur, int coordx, int coordy, int taille, SDL_Renderer* rendu, SDL_Rect *Hex)
+{
+    SDL_Texture *tex_case = NULL;
+    SDL_Surface *image = NULL;
+
+    Hex->x = 88 + coordx*UNITE_X*2;
+        
+        if (coordy%2!=0)                                                                
+        {
+            Hex->x = Hex->x+50;                                              
+        }
+        
+    Hex->y = 100 + coordy*UNITE_Y-3;
+
+    char cite_type[] = "src/Img/Cite/Cite_9_9.bmp";
+    cite_type[19]=IntEnChar(joueur);
+    cite_type[21]=IntEnChar(taille);
+
+    image = SDL_LoadBMP(cite_type);
+    
+   TextureRendu(image, tex_case, rendu, Hex);     
+}
+
+//---------------------------------------/Traitement de l'image et application sur le rendu/------------------------------//
+
+
+void TextureRendu(SDL_Surface *image, SDL_Texture *texture, SDL_Renderer* rendu, SDL_Rect *Hex)
+{
+    SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
+
+        texture = SDL_CreateTextureFromSurface(rendu, image);                    
+        if (texture == NULL)
+        {
+            Erreur(2);
+        }
+        SDL_FreeSurface(image);
+        if (SDL_QueryTexture(texture, NULL, NULL, &Hex->w, &Hex->h) != 0)  
+        {
+            Erreur(3);
+        }
+        if (SDL_RenderCopy(rendu, texture, NULL, Hex) != 0)           
+        {
+            Erreur(4);
+        }
+        SDL_RenderPresent(rendu);
+}
+
 
