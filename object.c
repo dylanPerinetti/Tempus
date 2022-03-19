@@ -12,9 +12,9 @@
 #define NOMBRE_CITE 8
 
 
-void GenerateurID(Id_Objet *_id,uint8_t _couleur)
+void GenerateurID(Id_Objet *_id,unsigned char _couleur)
 {
-	static uint8_t _numeros_serie = 0;
+	static unsigned char _numeros_serie = 0;
 	_numeros_serie++;
 	char _lettre_serie[5]="EAUS";;
 	_id->numero_serie = _numeros_serie;
@@ -22,13 +22,13 @@ void GenerateurID(Id_Objet *_id,uint8_t _couleur)
 }
 
 
-void InitialiserCouleurPion(Pions* _pion,uint8_t _couleur)
+void InitialiserCouleurPion(Pions* _pion,unsigned char _couleur)
 {
 	_pion->couleur = _couleur;
 }
 
 
-void InitialiserCouleurCite(Cite* _cite,uint8_t _couleur)
+void InitialiserCouleurCite(Cite* _cite,unsigned char _couleur)
 {
 	_cite->couleur = _couleur;
 }
@@ -54,7 +54,7 @@ void InitialiserNiveauCite(Cite* _cite)
 }
 
 
-void InitialiserPions(Pions* _pion,uint8_t _couleur)
+void InitialiserPions(Pions* _pion,unsigned char _couleur)
 {
 	GenerateurID(&_pion->id_pion,_couleur);
 	InitialiserCouleurPion(_pion,_couleur);
@@ -62,7 +62,7 @@ void InitialiserPions(Pions* _pion,uint8_t _couleur)
 }
 
 
-void InitialiserCite(Cite* _cite,uint8_t _couleur)
+void InitialiserCite(Cite* _cite,unsigned char _couleur)
 {
 	GenerateurID(&(_cite->id_cite),_couleur);
 	InitialiserCouleurCite(_cite,_couleur);
@@ -94,7 +94,7 @@ void AfficherCouleurCite(Cite _cite)
 			printf("\n\n ERREUR %u\n",_cite.couleur);
 	}
 
-	printf("\nLa couleur de cette cité est %s\n",nom_couleur);//
+	printf("\nLa couleur de cette cite est %s\n",nom_couleur);//
 }
 
 
@@ -126,7 +126,7 @@ void AfficherCouleurPion(Pions _pion)
 
 void AfficherIDCite(Cite _cite)
 {
-	printf("\nL'ID de cette cité est %u%c",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
+	printf("\nL'ID de cette cite est %u%c",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
 }
 
 
@@ -143,7 +143,7 @@ void AfficherCoordonneesPion(Pions _pion)
 	if(x != -1 && y != -1)
 		printf("Le pion a pour coordonnées x = [%d] et y = [%d]\n",x,y);
 	else if (x == -1 && y == -1)
-		printf("Le pion n°%u%c est dans votre inventaire !",_pion.id_pion.numero_serie,_pion.id_pion.lettre_serie);
+		printf("Le pion %u%c est dans votre inventaire !",_pion.id_pion.numero_serie,_pion.id_pion.lettre_serie);
 	else
 		printf("ERROR");
 }
@@ -154,9 +154,9 @@ void AfficherCoordonneesCite(Cite _cite)
 	int x = _cite.coord_x;
 	int y = _cite.coord_y;
 	if(x != -1 && y != -1)
-		printf("La Cité a pour coordonnées x = [%d] et y = [%d]\n",x,y);
+		printf("La Cite a pour coordonnées x = [%d] et y = [%d]\n",x,y);
 	else if (x == -1 && y == -1)
-	printf("La Cité n°%u%c est dans votre inventaire !",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
+	printf("La Cité %u%c est dans votre inventaire !",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
 	else
 		printf("ERROR");
 }
@@ -251,7 +251,7 @@ void AugmenterNiveauCite(Cite* _cite)
 }
 
 
-void ChangerCouleurCite(Cite* c_,uint8_t _couleur)		//Changer la couleur d'une Cite par celle de _couleur
+void ChangerCouleurCite(Cite* c_,unsigned char _couleur)		//Changer la couleur d'une Cite par celle de _couleur
 {
 	(*c_).couleur = _couleur;
 }
