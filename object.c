@@ -1,3 +1,16 @@
+/*
+
+-------------- TEMPUS --------------
+
+Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus" 
+
+Ce fichier contient les fonction liez au Objet dans le Jeu Tempus.
+En savoir plus sur leur utilisation dans le ficheier "objet.h".
+
+Fait par dylan le 15/03/2022
+Dernière modifications par dylanPerinetti le 19/03/2022
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -227,7 +240,7 @@ int PlacerPionSurMap(Pions* _pion, int _x, int _y)		//placer Pion du stuff du jo
 		else return 22;
 		return 0;
 	}
-	else return 11;
+	else return 1;
 }
 
 
@@ -241,7 +254,7 @@ int PlacerCiteSurMap(Cite* _cite, int _x,  int _y)		//plcer Citer du stuff du jo
 		else return 22;
 		return 0;
 	}
-	else return 11;
+	else return 1;
 }
 
 
@@ -254,4 +267,25 @@ void AugmenterNiveauCite(Cite* _cite)
 void ChangerCouleurCite(Cite* c_,unsigned char _couleur)		//Changer la couleur d'une Cite par celle de _couleur
 {
 	(*c_).couleur = _couleur;
+}
+
+
+void AfficherErreurDeplacement(int _erreur)
+{
+	switch(_erreur)
+	{
+		case 0:
+			break;
+		case 1:
+			printf("Erreur%d Probleme le pion n'est pas dans l'inventaire",_erreur);
+			break;
+		case 2:
+			printf("Erreur%d Probleme coordonnees X",_erreur);
+			break;
+		case 22:
+			printf("Erreur%d Probleme coordonnees Y",_erreur);
+			break;
+		default:
+			printf("Erreur Inconnue");
+	}
 }
