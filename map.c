@@ -167,6 +167,8 @@ int GeneMap()
     DeplacePionMap(3,2,2,3,3,1,1,carte,rendu,&Hexagone);
     SDL_Delay(2000);
     DeplacePionMap(3,3,3,4,4,0,1,carte,rendu,&Hexagone);
+    SDL_Delay(2000);
+    NouvelleCite(0,5,5,2,rendu,&Hexagone);
     SDL_Delay(5000);
     SDL_DestroyTexture(tex_ocean);                                               
     SDL_DestroyTexture(tex_case);
@@ -220,7 +222,6 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
 
     pion_type[18] = IntEnChar(joueur);
     pion_type[20] = IntEnChar(nombre_pions_arrivee);
-    printf("%s\n",pion_type);
     image = SDL_LoadBMP(pion_type);
     
     TextureRendu(image, tex_pion, rendu, &Pion); 
@@ -247,12 +248,9 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
         }
         
         Hex->y = 100 + departy*UNITE_Y-3;
-        printf("Type de case : %d\n",carte[departx][departy]);
-        printf("Coordonees de Depart : %d %d\n",departx, departy);
 
         int case_depart = carte[departx][departy];
         
-        printf("\n%d\n",IntEnChar(case_depart));
         GenerationHexagone(IntEnChar(case_depart), rendu, Hex);
     }
     else 
@@ -310,7 +308,7 @@ void NouvelleCite(int joueur, int coordx, int coordy, int taille, SDL_Renderer* 
     SDL_Texture *tex_case = NULL;
     SDL_Surface *image = NULL;
 
-    Hex->x = 88 + coordx*UNITE_X*2;
+    Hex->x = 88 + coordx*UNITE_X;
         
         if (coordy%2!=0)                                                                
         {
@@ -320,8 +318,8 @@ void NouvelleCite(int joueur, int coordx, int coordy, int taille, SDL_Renderer* 
     Hex->y = 100 + coordy*UNITE_Y-3;
 
     char cite_type[] = "src/Img/Cite/Cite_9_9.bmp";
-    cite_type[19]=IntEnChar(joueur);
-    cite_type[21]=IntEnChar(taille);
+    cite_type[18]=IntEnChar(joueur);
+    cite_type[20]=IntEnChar(taille);
 
     image = SDL_LoadBMP(cite_type);
     
@@ -351,5 +349,7 @@ void TextureRendu(SDL_Surface *image, SDL_Texture *texture, SDL_Renderer* rendu,
         }
         SDL_RenderPresent(rendu);
 }
+
+
 
 
