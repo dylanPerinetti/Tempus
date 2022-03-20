@@ -10,7 +10,7 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "objet.c" .
 
 
 Fait par dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 19/03/2022
+Dernière modifications par dylanPerinetti le 20/03/2022
 */
 
 #ifndef __OBJET_H__
@@ -70,8 +70,17 @@ int DeplacerPionBasGauche(Pions* _pion);        //Déplacer pion en Bas a Gauche
 int PlacerPionSurMap(Pions* _pion,int _x,int _y);//placer Pion du stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Pion_not_in_stuff)
 int PlacerCiteSurMap(Cite* _cite,int _x,int _y);//plcer Citer du stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Cite_not_in_stuff)
 
-void ChangerCouleurCite(Cite* _cite, unsigned char _couleur);//Changer la couleur d'une Cite par celle du joueur
-void AugmenterNiveauCite(Cite* _Cite);          //Pour Indenter le niveux d'une Cite
+int DeplacerPionGraphiqueDroite(Pions* _pion);          //Déplacer pion graphiquement a Droite
+int DeplacerPionGraphiqueGauche(Pions* _pion);          //Déplacer pion graphiquement a Gauche
+int DeplacerPionGraphiqueHautDroite(Pions* _pion);      //Déplacer pion en Haut graphiquement a Droite
+int DeplacerPionGraphiqueHautGauche(Pions* _pion);      //Déplacer pion en Haut graphiquement a Gauche
+int DeplacerPionGraphiqueBasDroite(Pions* _pion);       //Déplacer pion en Bas graphiquement a Droite
+int DeplacerPionGraphiqueBasGauche(Pions* _pion);       //Déplacer pion en Bas graphiquement a Gauche
+int PlacerPionGraphiqueSurMap(Pions* _pion,int _x,int _y);//placer Pion graphiquement du stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Pion_not_in_stuff)
+int PlacerCiteGraphiqueSurMap(Cite* _cite,int _x,int _y);//plcer Citer du graphiquement stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Cite_not_in_stuff)
+
+void ChangerCouleurCite(Cite* _cite, unsigned char _couleur);   //Changer la couleur d'une Cite par celle du joueur
+void AugmenterNiveauCite(Cite* _Cite);                          //Pour Indenter le niveux d'une Cite
 
 void AfficherErreurDeplacementObjet(int _erreur);    //Affiche les Erreur
 #endif
