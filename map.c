@@ -1,11 +1,17 @@
-#include "objet.h" 
-//Fait par Rémi 
-//LE 17/03/2022
-//
-//Modif par Dylan Perinetti
-//Signer par YEP + map.h
-//LE 17/03/2022
+/*
 
+-------------- TEMPUS --------------
+
+Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus" 
+
+Ce fichier contient les fonction liez à la map dans le Jeu Tempus.
+En savoir plus sur leur utilisation dans le ficheier "map.h".
+
+Fait par MrTNTX le 15/03/2022
+Dernière modifications par dylanPerinetti le 20/03/2022
+
+*/
+#include "objet.h"
 #include "map.h"
 #define TAILLE_FENETRE 1200
 #define UNITE_X 102
@@ -342,3 +348,5 @@ void TextureRendu(SDL_Surface *image, SDL_Texture *texture, SDL_Renderer* rendu,
         }
         SDL_RenderPresent(rendu);
 }
+
+
