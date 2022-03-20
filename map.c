@@ -1,5 +1,4 @@
-#include <map.h>
-
+#include "objet.h" 
 //Fait par Rémi 
 //LE 17/03/2022
 //
@@ -31,7 +30,6 @@ int GeneMap()
     SDL_Texture *tex_ocean = NULL;
     SDL_Surface *image = NULL;
     SDL_Texture *tex_case = NULL;
-    SDL_bool programme_lance = SDL_TRUE;
     int i=0;
     int j=0;
     int d=0;
@@ -42,7 +40,7 @@ int GeneMap()
         {
             carte[i][j]=7;             
         }
-    }       
+    }
 
     SDL_Rect Fond_ocean; 
     Fond_ocean.x = 0;
@@ -75,7 +73,6 @@ int GeneMap()
     
     //--------------------Création et Application de la Texture du fond océan-----------------------------//
     
-
     image = SDL_LoadBMP("src/Img/Case/Sea.bmp");                         
     tex_ocean = SDL_CreateTextureFromSurface(rendu, image);             
     if (tex_ocean == NULL)
@@ -167,52 +164,17 @@ int GeneMap()
 //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
     DeplacePionMap(3,2,2,3,3,1,1,carte,rendu,&Hexagone);
+    SDL_Delay(2000);
     DeplacePionMap(3,3,3,4,4,0,1,carte,rendu,&Hexagone);
+    SDL_Delay(2000);
     NouvelleCite(0,5,5,2,rendu,&Hexagone);
-    
-
-    while(programme_lance)
-    {
-    SDL_Event event;
-    while(SDL_PollEvent(&event))
-        switch(event.type)
-        {
-            case SDL_QUIT: programme_lance = SDL_FALSE; break;
-            default : break;
-        }
-    } 
-
+    SDL_Delay(5000);
     SDL_DestroyTexture(tex_ocean);                                               
     SDL_DestroyTexture(tex_case);
     SDL_DestroyRenderer(rendu);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //-----------------------------------Sous-Programmes--------------------------------------------------//
     
@@ -240,14 +202,14 @@ void Erreur(int error)
 
 //---------------------------------/Placement d'un pion/--------------------------------------------//
 
-void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arriveey, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex)
+void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex)
 {
     SDL_Surface *image = NULL;
     SDL_Texture *tex_pion = NULL;
     SDL_Rect Pion;
     char pion_type[] = "src/Img/Pions/Pion9_9.bmp";
-    Pion.x = 88 + arriveex*UNITE_X + (104/2) - (DIM_PION/2);                                      
-    Pion.y = 100 + arriveey*UNITE_Y + (120/2) - (DIM_PION/2);
+    Pion.x = 88 + (_pion->coord_x)*UNITE_X + (104/2) - (DIM_PION/2);                                      
+    Pion.y = 100 + (_pion->coord_y)*UNITE_Y + (120/2) - (DIM_PION/2);
     Pion.w = DIM_PION;
     Pion.h = DIM_PION;
 
@@ -257,7 +219,7 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
     }
 
 
-    pion_type[18] = IntEnChar(joueur);
+    pion_type[18] = _pion->couleur;// erreur unsign char possiblement à coriger
     pion_type[20] = IntEnChar(nombre_pions_arrivee);
     image = SDL_LoadBMP(pion_type);
     
@@ -270,20 +232,14 @@ void DeplacePionMap(int joueur, int departx, int departy, int arriveex, int arri
     Pion.x = 88 + departx*UNITE_X + (104/2) - (DIM_PION/2);                                      
     Pion.y = 100 + departy*UNITE_Y + (120/2) - (DIM_PION/2);
     
-    if (departy%2!=0)                                                                
-    {
-        Pion.x = Pion.x+50;                                              
-    }
+    if (departy%2!=0)Pion.x = Pion.x+50;
 
     if(nombre_pions_depart==0)
     {
         Hex->x = 88 + departx*UNITE_X;
         
-        if (departy%2!=0)                                                                
-        {
-            Hex->x = Hex->x+50;                                              
-        }
-        
+        if (departy%2!=0)Hex->x = Hex->x+50;
+
         Hex->y = 100 + departy*UNITE_Y-3;
 
         int case_depart = carte[departx][departy];
@@ -386,8 +342,3 @@ void TextureRendu(SDL_Surface *image, SDL_Texture *texture, SDL_Renderer* rendu,
         }
         SDL_RenderPresent(rendu);
 }
-
-
-
-
-
