@@ -12,6 +12,7 @@ Dernière modifications par dylanPerinetti le 19/03/2022
 
 */
 
+#include "map.h"
 #include "objet.h"
 #include "joueur.h"
 
@@ -256,6 +257,15 @@ int PlacerCiteSurMap(Cite* _cite, int _x,  int _y)		//plcer Citer du stuff du jo
 }
 
 
+int PlacerPionGraphiqueSurMap(Pions* _pion,int _x,int _y)
+{
+	int _coord_depart_x = _pion->coord_x;
+	int _coord_depart_y = _pion->coord_y;
+	PlacerPionSurMap(_pion, _x, _y);
+	DeplacePionMap(_pion,_coord_depart_x, _coord_depart_y);		//pluss une fonction placer pion gsur map??
+	return 0;
+}
+
 void AugmenterNiveauCite(Cite* _cite)
 {
 	_cite->niveaux_cite++;
@@ -290,4 +300,3 @@ void AfficherErreurDeplacementObjet(int _erreur)
 			printf("\nErreur Inconnue");
 	}
 }
-
