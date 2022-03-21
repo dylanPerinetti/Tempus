@@ -8,10 +8,9 @@ Ce fichier contient les fonction liez à la map dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "map.h".
 
 Fait par MrTNTX le 15/03/2022
-Dernière modifications par dylanPerinetti le 21/03/2022
+Dernière modifications par MrTNTX le 21/03/2022
 
 */
-#include "objet.h"
 #include "map.h"
 
 #define TAILLE_FENETRE 1200
@@ -37,6 +36,7 @@ int GeneMap()
     SDL_Texture *tex_ocean = NULL;
     SDL_Surface *image = NULL;
     SDL_Texture *tex_case = NULL;
+    SDL_bool programme_lance = SDL_TRUE;
 
     int i=0;
     int j=0;
@@ -140,6 +140,17 @@ int GeneMap()
     
     NouvelleCite(0,5,5,2,rendu,&Hexagone);
     SDL_Delay(5000);
+    while(programme_lance)
+    {
+    SDL_Event event;
+    while(SDL_PollEvent(&event))
+        switch(event.type)
+        {
+            case SDL_QUIT: programme_lance = SDL_FALSE; break;
+            default : break;
+        }
+    } 
+    
     SDL_DestroyTexture(tex_ocean);                                               
     SDL_DestroyTexture(tex_case);
     SDL_DestroyRenderer(rendu);
@@ -180,7 +191,7 @@ void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_dep
     Pion.w = DIM_PION;
     Pion.h = DIM_PION;
 
-    if (arriveey%2!=0)                                                                
+    if (_pion->coord_y%2!=0)                                                                
     {
         Pion.x = Pion.x+46;                                              
     }
@@ -252,7 +263,7 @@ char InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone)
 {
     int _terrain = CharactereAleatoire();
     GenerationHexagone(_terrain, _rendu, _Hexagone);                                          
-    DecallageHexagoneX(Hexagone);
+    DecallageHexagoneX(_Hexagone);
     return _terrain;
 }
 
@@ -327,5 +338,6 @@ void AfficherVersionSDL()
     SDL_VERSION(&nb);
     printf("Votre version de SDL est %d.%d.%d\n", nb.major, nb.minor, nb.patch);
 }
+
 
 
