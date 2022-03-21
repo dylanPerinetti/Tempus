@@ -10,11 +10,12 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "map.c" .
 
 
 Fait par MrTNTX et dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 21/03/2022
+Dernière modifications par MrTNTX le 21/03/2022
 */
 #ifndef __MAP_H__
 #define __MAP_H__
 
+#include "objet.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
@@ -25,7 +26,7 @@ Dernière modifications par dylanPerinetti le 21/03/2022
 int GeneMap();					//Génération de la Map initiale
 char CharactereAleatoire();		//Création du nombre aléatoire entre 0 et 5 qui définit la texture de la tuile lors de la génération
 void Erreur(int error);			//Message d'erreur SDL (UNIQUEMENT)
-void DeplacePionMap(int joueur, int departx, int departy, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex);  //Déplace un pion d'une case a une autre, et recharge la tuile de départ si il n'y a plus de pions dessus
+void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex);  //Déplace un pion d'une case a une autre, et recharge la tuile de départ si il n'y a plus de pions dessus
 
 
 void GenerationHexagone(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex);			//Crée une image a partir d'un fichier bmp
@@ -44,3 +45,4 @@ void NouvelleCite(int joueur, int coordx, int coordy, int taille, SDL_Renderer* 
 void AfficherVersionSDL();		//Affiche la version de sdl
 
 #endif
+
