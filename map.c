@@ -13,6 +13,7 @@ Dernière modifications par dylanPerinetti le 20/03/2022
 */
 #include "objet.h"
 #include "map.h"
+
 #define TAILLE_FENETRE 1200
 #define UNITE_X 102
 #define UNITE_Y 88
@@ -36,6 +37,7 @@ int GeneMap()
     SDL_Texture *tex_ocean = NULL;
     SDL_Surface *image = NULL;
     SDL_Texture *tex_case = NULL;
+
     int i=0;
     int j=0;
     int d=0;
@@ -49,58 +51,30 @@ int GeneMap()
     }
 
     SDL_Rect Fond_ocean; 
-    Fond_ocean.x = 0;
-    Fond_ocean.y = 0;
-    Fond_ocean.w = TAILLE_FENETRE;
-    Fond_ocean.h = TAILLE_FENETRE;
-    
-    SDL_Rect Hexagone;                    
-    Hexagone.x = (TAILLE_FENETRE-624)/2;
-    Hexagone.y = 100;
-    Hexagone.w = 104;
-    Hexagone.h = 120;
+    SDL_Rect Hexagone; 
 
-
+    InitialiseRect(&Fond_ocean, 0, 0, TAILLE_FENETRE, TAILLE_FENETRE);
+    InitialiseRect(&Hexagone, (TAILLE_FENETRE-624)/2, 100, 104, 120);
     
     //-----------------------------------Test et Initialisation de SDL--------------------------------//
-   
-    SDL_version nb;
-    SDL_VERSION(&nb);
-    printf("Votre version est %d.%d.%d\n", nb.major, nb.minor, nb.patch);   
-    if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
-    {
-        Erreur(1);
-    }
+    AfficherVersionSDL();   /*Je l'ai cree car elle n'est pas tres utile /?\ je crois /?\.*/
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0)Erreur(1);
     
     //-----------------------------------Création de la fenetre et du rendu--------------------------------//
-    
     SDL_CreateWindowAndRenderer(TAILLE_FENETRE, TAILLE_FENETRE, 0, &fenetre, &rendu);
-    
     
     //--------------------Création et Application de la Texture du fond océan-----------------------------//
     
     image = SDL_LoadBMP("src/Img/Case/Sea.bmp");                         
     tex_ocean = SDL_CreateTextureFromSurface(rendu, image);             
-    if (tex_ocean == NULL)
-    {
-        Erreur(2);
-    }
+    if (tex_ocean == NULL)Erreur(2);
 
-    SDL_FreeSurface(image);                                      
-    
-    if (SDL_QueryTexture(tex_ocean, NULL, NULL, &Fond_ocean.w, &Fond_ocean.h) != 0)     
-    {                                                                                   
-        Erreur(3);
-    }
-    if (SDL_RenderCopy(rendu, tex_ocean, NULL, &Fond_ocean) != 0)                       
-    {
-        Erreur(4);
-    }
+    SDL_FreeSurface(image);
+
+    if (SDL_QueryTexture(tex_ocean, NULL, NULL, &Fond_ocean.w, &Fond_ocean.h) != 0)Erreur(3);
+    if (SDL_RenderCopy(rendu, tex_ocean, NULL, &Fond_ocean) != 0)Erreur(4);
+
     SDL_RenderPresent(rendu);                                   
-
-    
-
-
 
     //-----------------------------------Génération Random Partie Haute--------------------------------//
     
@@ -108,11 +82,15 @@ int GeneMap()
     for(j=6;j<10;j++)
     {
         for(i=0;i<j;i++)
-        {                       
-            char terrain = Aleatoire();                        
-            GenerationHexagone(terrain, rendu, &Hexagone);                                          
-            DecallageHexagoneX(&Hexagone);
+        {
+            char terrain = InitialiseHexagone(rendu, &Hexagone);                       
+            /*
+                // AVANTS LA FONCTION : InitialiseHexagone()
 
+            char terrain = Aleatoire();                        
+            GenerationHexagone(terrain, rendu, &Hexagone);                                  
+            DecallageHexagoneX(&Hexagone);
+            */
             if (d==3){carte[i][d]=terrain-48;}
             else if (d==2){carte[i+1][d]=terrain-48;}
             else if (d==1){carte[i+1][d]=terrain-48;}                                  
@@ -123,13 +101,9 @@ int GeneMap()
     }
 
     //-----------------------------------Génération Random Milieu--------------------------------//
-    
     for(i=0;i<10;i++)
     {
-        char terrain = Aleatoire();                        
-        GenerationHexagone(terrain, rendu, &Hexagone);                                  
-        DecallageHexagoneX(&Hexagone);
-        
+        char terrain = InitialiseHexagone(rendu, &Hexagone); 
         carte[i][4]=terrain-48;
     }
     d--;
@@ -137,15 +111,11 @@ int GeneMap()
     
 
     //-----------------------------------Génération Random Partie Basse--------------------------------//
-    
     for(j=9;j>5;j--)
     {
         for(i=0;i<j;i++)
         {
-            char terrain = Aleatoire();                        
-            GenerationHexagone(terrain, rendu, &Hexagone);                                         
-            DecallageHexagoneX(&Hexagone);
-            
+            char terrain = InitialiseHexagone(rendu, &Hexagone);
             if (d==3){carte[i][8-d]=terrain-48;}
             else if (d==2){carte[i+1][8-d]=terrain-48;}
             else if (d==1){carte[i+1][8-d]=terrain-48;}
@@ -154,9 +124,8 @@ int GeneMap()
         d--;
         DecallageHexagoneY(&Hexagone, d);
     }
-//-----------------------------------Imprime la carte-------------------------------------------------//
 
-
+    //-----------------------------------Imprime la carte-------------------------------------------------//
     for(j=0;j<10;j++)
         {
             for(i=0;i<10;i++)
@@ -185,7 +154,7 @@ int GeneMap()
 //-----------------------------------Sous-Programmes--------------------------------------------------//
     
 
-char Aleatoire()
+char CharactereAleatoire()        // pourquoi tu retourn des pointeur ?? 
     {
         int random = rand()%101;
         if (random<PRCT_PRAIRIE){return *"0";}
@@ -194,7 +163,6 @@ char Aleatoire()
         else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE){return *"3";} 
         else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP){return *"4";} 
         else {return *"5";}
-        
     }
 
 
@@ -263,6 +231,37 @@ void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_dep
     }
 
 }
+//--------------------------------/Generation de la Texture d'un Hexagone/---------------------------------//
+void GenerationHexagone(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
+{
+    SDL_Texture *tex_case = NULL;
+    SDL_Surface *image = NULL;
+
+    char fichier_terrain[]="src/Img/Case/Case_9_Dim.bmp";
+    fichier_terrain[18] = terrain;
+    
+    image = SDL_LoadBMP(fichier_terrain);
+            
+    TextureRendu(image, tex_case, rendu, Hex);                                            
+}
+
+void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur)
+{
+    _Rectangle->x = _x;
+    _Rectangle->y = _y;
+    _Rectangle->w = _largeur;
+    _Rectangle->h = _hauteur;
+}
+
+
+
+char InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone)
+{
+    int _terrain = CharactereAleatoire();
+    GenerationHexagone(_terrain, _rendu, _Hexagone);                                          
+    DecallageHexagoneX(Hexagone);
+    return _terrain;
+}
 
 //--------------------------------------------/Decallage Nouvel hexagon/--------------------------------------------------//
 
@@ -278,21 +277,6 @@ void DecallageHexagoneY(SDL_Rect *Hex, int d)
 {
     Hex->y = Hex->y + UNITE_Y;
     Hex->x = (TAILLE_FENETRE-624)/2-(50*d);
-}
-
-//--------------------------------/Generation de la Texture d'un Hexagone/---------------------------------//
-
-void GenerationHexagone(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
-{
-    SDL_Texture *tex_case = NULL;
-    SDL_Surface *image = NULL;
-
-    char fichier_terrain[]="src/Img/Case/Case_9_Dim.bmp";
-    fichier_terrain[18] = terrain;
-    
-    image = SDL_LoadBMP(fichier_terrain);
-            
-    TextureRendu(image, tex_case, rendu, Hex);                                            
 }
 
 char IntEnChar(int Entier)
@@ -333,20 +317,20 @@ void TextureRendu(SDL_Surface *image, SDL_Texture *texture, SDL_Renderer* rendu,
     SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 255, 255));    
 
         texture = SDL_CreateTextureFromSurface(rendu, image);                    
-        if (texture == NULL)
-        {
-            Erreur(2);
-        }
+        if (texture == NULL)Erreur(2);
+
         SDL_FreeSurface(image);
-        if (SDL_QueryTexture(texture, NULL, NULL, &Hex->w, &Hex->h) != 0)  
-        {
-            Erreur(3);
-        }
-        if (SDL_RenderCopy(rendu, texture, NULL, Hex) != 0)           
-        {
-            Erreur(4);
-        }
+
+        if (SDL_QueryTexture(texture, NULL, NULL, &Hex->w, &Hex->h) != 0)Erreur(3);
+        if (SDL_RenderCopy(rendu, texture, NULL, Hex) != 0)Erreur(4);
+
         SDL_RenderPresent(rendu);
 }
 
 
+void AfficherVersionSDL()
+{
+    SDL_version nb;
+    SDL_VERSION(&nb);
+    printf("Votre version de SDL est %d.%d.%d\n", nb.major, nb.minor, nb.patch);
+}
