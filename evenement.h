@@ -1,3 +1,17 @@
+/*
+
+-------------- TEMPUS --------------
+
+Retrouvez le Projet complet sur Git "https://github.com/dylanPerinetti/tempus" 
+
+Ce fichier contient les prototype des fonction lier au evenement-graphique dans le jeu Tempus.
+Vous retrouverer par aillieur leur mode d'utilisation .
+Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "evenement.c" .
+
+
+Fait par dylan le 21/03/2022
+Dernière modifications par dylanPerinetti le 21/03/2022
+*/
 #ifndef __EVENEMENT_H__
 #define __EVENEMENT_H__
 
