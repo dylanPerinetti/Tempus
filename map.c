@@ -136,12 +136,8 @@ int GeneMap()
         }    
 
 
-//-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
+    //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
-    DeplacePionMap(3,2,2,3,3,1,1,carte,rendu,&Hexagone);
-    SDL_Delay(2000);
-    DeplacePionMap(3,3,3,4,4,0,1,carte,rendu,&Hexagone);
-    SDL_Delay(2000);
     NouvelleCite(0,5,5,2,rendu,&Hexagone);
     SDL_Delay(5000);
     SDL_DestroyTexture(tex_ocean);                                               
@@ -154,16 +150,16 @@ int GeneMap()
 //-----------------------------------Sous-Programmes--------------------------------------------------//
     
 
-char CharactereAleatoire()        // pourquoi tu retourn des pointeur ?? 
-    {
-        int random = rand()%101;
-        if (random<PRCT_PRAIRIE){return *"0";}
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE){return *"1";}  
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET){return *"2";}  
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE){return *"3";} 
-        else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP){return *"4";} 
-        else {return *"5";}
-    }
+char CharactereAleatoire()        // pourquoi tu retourn-tu des pointeur ?? 
+{
+    int random = rand()%101;
+    if (random<PRCT_PRAIRIE){return *"0";}
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE){return *"1";}  
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET){return *"2";}  
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE){return *"3";} 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP){return *"4";} 
+    else {return *"5";}
+}
 
 
 void Erreur(int error)
@@ -172,10 +168,7 @@ void Erreur(int error)
     exit(EXIT_FAILURE);
 }
 
-
-
 //---------------------------------/Placement d'un pion/--------------------------------------------//
-
 void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex)
 {
     SDL_Surface *image = NULL;
@@ -334,3 +327,5 @@ void AfficherVersionSDL()
     SDL_VERSION(&nb);
     printf("Votre version de SDL est %d.%d.%d\n", nb.major, nb.minor, nb.patch);
 }
+
+
