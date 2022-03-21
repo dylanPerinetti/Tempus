@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez au Objet dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "objet.h".
 
 Fait par dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 19/03/2022
+Dernière modifications par dylanPerinetti le 21/03/2022
 
 */
 
