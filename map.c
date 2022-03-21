@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez à la map dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "map.h".
 
 Fait par MrTNTX le 15/03/2022
-Dernière modifications par dylanPerinetti le 20/03/2022
+Dernière modifications par dylanPerinetti le 21/03/2022
 
 */
 #include "objet.h"
