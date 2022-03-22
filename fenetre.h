@@ -4,9 +4,9 @@
 
 Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus" 
 
-Ce fichier contient les prototype des fonction lier a la map dans le jeu Tempus.
+Ce fichier contient les prototype des fonction lier a la fenetre dans le jeu Tempus.
 Vous retrouverer par aillieur leur mode d'utilisation.
-Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "map.c" .
+Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "fenetre.c" .
 
 
 Fait par MrTNTX et dylan le 15/03/2022
