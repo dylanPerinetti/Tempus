@@ -8,12 +8,47 @@ Créé par Rémi Perrier-Gustin (MrTNTX) et Dylan Perinetti (dylanPerinetti)
 
 ## Commande pour l'Installer et le Lancer (Linux et Mac OS):
 
+Pour telecharger le dosser complet entrez :
 ```
 git clone https://github.com/dylanPerinetti/tempus
+```
+Puis entrez la commmande suivantes pour entrer dans le dossier :
+```
 cd tempus
+```
+Pour compiler avec gcc (si vous le posséder déjà  votre machine) utilisez la commande suivante :
+```
 gcc *.c -o tempus
+
+```
+Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
+```
 ./tempus
 ```
+Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!
+Vous pourrez tout de même Jouer en entrant la commande :
+```
+./tempus -g
+```
+
+
+### INFO PRATIQUE
+
+Si vous souhaiter faire tourner le jeu sur une machine windows vous devez prealablement changer la ligne suivante :
+```
+#define NETTOYER_TERMINAL "clear"
+```
+par :
+```
+#define NETTOYER_TERMINAL "cls"
+```
+
+
+MERCI et GG :) 
+
+
+
+
 ### Image du 15/03/2022
 ![IMG_1](https://user-images.githubusercontent.com/101599798/158646783-4ce43688-70bc-44d6-9bf2-ec8391e891eb.png)
 ### Image du 17/03/2022
