@@ -6,27 +6,37 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 
 Ce fichier contient le code Pincipal du jeu (main).
 
-Créé par dylan le 14/03/2022
+Fait par dylan le 14/03/2022
 Dernière modifications par dylanPerinetti le 22/03/2022
 */
 
 #include "objet.h"
 #include "joueur.h"
-#include "fenetre.h"
+//#include "fenetre.h"
 #include "map.h"
 
 #define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
 int main(int argc,const char* argv[])
 {
-	system(NETTOYER_TERMINAL);				//Netoyer le terminal 
 	int GRAPHIQUE = 1;
 	if(argc == 2)
 	{
 		if(strcmp(argv[1],"-g")==0 ) 
 		{
-			printf("\nVous venez de choisir de lancer Tempus SANS la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
+			system(NETTOYER_TERMINAL);
+			printf("\n\nVous venez de choisir de lancer Tempus SANS la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
 			GRAPHIQUE = 0;
+		}
+		else if(strcmp(argv[1],"-h")==0 ) 
+		{
+			fprintf(stderr,"\n[ Argment | %s ] Pour Afficher l'Aide \n[ Argment | -g ]Pour lancer sans la version Graphique\n\n",argv[1]);
+			return 1;
+		}
+		else
+		{
+			fprintf(stderr,"\n[ Argment | %s] Invalide\n[ Argment | -h ] Pour Afficher l'Aide\n\n",argv[1]);
+			exit(EXIT_FAILURE);
 		}
 	}
 	int choix_utilisateur=0;
@@ -37,23 +47,23 @@ int main(int argc,const char* argv[])
 
 	do{
 		printf("\nMENU:\n\n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
-		scanf("%1d",&choix_utilisateur);		//Améliorer la Secu avec fgets ou JCP ...
+		scanf("%1d",&choix_utilisateur);			//Améliorer la Secu avec fgets ou JCP ...
 	
 		switch(choix_utilisateur)
     	{
 	        case 1:
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
-	            //DebutJeu();				//Initialisations du jeu
-	            if(GRAPHIQUE != 0)GeneMap();
+	            //DebutJeu();					//Initialisations du jeu
+	            //if(GRAPHIQUE != 0)GeneMap();
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
-	            //AfficherReglesDuJeu();			//Affiche les regles du jeu 
+	            //AfficherReglesDuJeu();		//Affiche les regles du jeu 
 	            break;
 	        case 3:
 	            system(NETTOYER_TERMINAL);
-	            printf("\n\n\n\n\n     Merci et a Bientot ;)\n\n\n\n\n");
+	            printf("\n\n\n\n\n\nMerci et a Bientot ;)\n\n\n\n\n\n");
 	            return 0;
 	        default :
 	            system(NETTOYER_TERMINAL);
