@@ -11,5 +11,4 @@ Fait par MrTNTX le 22/03/2022
 Dernière modifications par MrTNTX le 22/03/2022
 
 */
-#include <objet.h>
-#include <joueur.h>
+#include <map.h>
