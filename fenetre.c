@@ -4,11 +4,11 @@
 
 Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus" 
 
-Ce fichier contient les fonction liez à la map dans le Jeu Tempus.
-En savoir plus sur leur utilisation dans le ficheier "map.h".
+Ce fichier contient les fonction liez à la fenetre dans le Jeu Tempus.
+En savoir plus sur leur utilisation dans le ficheier "fenetre.h".
 
 Fait par MrTNTX le 15/03/2022
-Dernière modifications par MrTNTX le 21/03/2022
+Dernière modifications par MrTNTX le 22/03/2022
 
 */
 #include "map.h"
