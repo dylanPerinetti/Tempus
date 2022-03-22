@@ -12,6 +12,7 @@ Dernière modifications par dylanPerinetti le 19/03/2022
 
 #include "objet.h"
 #include "joueur.h"
+#include "fenetre.h"
 #include "map.h"
 
 #define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
