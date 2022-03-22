@@ -34,7 +34,7 @@ Vous pourrez tout de même Jouer en entrant la commande :
   
   
   
-### INFO PRATIQUE
+### Info Windows
 
 Si vous souhaiter faire tourner le jeu sur une machine windows vous devez prealablement changer la ligne suivante :
 ```
