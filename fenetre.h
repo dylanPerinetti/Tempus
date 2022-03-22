@@ -23,7 +23,7 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #include <string.h>
 
 
-int GeneMap();					//Génération de la Map initiale
+int AfficherFenetre();					//Génération de la Map initiale
 char CharactereAleatoire();		//Création du nombre aléatoire entre 0 et 5 qui définit la texture de la tuile lors de la génération
 void Erreur(int error);			//Message d'erreur SDL (UNIQUEMENT)
 void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex);  //Déplace un pion d'une case a une autre, et recharge la tuile de départ si il n'y a plus de pions dessus
