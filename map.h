@@ -25,10 +25,10 @@ Je suis acctuellement en train de develloper :
 
 typedef struct
 {
-  	Coordonees coordonees;
+  	Coordonnees coordonees;
 	unsigned char Type_terrain;
 	unsigned char nombre_de_pion;
-	Pions pion_dessus[];
+	Pions pion_dessus[5];
 	Cite cite_dessus;
 
 }Tuile;
