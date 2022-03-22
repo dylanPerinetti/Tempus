@@ -18,13 +18,11 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #include "map.h"
 //#include "objet.h"
 
-int DeplacerPionGraphiqueDroite(Pions* _pion,int _x,int _y);          //Déplacer pion graphiquement a Droite
-int DeplacerPionGraphiqueGauche(Pions* _pion,int _x,int _y);          //Déplacer pion graphiquement a Gauche
-int DeplacerPionGraphiqueHautDroite(Pions* _pion,int _x,int _y);      //Déplacer pion en Haut graphiquement a Droite
-int DeplacerPionGraphiqueHautGauche(Pions* _pion,int _x,int _y);      //Déplacer pion en Haut graphiquement a Gauche
-int DeplacerPionGraphiqueBasDroite(Pions* _pion,int _x,int _y);       //Déplacer pion en Bas graphiquement a Droite
-int DeplacerPionGraphiqueBasGauche(Pions* _pion,int _x,int _y);       //Déplacer pion en Bas graphiquement a Gauche
-int PlacerPionGraphiqueSurMap(Pions* _pion,int _x,int _y);            //placer Pion graphiquement du stuff du joueur sur la map au coordoner x,y
-int PlacerCiteGraphiqueSurMap(Cite* _cite,int _x,int _y);             //plcer Citer du graphiquement stuff du joueur sur la map au coordoner x,y 
+int DeplacerPionGraphiqueDroite(Pions* _pion,unsigned char _x,unsigned char _y);          //Déplacer pion graphiquement a Droite
+int DeplacerPionGraphiqueGauche(Pions* _pion,unsigned char _x,unsigned char _y);          //Déplacer pion graphiquement a Gauche
+int DeplacerPionGraphiqueHautDroite(Pions* _pion,unsigned char _x,unsigned char _y);      //Déplacer pion en Haut graphiquement a Droite
+int DeplacerPionGraphiqueHautGauche(Pions* _pion,unsigned char _x,unsigned char _y);      //Déplacer pion en Haut graphiquement a Gauche
+int DeplacerPionGraphiqueBasDroite(Pions* _pion,unsigned char _x,unsigned char _y);       //Déplacer pion en Bas graphiquement a Droite
+int DeplacerPionGraphiqueBasGauche(Pions* _pion,unsigned char _x,unsigned char _y);       //Déplacer pion en Bas graphiquement a Gauche
 
 #endif
