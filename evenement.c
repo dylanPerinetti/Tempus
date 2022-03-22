@@ -11,9 +11,7 @@ Fait par dylan le 21/03/2022
 Dernière modifications par dylanPerinetti le 21/03/2022
 
 */
-#include "map.h"
-#include "objet.h"
-#include "joueur.h"
+#include <evenement.h>
 
 int PlacerPionGraphiqueSurMap(Pions* _pion,int _x,int _y)
 {
