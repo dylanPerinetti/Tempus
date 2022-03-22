@@ -14,22 +14,27 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #include "joueur.h"
 #include "fenetre.h"
 #include "map.h"
-#include "fenetre"
 
 #define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
-int main(int argc, char* argv[])
+int main(int argc,const char* argv[])
 {
+	system(NETTOYER_TERMINAL);					//Netoyer le terminal 
+	int GRAPHIQUE = 1;
+
+	if(strcmp(argv[1],"-g")==0 ) 
+	{
+		printf("\nVous venez de choisir de lancer Tempus SANS la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
+		GRAPHIQUE = 0;
+	}
+
 	int choix_utilisateur=0;
 	Joueur tableau_joueur[4];
 
-
-	system(NETTOYER_TERMINAL);					//Netoyer le terminal 
 	printf("\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
 	
 
 	do{
-	
 		printf("\nMENU:\n\n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
 		scanf("%1d",&choix_utilisateur);			//Améliorer la Secu avec fgets ou JCP ...
 	
@@ -39,7 +44,7 @@ int main(int argc, char* argv[])
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
 	            //DebutJeu();					//Initialisations du jeu
-	            GeneMap();
+	            if(GRAPHIQUE != 0)AfficherFenetre();
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
@@ -47,7 +52,7 @@ int main(int argc, char* argv[])
 	            break;
 	        case 3:
 	            system(NETTOYER_TERMINAL);
-	            printf("\n\n\n\n\n\nMerci et à Bientôt ;)\n\n\n\n\n\n");
+	            printf("\n\n\n\n\n\nMerci et a Bientot ;)\n\n\n\n\n\n");
 	            return 0;
 	        default :
 	            system(NETTOYER_TERMINAL);
@@ -56,56 +61,25 @@ int main(int argc, char* argv[])
 	    }
 
 	    //______________________   ZONE TESTE   ________________________//
-
-		DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]);       //Déplacer pion a Droite
-		DeplacerPionGauche(&tableau_joueur[2].pion_possede[7]);      //Déplacer pion a Gauche
-		DeplacerPionHautDroite(&tableau_joueur[2].pion_possede[7]);   //Déplacer pion en Haut a Droite
-		DeplacerPionHautGauche(&tableau_joueur[2].pion_possede[7]);  //Déplacer pion en Haut a Gauche
-		DeplacerPionBasDroite(&tableau_joueur[2].pion_possede[7]);    //Déplacer pion en Bas a Droite
-		DeplacerPionBasGauche(&tableau_joueur[2].pion_possede[7]);   //Déplacer pion en Bas a Gauche
-		AfficherIDCite(tableau_joueur[2].cite_possede[7]);
-		printf("\n%d\n",InventaireCite(&tableau_joueur[1]));	//TESTE
-		printf("\n%d\n",InventairePions(&tableau_joueur[1]));	//TEST
-	   	AugmenterNiveauJoueur(&tableau_joueur[1]);				//TESTE 
-		AfficherNiveauJoueur(&tableau_joueur[1]);				//TESTE
-		AfficherInventaireJoueur(&tableau_joueur[1]);			//TESTE
-		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
-		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
-	    AfficherCoordonneesCite(tableau_joueur[2].cite_possede[7]);
-	    DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]);     //Déplacer pion a Droite
-		DeplacerPionGauche(&tableau_joueur[2].pion_possede[7]);     //Déplacer pion a Gauche
-		DeplacerPionHautDroite(&tableau_joueur[2].pion_possede[7]); //Déplacer pion en Haut a Droite
-		DeplacerPionHautGauche(&tableau_joueur[2].pion_possede[7]); //Déplacer pion en Haut a Gauche
-		DeplacerPionBasDroite(&tableau_joueur[2].pion_possede[7]);	//Déplacer pion en Bas a Droite
-		DeplacerPionBasGauche(&tableau_joueur[2].pion_possede[7]);  //Déplacer pion en Bas a Gauche
-
-	    AfficherIDCite(tableau_joueur[2].cite_possede[7]);
-	    AfficherIDPion(tableau_joueur[2].pion_possede[7]);
-	    printf("\n%d\n",InventaireCite(&tableau_joueur[1]));	//TESTE
-	   	printf("\n%d\n",InventairePions(&tableau_joueur[1]));	//TEST
-	    AugmenterNiveauJoueur(&tableau_joueur[3]);				//TESTE 
-		AfficherNiveauJoueur(&tableau_joueur[1]);				//TESTE
-		AfficherInventaireJoueur(&tableau_joueur[1]);			//TESTE
-		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
-		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
-		ChangerCouleurCite(&tableau_joueur[2].cite_possede[2],tableau_joueur[1].couleur);//TESTE
-		
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(DeplacerPionDroite(&tableau_joueur[2].pion_possede[7]));
-		AfficherErreurDeplacementObjet(RecupererPion(tableau_joueur[2],(&tableau_joueur[2].pion_possede[7])));
-		AfficherErreurDeplacementObjet(RecupererPion(tableau_joueur[3],(&tableau_joueur[2].pion_possede[7])));
+		printf("\nPremier argument utile : %s\n",argv[1]); // teste
+		Tuile tuile;
+		tuile.coordonnees.X=4;
+		tuile.coordonnees.Y=4;
+		EcrireTuilesBinaire(&tuile);
+		for (int j = 0; j < 4; ++j)
+		{
+			for (int i = 0; i < 16; ++i)
+	    	{
+	    		tuile.coordonnees.X=i;
+				tuile.coordonnees.Y=j;
+	    		printf("\n%d",EcrireTuilesBinaire(&tuile));
+	    		PlacerPionSurMap(&tableau_joueur[j].pion_possede[i],4,4);
+				AfficherInventaireJoueur(&tableau_joueur[j]);
+			}
+		}
+		Tuile _tuile;
+		LectureTuilesBinaire(&_tuile);
+		printf("_tuile %d %d",_tuile.coordonnees.X,_tuile.coordonnees.Y);
 		//_____________________   FIN ZONE TESTE   _______________________//
     }while (choix_utilisateur!=4);
     return 0;
