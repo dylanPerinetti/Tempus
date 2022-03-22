@@ -12,8 +12,8 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "fenetre.c"
 Fait par MrTNTX et dylan le 15/03/2022
 Dernière modifications par MrTNTX le 21/03/2022
 */
-#ifndef __MAP_H__
-#define __MAP_H__
+#ifndef __FENETRE_H__
+#define __FENETRE_H__
 
 #include "objet.h"
 #include <stdio.h>
