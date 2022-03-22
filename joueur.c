@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez au Joueur dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier joueur.h
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 19/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022
 
 Je suis acctuellement en train de develloper les fonction:
 	-
@@ -98,7 +98,7 @@ int InventairePions(Joueur* _joueur)	//Pour Répertorier les Pions d'un joueur d
 
 	for (unsigned char i = 0; i < 16; ++i)
 	{
-		if(_joueur->pion_possede[i].coord_x == -1 && _joueur->pion_possede[i].coord_y == -1)
+		if(_joueur->pion_possede[i].coordonnees.X == -1 && _joueur->pion_possede[i].coordonnees.Y == -1)
 			nb_de_pion_dans_le_stuff++;
 	}
 
@@ -112,7 +112,7 @@ int InventaireCite(Joueur* _joueur)		//Pour Répertorier les Cite d'un joueur da
 
 	for (unsigned char i = 0; i < 8; ++i)
 	{
-		if(_joueur->cite_possede[i].coord_x == -1 && _joueur->cite_possede[i].coord_y == -1)
+		if(_joueur->cite_possede[i].coordonnees.X == -1 && _joueur->cite_possede[i].coordonnees.Y == -1)
 			nb_de_cite_dans_le_stuff++;
 	}
 
@@ -123,9 +123,8 @@ int RecupererPion(Joueur _joueur,Pions* _pion)
 {	
 	if(_joueur.couleur == _pion->couleur)
 	{
-		InitialiserCoordonneesPion(_pion); 
+		InitialiserCoordonneesPion(_pion);
 		return 0;
 	}
 	else return 11;
 }
-
