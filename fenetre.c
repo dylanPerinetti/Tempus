@@ -11,6 +11,7 @@ Fait par MrTNTX le 15/03/2022
 Dernière modifications par MrTNTX le 22/03/2022
 
 */
+#include "fenetre.h"
 #include "map.h"
 
 #define TAILLE_FENETRE 1200
