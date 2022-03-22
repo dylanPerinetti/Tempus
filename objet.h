@@ -1,5 +1,5 @@
 /*
-
+ 
 -------------- TEMPUS --------------
 
 Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus" 
@@ -19,35 +19,47 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct
+typedef struct Coordonnees
 {
         unsigned char X;
         unsigned char Y; 
 
 }Coordonnees;
+
+
 typedef struct Id_Objet
 {
         unsigned char numero_serie_objet;           
         char lettre_serie;
         unsigned char numero_serie;
 }Id_Objet;
+
+
 typedef struct Pions
 {       
         Id_Objet id_pion;                
         unsigned char couleur;                //Car la couleur est un Héritage du joueur 
-        Coordonees coordonees;
-}Pions;                                 //Cree la structure d'un pions
+        Coordonnees coordonnees;
+}Pions;//Cree la structure d'un pions
+
+
 typedef struct Cite
 {
         Id_Objet id_cite;               //identification de la piece
         unsigned char couleur;                //Car la couleur est un Héritage du joueur 
-        Coordonees coordonees;
         unsigned char niveaux_cite;
+        Coordonnees coordonnees;
 }Cite;                                  //Cree la structure d'une Cité
+
+
 typedef struct Carte_Idee
 {
         unsigned char Type_de_terrain;
 }Carte_Idee;
+
+
+
+
 void GenerateurID(Id_Objet *_id,unsigned char _couleur);
 
 void InitialiserCouleurPion(Pions* _pion,unsigned char _couleur);//Initialiser la couleur d'un pion <_couleur>
