@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez au Objet dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "objet.h".
 
 Fait par dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 21/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022
 
 */
 
@@ -47,15 +47,15 @@ void InitialiserCouleurCite(Cite* _cite,unsigned char _couleur)
 
 void InitialiserCoordonneesPion(Pions* _pion)
 {
-	_pion->coord_x=-1;
-	_pion->coord_y=-1;
+	_pion->coordonnees.X=-1;
+	_pion->coordonnees.Y=-1;
 }
 
 
 void InitialiserCoordonneesCite(Cite* _cite)
 {
-	_cite->coord_x=-1;
-	_cite->coord_y=-1;
+	_cite->coordonnees.X=-1;
+	_cite->coordonnees.Y=-1;
 }
 
 
@@ -149,8 +149,8 @@ void AfficherIDPion(Pions _pion)
 
 void AfficherCoordonneesPion(Pions _pion)
 {
-	int x = _pion.coord_x;
-	int y = _pion.coord_y;
+	int x = _pion.coordonnees.X;
+	int y = _pion.coordonnees.Y;
 	if(x != -1 && y != -1)
 		printf("Le pion a pour coordonnes x = [%d] et y = [%d]\n",x,y);
 	else if (x == -1 && y == -1)
@@ -162,8 +162,8 @@ void AfficherCoordonneesPion(Pions _pion)
 
 void AfficherCoordonneesCite(Cite _cite)
 {
-	int x = _cite.coord_x;
-	int y = _cite.coord_y;
+	int x = _cite.coordonnees.X;
+	int y = _cite.coordonnees.Y;
 	if(x != -1 && y != -1)
 		printf("La Cite a pour coordonnees x = [%d] et y = [%d]\n",x,y);
 	else if (x == -1 && y == -1)
@@ -175,7 +175,7 @@ void AfficherCoordonneesCite(Cite _cite)
 
 int DeplacerPionDroite(Pions* p)
 {
-	if((p->coord_x)<X_MAX)p->coord_x++;
+	if((p->coordonnees.X)<X_MAX)p->coordonnees.X++;
 	else return 2;
 	return 0;
 }
@@ -183,7 +183,7 @@ int DeplacerPionDroite(Pions* p)
 
 int DeplacerPionGauche(Pions* p)
 {
-	if((p->coord_x)>X_MIN)p->coord_x--;
+	if((p->coordonnees.X)>X_MIN)p->coordonnees.X--;
 	else return 2;
 	return 0;
 }
@@ -191,9 +191,9 @@ int DeplacerPionGauche(Pions* p)
 
 int DeplacerPionHautDroite(Pions* p)
 {
-	if((p->coord_x)<X_MAX)p->coord_x++;
+	if((p->coordonnees.X)<X_MAX)p->coordonnees.X++;
 	else return 2;
-	if((p->coord_y)>Y_MIN)p->coord_y--;
+	if((p->coordonnees.Y)>Y_MIN)p->coordonnees.Y--;
 	else return 22;
 	return 0;
 }
@@ -201,9 +201,9 @@ int DeplacerPionHautDroite(Pions* p)
 
 int DeplacerPionHautGauche(Pions* p)
 {
-	if((p->coord_x)>X_MIN)p->coord_x--;
+	if((p->coordonnees.X)>X_MIN)p->coordonnees.X--;
 	else return 2;
-	if((p->coord_y)>Y_MIN)p->coord_y--;
+	if((p->coordonnees.Y)>Y_MIN)p->coordonnees.Y--;
 	else return 22;
 	return 0;
 }
@@ -211,9 +211,9 @@ int DeplacerPionHautGauche(Pions* p)
 
 int DeplacerPionBasGauche(Pions* p)
 {
-	if((p->coord_x)>X_MIN)p->coord_x--;
+	if((p->coordonnees.X)>X_MIN)p->coordonnees.X--;
 	else return 2;
-	if((p->coord_y)<Y_MAX)p->coord_y++;
+	if((p->coordonnees.Y)<Y_MAX)p->coordonnees.Y++;
 	else return 22;
 	return 0;
 }
@@ -221,20 +221,20 @@ int DeplacerPionBasGauche(Pions* p)
 
 int DeplacerPionBasDroite(Pions* p)
 {
-	if((p->coord_x)<X_MAX)p->coord_x++;
+	if((p->coordonnees.X)<X_MAX)p->coordonnees.X++;
 	else return 2;
-	if((p->coord_y)<Y_MAX)p->coord_y++;
+	if((p->coordonnees.Y)<Y_MAX)p->coordonnees.Y++;
 	else return 22;
 	return 0;
 }
 
 int PlacerPionSurMap(Pions* _pion, int _x, int _y)		//placer Pion du stuff du joueur sur la map au coordoner x,y
 {
-	if(_pion->coord_x == -1 && _pion->coord_y == -1)
+	if(_pion->coordonnees.X == -1 && _pion->coordonnees.Y == -1)
 	{
-		if( _x >= X_MIN && _x <= X_MAX)_pion->coord_x = _x;
+		if( _x >= X_MIN && _x <= X_MAX)_pion->coordonnees.X = _x;
 		else return 2;
-		if( _y >= Y_MIN && _y <= Y_MAX)_pion->coord_y = _y;
+		if( _y >= Y_MIN && _y <= Y_MAX)_pion->coordonnees.Y = _y;
 		else return 22;
 		return 0;
 	}
@@ -244,11 +244,11 @@ int PlacerPionSurMap(Pions* _pion, int _x, int _y)		//placer Pion du stuff du jo
 
 int PlacerCiteSurMap(Cite* _cite, int _x,  int _y)		//plcer Citer du stuff du joueur sur la map au coordoner x,y
 {
-	if(_cite->coord_x == -1 && _cite->coord_y == -1)
+	if(_cite->coordonnees.X == -1 && _cite->coordonnees.Y == -1)
 	{
-		if( _x >= X_MIN && _x <= X_MAX)_cite->coord_x = _x;
+		if( _x >= X_MIN && _x <= X_MAX)_cite->coordonnees.X = _x;
 		else return 2;
-		if( _y >= Y_MIN && _y <= Y_MAX)_cite->coord_y = _y;
+		if( _y >= Y_MIN && _y <= Y_MAX)_cite->coordonnees.Y = _y;
 		else return 22;
 		return 0;
 	}
