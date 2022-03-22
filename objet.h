@@ -10,7 +10,7 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "objet.c" .
 
 
 Fait par dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 21/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022
 */
 
 #ifndef __OBJET_H__
@@ -18,6 +18,13 @@ Dernière modifications par dylanPerinetti le 21/03/2022
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+typedef struct
+{
+        unsigned char X;
+        unsigned char Y; 
+
+}Coordonnees;
 typedef struct Id_Objet
 {
         unsigned char numero_serie_objet;           
@@ -28,15 +35,13 @@ typedef struct Pions
 {       
         Id_Objet id_pion;                
         unsigned char couleur;                //Car la couleur est un Héritage du joueur 
-        int coord_x;
-        int coord_y;
+        Coordonees coordonees;
 }Pions;                                 //Cree la structure d'un pions
 typedef struct Cite
 {
         Id_Objet id_cite;               //identification de la piece
         unsigned char couleur;                //Car la couleur est un Héritage du joueur 
-        int coord_x;                    //tableux ?
-        int coord_y;                    //tableux ?
+        Coordonees coordonees;
         unsigned char niveaux_cite;
 }Cite;                                  //Cree la structure d'une Cité
 typedef struct Carte_Idee
@@ -67,8 +72,8 @@ int DeplacerPionHautDroite(Pions* _pion);       //Déplacer pion en Haut a Droit
 int DeplacerPionHautGauche(Pions* _pion);       //Déplacer pion en Haut a Gauche
 int DeplacerPionBasDroite(Pions* _pion);        //Déplacer pion en Bas a Droite
 int DeplacerPionBasGauche(Pions* _pion);        //Déplacer pion en Bas a Gauche
-int PlacerPionSurMap(Pions* _pion,int _x,int _y);//placer Pion du stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Pion_not_in_stuff)
-int PlacerCiteSurMap(Cite* _cite,int _x,int _y);//plcer Citer du stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Cite_not_in_stuff)
+int PlacerPionSurMap(Pions* _pion,unsigned char _x,unsigned char _y);//placer Pion du stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Pion_not_in_stuff)
+int PlacerCiteSurMap(Cite* _cite,unsigned char _x,unsigned char _y);//plcer Citer du stuff du joueur sur la map au coordoner x,y (22YERROR & 2 XERROR & 11Cite_not_in_stuff)
 
 void ChangerCouleurCite(Cite* _cite, unsigned char _couleur);   //Changer la couleur d'une Cite par celle du joueur
 void AugmenterNiveauCite(Cite* _Cite);                          //Pour Indenter le niveux d'une Cite
