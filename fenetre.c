@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez à la fenetre dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "fenetre.h".
 
 Fait par MrTNTX le 15/03/2022
-Dernière modifications par MrTNTX le 22/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022
 
 */
 #include "fenetre.h"
@@ -186,16 +186,12 @@ void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_dep
     SDL_Texture *tex_pion = NULL;
     SDL_Rect Pion;
     char pion_type[] = "src/Img/Pions/Pion9_9.bmp";
-    Pion.x = 88 + (_pion->coord_x)*UNITE_X + (104/2) - (DIM_PION/2);                                      
-    Pion.y = 100 + (_pion->coord_y)*UNITE_Y + (120/2) - (DIM_PION/2);
+    Pion.x = 88 + (_pion->coordonnees.X)*UNITE_X + (104/2) - (DIM_PION/2);                                      
+    Pion.y = 100 + (_pion->coordonnees.Y)*UNITE_Y + (120/2) - (DIM_PION/2);
     Pion.w = DIM_PION;
     Pion.h = DIM_PION;
 
-    if (_pion->coord_y%2!=0)                                                                
-    {
-        Pion.x = Pion.x+46;                                              
-    }
-
+    if (_pion->coordonnees.Y%2!=0)Pion.x = Pion.x+46;
 
     pion_type[18] = _pion->couleur;// erreur unsign char possiblement à coriger
     pion_type[20] = IntEnChar(nombre_pions_arrivee);
