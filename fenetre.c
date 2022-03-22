@@ -28,7 +28,7 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 
 
 
-int GeneMap()
+int AfficherFenetre()
 {
     srand(time(NULL));
     SDL_Window *fenetre = NULL;  
