@@ -1,5 +1,5 @@
 /*
-
+ 
 -------------- TEMPUS --------------
 
 Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus" 
@@ -21,6 +21,8 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #define Y_MAX 10
 #define NOMBRE_PION 16
 #define NOMBRE_CITE 8
+#define COORDONNEES_INVENTAIRE 99
+
 
 
 void GenerateurID(Id_Objet *_id,unsigned char _couleur)
@@ -47,15 +49,15 @@ void InitialiserCouleurCite(Cite* _cite,unsigned char _couleur)
 
 void InitialiserCoordonneesPion(Pions* _pion)
 {
-	_pion->coordonnees.X=-1;
-	_pion->coordonnees.Y=-1;
+	_pion->coordonnees.X=COORDONNEES_INVENTAIRE;
+	_pion->coordonnees.Y=COORDONNEES_INVENTAIRE;
 }
 
 
 void InitialiserCoordonneesCite(Cite* _cite)
 {
-	_cite->coordonnees.X=-1;
-	_cite->coordonnees.Y=-1;
+	_cite->coordonnees.X=COORDONNEES_INVENTAIRE;
+	_cite->coordonnees.Y=COORDONNEES_INVENTAIRE;
 }
 
 
@@ -151,9 +153,9 @@ void AfficherCoordonneesPion(Pions _pion)
 {
 	int x = _pion.coordonnees.X;
 	int y = _pion.coordonnees.Y;
-	if(x != -1 && y != -1)
+	if(x != COORDONNEES_INVENTAIRE && y != COORDONNEES_INVENTAIRE)
 		printf("Le pion a pour coordonnes x = [%d] et y = [%d]\n",x,y);
-	else if (x == -1 && y == -1)
+	else if (x == COORDONNEES_INVENTAIRE && y == COORDONNEES_INVENTAIRE)
 		printf("Le pion %u%c est dans votre inventaire !",_pion.id_pion.numero_serie,_pion.id_pion.lettre_serie);
 	else
 		printf("ERROR");
@@ -164,9 +166,9 @@ void AfficherCoordonneesCite(Cite _cite)
 {
 	int x = _cite.coordonnees.X;
 	int y = _cite.coordonnees.Y;
-	if(x != -1 && y != -1)
+	if(x != COORDONNEES_INVENTAIRE && y != COORDONNEES_INVENTAIRE)
 		printf("La Cite a pour coordonnees x = [%d] et y = [%d]\n",x,y);
-	else if (x == -1 && y == -1)
+	else if (x == COORDONNEES_INVENTAIRE && y == COORDONNEES_INVENTAIRE)
 	printf("La Cite %u%c est dans votre inventaire !",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
 	else
 		printf("ERROR");
@@ -228,9 +230,9 @@ int DeplacerPionBasDroite(Pions* p)
 	return 0;
 }
 
-int PlacerPionSurMap(Pions* _pion, int _x, int _y)		//placer Pion du stuff du joueur sur la map au coordoner x,y
+int PlacerPionSurMap(Pions* _pion, unsigned char _x, unsigned char _y)		//placer Pion du stuff du joueur sur la map au coordoner x,y
 {
-	if(_pion->coordonnees.X == -1 && _pion->coordonnees.Y == -1)
+	if(_pion->coordonnees.X == COORDONNEES_INVENTAIRE && _pion->coordonnees.Y == COORDONNEES_INVENTAIRE)
 	{
 		if( _x >= X_MIN && _x <= X_MAX)_pion->coordonnees.X = _x;
 		else return 2;
@@ -242,9 +244,9 @@ int PlacerPionSurMap(Pions* _pion, int _x, int _y)		//placer Pion du stuff du jo
 }
 
 
-int PlacerCiteSurMap(Cite* _cite, int _x,  int _y)		//plcer Citer du stuff du joueur sur la map au coordoner x,y
+int PlacerCiteSurMap(Cite* _cite, unsigned char _x,  unsigned char _y)		//plcer Citer du stuff du joueur sur la map au coordoner x,y
 {
-	if(_cite->coordonnees.X == -1 && _cite->coordonnees.Y == -1)
+	if(_cite->coordonnees.X == COORDONNEES_INVENTAIRE && _cite->coordonnees.Y == COORDONNEES_INVENTAIRE)
 	{
 		if( _x >= X_MIN && _x <= X_MAX)_cite->coordonnees.X = _x;
 		else return 2;
