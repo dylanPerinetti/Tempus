@@ -10,7 +10,7 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "fenetre.c"
 
 
 Fait par MrTNTX et dylan le 15/03/2022
-Dernière modifications par MrTNTX le 22/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022
 */
 #ifndef __FENETRE_H__
 #define __FENETRE_H__
@@ -39,7 +39,7 @@ void DecallageHexagoneX(SDL_Rect *Hex);												//Decalle la coordonée x apr
 
 char IntEnChar(int Entier);																			//Transforme un entier en caractère (pour l'utiliser dans la recherche du fichier image)
 void TextureRendu(SDL_Surface *image, SDL_Texture *texture, SDL_Renderer* rendu, SDL_Rect *Hex);	//Applique une texture sur le rendu            
-void NouvelleCite(int joueur, int coordx, int coordy, int taille, SDL_Renderer* rendu, SDL_Rect *Hex);//Genère une nouvelle cité; Change la couleur d'une cité conquise
+void NouvelleCite(Cite* _cite, int taille, SDL_Renderer* rendu, SDL_Rect *Hex);//Genère une nouvelle cité; Change la couleur d'une cité conquise
 
 
 void AfficherVersionSDL();		//Affiche la version de sdl
