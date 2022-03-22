@@ -36,7 +36,7 @@ Vous pourrez tout de même Jouer en entrant la commande :
   
 ### Info Windows
 
-Si vous souhaiter faire tourner le jeu sur une machine windows vous devez prealablement changer la ligne suivante :
+Si vous souhaiter faire tourner le jeu sur une machine windows vous devez prealablement changer la ligne suivante (ligne 17) :
 ```
 #define NETTOYER_TERMINAL "clear"
 ```
