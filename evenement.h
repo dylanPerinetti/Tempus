@@ -14,6 +14,9 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 */
 #ifndef __EVENEMENT_H__
 #define __EVENEMENT_H__
+#include "fenetre.h"
+#include "map.h"
+//#include "objet.h"
 
 int DeplacerPionGraphiqueDroite(Pions* _pion,int _x,int _y);          //Déplacer pion graphiquement a Droite
 int DeplacerPionGraphiqueGauche(Pions* _pion,int _x,int _y);          //Déplacer pion graphiquement a Gauche
