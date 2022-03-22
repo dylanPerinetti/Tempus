@@ -10,7 +10,7 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "fenetre.c"
 
 
 Fait par MrTNTX et dylan le 15/03/2022
-Dernière modifications par MrTNTX le 21/03/2022
+Dernière modifications par MrTNTX le 22/03/2022
 */
 #ifndef __FENETRE_H__
 #define __FENETRE_H__
