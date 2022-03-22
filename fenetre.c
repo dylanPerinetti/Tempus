@@ -12,7 +12,6 @@ Dernière modifications par MrTNTX le 22/03/2022
 
 */
 #include "fenetre.h"
-#include "map.h"
 
 #define TAILLE_FENETRE 1200
 #define UNITE_X 102
