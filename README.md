@@ -16,7 +16,7 @@ Puis entrez la commmande suivantes pour entrer dans le dossier :
 ```
 cd tempus
 ```
-Pour compiler avec gcc (si vous le posséder déjà  votre machine) utilisez la commande suivante :
+Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
 ```
 gcc *.c -o tempus
 
@@ -44,6 +44,24 @@ par :
 ```
 #define NETTOYER_TERMINAL "cls"
 ```  
+Puis entrez la commmande suivantes dans le PowerShell pour entrer dans le dossier :
+```
+cd tempus
+```
+Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
+```
+gcc *.c -o tempus
+
+```
+Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
+```
+tempus
+```
+Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!  
+Vous pourrez tout de même Jouer en entrant la commande :
+```
+tempus -g
+``` 
   
   
   
