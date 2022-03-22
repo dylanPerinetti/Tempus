@@ -8,7 +8,8 @@ Ce fichier contient les fonction liez au Objet dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "objet.h".
 
 Fait par dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022 
+Pour correctif de beug
 
 */
 
@@ -153,12 +154,9 @@ void AfficherCoordonneesPion(Pions _pion)
 {
 	int x = _pion.coordonnees.X;
 	int y = _pion.coordonnees.Y;
-	if(x != COORDONNEES_INVENTAIRE && y != COORDONNEES_INVENTAIRE)
-		printf("Le pion a pour coordonnes x = [%d] et y = [%d]\n",x,y);
-	else if (x == COORDONNEES_INVENTAIRE && y == COORDONNEES_INVENTAIRE)
-		printf("Le pion %u%c est dans votre inventaire !",_pion.id_pion.numero_serie,_pion.id_pion.lettre_serie);
-	else
-		printf("ERROR");
+	if(x != COORDONNEES_INVENTAIRE && y != COORDONNEES_INVENTAIRE) printf("\nLe pion %u%c a pour coordonnes x = [%d] et y = [%d]\n",_pion.id_pion.numero_serie,_pion.id_pion.lettre_serie,x,y);
+	else if (x == COORDONNEES_INVENTAIRE && y == COORDONNEES_INVENTAIRE) printf("\nLe pion %u%c est dans votre inventaire !",_pion.id_pion.numero_serie,_pion.id_pion.lettre_serie);
+	else printf("\nERROR");
 }
 
 
@@ -166,12 +164,9 @@ void AfficherCoordonneesCite(Cite _cite)
 {
 	int x = _cite.coordonnees.X;
 	int y = _cite.coordonnees.Y;
-	if(x != COORDONNEES_INVENTAIRE && y != COORDONNEES_INVENTAIRE)
-		printf("La Cite a pour coordonnees x = [%d] et y = [%d]\n",x,y);
-	else if (x == COORDONNEES_INVENTAIRE && y == COORDONNEES_INVENTAIRE)
-	printf("La Cite %u%c est dans votre inventaire !",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
-	else
-		printf("ERROR");
+	if(x != COORDONNEES_INVENTAIRE && y != COORDONNEES_INVENTAIRE) printf("\nLa Cite %u%c a pour coordonnees x = [%d] et y = [%d]\n",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie,x,y);
+	else if (x == COORDONNEES_INVENTAIRE && y == COORDONNEES_INVENTAIRE) printf("\nLa Cite %u%c est dans votre inventaire !",_cite.id_cite.numero_serie, _cite.id_cite.lettre_serie);
+	else printf("\nERROR");
 }
 
 
@@ -277,18 +272,18 @@ void AfficherErreurDeplacementObjet(int _erreur)
 		case 0:
 			break;
 		case 1:
-			printf("\nErreur%d Probleme le pion n'est pas dans l'inventaire",_erreur);
+			fprintf(stderr,"\nErreur%d Probleme le pion n'est pas dans l'inventaire",_erreur);
 			break;
 		case 2:
-			printf("\nErreur%d Probleme coordonnees X",_erreur);
+			fprintf(stderr,"\nErreur%d Probleme coordonnees X",_erreur);
 			break;
 		case 11:
-			printf("\nErreur%d Probleme couleur objet differrente de celle du joueur",_erreur);
+			fprintf(stderr,"\nErreur%d Probleme couleur objet differrente de celle du joueur",_erreur);
 			break;
 		case 22:
-			printf("\nErreur%d Probleme coordonnees Y",_erreur);
+			fprintf(stderr,"\nErreur%d Probleme coordonnees Y",_erreur);
 			break;
 		default:
-			printf("\nErreur Inconnue");
+			fprintf(stderr,"\nErreur Inconnue");
 	}
 }
