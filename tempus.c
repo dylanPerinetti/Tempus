@@ -6,7 +6,7 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 
 Ce fichier contient le code Pincipal du jeu (main).
 
-Fait par dylan le 14/03/2022
+Créé par dylan le 14/03/2022
 Dernière modifications par dylanPerinetti le 22/03/2022
 */
 
@@ -19,15 +19,16 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 
 int main(int argc,const char* argv[])
 {
-	system(NETTOYER_TERMINAL);					//Netoyer le terminal 
+	system(NETTOYER_TERMINAL);				//Netoyer le terminal 
 	int GRAPHIQUE = 1;
-
-	if(strcmp(argv[1],"-g")==0 ) 
+	if(argc == 2)
 	{
-		printf("\nVous venez de choisir de lancer Tempus SANS la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
-		GRAPHIQUE = 0;
+		if(strcmp(argv[1],"-g")==0 ) 
+		{
+			printf("\nVous venez de choisir de lancer Tempus SANS la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
+			GRAPHIQUE = 0;
+		}
 	}
-
 	int choix_utilisateur=0;
 	Joueur tableau_joueur[4];
 
@@ -36,23 +37,23 @@ int main(int argc,const char* argv[])
 
 	do{
 		printf("\nMENU:\n\n1. JOUER \n2. REGLES DU JEU \n3. QUITTER \n") ;
-		scanf("%1d",&choix_utilisateur);			//Améliorer la Secu avec fgets ou JCP ...
+		scanf("%1d",&choix_utilisateur);		//Améliorer la Secu avec fgets ou JCP ...
 	
 		switch(choix_utilisateur)
     	{
 	        case 1:
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
-	            //DebutJeu();					//Initialisations du jeu
-	            if(GRAPHIQUE != 0)AfficherFenetre();
+	            //DebutJeu();				//Initialisations du jeu
+	            if(GRAPHIQUE != 0)GeneMap();
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
-	            //AfficherReglesDuJeu();		//Affiche les regles du jeu 
+	            //AfficherReglesDuJeu();			//Affiche les regles du jeu 
 	            break;
 	        case 3:
 	            system(NETTOYER_TERMINAL);
-	            printf("\n\n\n\n\n\nMerci et a Bientot ;)\n\n\n\n\n\n");
+	            printf("\n\n\n\n\n     Merci et a Bientot ;)\n\n\n\n\n");
 	            return 0;
 	        default :
 	            system(NETTOYER_TERMINAL);
