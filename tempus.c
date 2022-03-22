@@ -14,6 +14,7 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #include "joueur.h"
 #include "fenetre.h"
 #include "map.h"
+#include "fenetre"
 
 #define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
@@ -79,11 +80,12 @@ int main(int argc, char* argv[])
 		DeplacerPionHautGauche(&tableau_joueur[2].pion_possede[7]); //Déplacer pion en Haut a Gauche
 		DeplacerPionBasDroite(&tableau_joueur[2].pion_possede[7]);	//Déplacer pion en Bas a Droite
 		DeplacerPionBasGauche(&tableau_joueur[2].pion_possede[7]);  //Déplacer pion en Bas a Gauche
-	    	AfficherIDCite(tableau_joueur[2].cite_possede[7]);
-	    	AfficherIDPion(tableau_joueur[2].pion_possede[7]);
-	    	printf("\n%d\n",InventaireCite(&tableau_joueur[1]));	//TESTE
-	    	printf("\n%d\n",InventairePions(&tableau_joueur[1]));	//TEST
-	    	AugmenterNiveauJoueur(&tableau_joueur[3]);				//TESTE 
+
+	    AfficherIDCite(tableau_joueur[2].cite_possede[7]);
+	    AfficherIDPion(tableau_joueur[2].pion_possede[7]);
+	    printf("\n%d\n",InventaireCite(&tableau_joueur[1]));	//TESTE
+	   	printf("\n%d\n",InventairePions(&tableau_joueur[1]));	//TEST
+	    AugmenterNiveauJoueur(&tableau_joueur[3]);				//TESTE 
 		AfficherNiveauJoueur(&tableau_joueur[1]);				//TESTE
 		AfficherInventaireJoueur(&tableau_joueur[1]);			//TESTE
 		AfficherCouleurCite(tableau_joueur[2].cite_possede[2]);	//TESTE
