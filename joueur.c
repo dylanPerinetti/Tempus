@@ -16,6 +16,7 @@ Dernière modifications par dylanPerinetti le 23/03/2022
 
 #define NOMBRE_PION 16
 #define NOMBRE_CITE 8
+#define COORDONNEES_INVENTAIRE 99
 
 
 void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'un nouveaux joueur
@@ -95,7 +96,7 @@ int InventairePions(Joueur* _joueur)	//Pour Répertorier les Pions d'un joueur d
 
 	for (unsigned char i = 0; i < 16; ++i)
 	{
-		if(_joueur->pion_possede[i].coordonnees.X == 99 && _joueur->pion_possede[i].coordonnees.Y == 99)
+		if(_joueur->pion_possede[i].coordonnees.X == COORDONNEES_INVENTAIRE && _joueur->pion_possede[i].coordonnees.Y == COORDONNEES_INVENTAIRE)
 			nb_de_pion_dans_le_stuff++;
 	}
 
@@ -109,7 +110,7 @@ int InventaireCite(Joueur* _joueur)		//Pour Répertorier les Cite d'un joueur da
 
 	for (unsigned char i = 0; i < 8; ++i)
 	{
-		if(_joueur->cite_possede[i].coordonnees.X == 99 && _joueur->cite_possede[i].coordonnees.Y == 99)
+		if(_joueur->cite_possede[i].coordonnees.X == COORDONNEES_INVENTAIRE && _joueur->cite_possede[i].coordonnees.Y == COORDONNEES_INVENTAIRE)
 			nb_de_cite_dans_le_stuff++;
 	}
 
