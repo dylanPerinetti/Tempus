@@ -8,24 +8,24 @@ Créé par Rémi Perrier-Gustin (MrTNTX) et Dylan Perinetti (dylanPerinetti)
 
 ## Commande pour l'Installer et le Lancer (Linux et Mac OS):
 
-Pour telecharger le dosser complet entrez :
+1. Pour telecharger le dosser complet entrez :
 ```
 git clone https://github.com/dylanPerinetti/tempus
 ```
-Puis entrez la commmande suivantes pour entrer dans le dossier :
+2. Puis entrez la commmande suivantes pour entrer dans le dossier :
 ```
 cd tempus
 ```
-Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
+3. Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
 ```
 gcc *.c -o tempus
 
 ```
-Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
+4.a) Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
 ```
 ./tempus
 ```
-Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!  
+4.b) Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!  
 Vous pourrez tout de même Jouer en entrant la commande :
 ```
 ./tempus -g
@@ -34,9 +34,9 @@ Vous pourrez tout de même Jouer en entrant la commande :
   
   
   
-### Info Windows
+## Info Windows
 
-Si vous souhaiter faire tourner le jeu sur une machine windows vous devez prealablement changer la ligne suivante (ligne 17) :
+1. Si vous souhaiter faire tourner le jeu sur une machine windows vous devez prealablement changer la ligne suivante (ligne 17) :
 ```
 #define NETTOYER_TERMINAL "clear"
 ```
@@ -44,20 +44,22 @@ par :
 ```
 #define NETTOYER_TERMINAL "cls"
 ```  
-Puis entrez la commmande suivantes dans le PowerShell pour entrer dans le dossier :
+  
+  
+2. Puis entrez la commmande suivantes dans le PowerShell pour entrer dans le dossier :
 ```
 cd tempus
 ```
-Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
+3. Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
 ```
 gcc *.c -o tempus
 
 ```
-Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
+4.a) Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
 ```
 tempus
 ```
-Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!  
+4.b) Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!  
 Vous pourrez tout de même Jouer en entrant la commande :
 ```
 tempus -g
