@@ -8,10 +8,10 @@ Ce fichier contient les fonction liez au evenement-graphique dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "evenement.h".
 
 Fait par dylan le 21/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
-
+Dernière modifications par dylanPerinetti le 23/03/2022
+Pour correctif de beug
 */
-#include <evenement.h>
+#include "evenement.h"
 
 int PlacerPionGraphiqueSurMap(Pions* _pion,unsigned char _x,unsigned char _y)
 {
