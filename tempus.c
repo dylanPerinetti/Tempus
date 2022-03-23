@@ -7,7 +7,8 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient le code Pincipal du jeu (main).
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par dylanPerinetti le 23/03/2022
+Pour correctif de beug
 */
 
 #include "objet.h"
@@ -30,12 +31,12 @@ int main(int argc,const char* argv[])
 		}
 		else if(strcmp(argv[1],"-h")==0 ) 
 		{
-			fprintf(stderr,"\n[ Argment | %s ] Pour Afficher l'Aide \n[ Argment | -g ]Pour lancer sans la version Graphique\n\n",argv[1]);
+			fprintf(stderr,"\n[ Argment | %s ]Pour Afficher l'Aide \n[ Argment | -g ]Pour lancer sans la version Graphique\n\n",argv[1]);
 			return 1;
 		}
 		else
 		{
-			fprintf(stderr,"\n[ Argment | %s] Invalide\n[ Argment | -h ] Pour Afficher l'Aide\n\n",argv[1]);
+			fprintf(stderr,"\n[ Argment | %s ]Invalide\n[ Argment | -h ] Pour Afficher l'Aide\n\n",argv[1]);
 			exit(EXIT_FAILURE);
 		}
 	}
