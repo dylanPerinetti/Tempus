@@ -8,10 +8,7 @@ Ce fichier contient les fonction liez au Joueur dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier joueur.h
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
-
-Je suis acctuellement en train de develloper les fonction:
-	-
+Dernière modifications par dylanPerinetti le 23/03/2022
 
 */
 #include "objet.h"
@@ -85,10 +82,10 @@ void AfficherInventaireJoueur(Joueur* j)//Pour Afficher L'inventaire d'un joueur
 
 int* InventaireJoueur(Joueur* _joueur)	//Pour Ranger l'inventaire dans un tableau[<PIONS>,<CITE>]
 {
-	static int tab[2];
-	tab[0] = InventairePions(_joueur);
-	tab[1] = InventaireCite(_joueur);
-	return tab;
+	static int _tab_joueur[2];
+	_tab_joueur[0] = InventairePions(_joueur);
+	_tab_joueur[1] = InventaireCite(_joueur);
+	return _tab_joueur;
 }
 
 
@@ -98,7 +95,7 @@ int InventairePions(Joueur* _joueur)	//Pour Répertorier les Pions d'un joueur d
 
 	for (unsigned char i = 0; i < 16; ++i)
 	{
-		if(_joueur->pion_possede[i].coordonnees.X == -1 && _joueur->pion_possede[i].coordonnees.Y == -1)
+		if(_joueur->pion_possede[i].coordonnees.X == 99 && _joueur->pion_possede[i].coordonnees.Y == 99)
 			nb_de_pion_dans_le_stuff++;
 	}
 
@@ -112,7 +109,7 @@ int InventaireCite(Joueur* _joueur)		//Pour Répertorier les Cite d'un joueur da
 
 	for (unsigned char i = 0; i < 8; ++i)
 	{
-		if(_joueur->cite_possede[i].coordonnees.X == -1 && _joueur->cite_possede[i].coordonnees.Y == -1)
+		if(_joueur->cite_possede[i].coordonnees.X == 99 && _joueur->cite_possede[i].coordonnees.Y == 99)
 			nb_de_cite_dans_le_stuff++;
 	}
 
