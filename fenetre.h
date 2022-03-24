@@ -24,15 +24,19 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 
 
 int AfficherFenetre();					//Génération de la Map initiale
-char CharactereAleatoire();		//Création du nombre aléatoire entre 0 et 5 qui définit la texture de la tuile lors de la génération
-void Erreur(int error);			//Message d'erreur SDL (UNIQUEMENT)
+char CharactereAleatoire();				//Création du nombre aléatoire entre 0 et 5 qui définit la texture de la tuile lors de la génération
+void Erreur(int error);					//Message d'erreur SDL (UNIQUEMENT)
 void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_depart, int nombre_pions_arrivee, int carte[10][10], SDL_Renderer* rendu, SDL_Rect *Hex);  //Déplace un pion d'une case a une autre, et recharge la tuile de départ si il n'y a plus de pions dessus
 
 
-void GenerationHexagone(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex);			//Crée une image a partir d'un fichier bmp
+void GenerationHexagone(unsigned char _type_terrain, SDL_Renderer* rendu, SDL_Rect *Hex);			//Crée une image a partir d'un fichier bmp
+void GenererLigneHexagone(unsigned char _nb_hex, SDL_Renderer* _rendu, SDL_Rect* _hex);
+void GenererMapHexPartieHaute(unsigned char _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex);
+void GenererMapHexPartieMilieu(unsigned char _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex);
+void GenererMapHexPartieBasse(unsigned char _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex);
 
-void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur);//Initialise les Rect 
-char InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone);	//Crée une ligne Hexagone renvois le
+void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur);	//Initialise les Rect 
+void InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone);						//Crée une ligne Hexagone renvois le
 
 void DecallageHexagoneY(SDL_Rect *Hex, int d);										//Decalle les coordonées x et y au début de la génération d'une nouvelle rangée d'hexagone
 void DecallageHexagoneX(SDL_Rect *Hex);												//Decalle la coordonée x après la génération d'un hexagone
