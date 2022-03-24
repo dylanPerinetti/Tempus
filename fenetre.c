@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez à la fenetre dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "fenetre.h".
 
 Fait par MrTNTX le 15/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par dylanPerinetti le 24/03/2022
 
 */
 #include "fenetre.h"
