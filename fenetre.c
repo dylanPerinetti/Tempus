@@ -72,35 +72,12 @@ int AfficherFenetre(Tuile* _map)
 
     if (SDL_QueryTexture(tex_ocean, NULL, NULL, &Fond_ocean.w, &Fond_ocean.h) != 0)Erreur(3);
     if (SDL_RenderCopy(rendu, tex_ocean, NULL, &Fond_ocean) != 0)Erreur(4);
-
+    
     SDL_RenderPresent(rendu);                                   
 
-
-
-
-
-
-
-
-
-
-
-GenererMapHexPartieHaute(&compteur_y,rendu, &Hexagone, _map);
-GenererMapHexPartieMilieu(&compteur_y,rendu, &Hexagone, _map);
-GenererMapHexPartieBasse(&compteur_y,rendu, &Hexagone, _map);
-
-
-
-
-
-
-
-
-
-
-
-
-
+    GenererMapHexPartieHaute(&compteur_y,rendu, &Hexagone, _map);
+    GenererMapHexPartieMilieu(&compteur_y,rendu, &Hexagone, _map);
+    GenererMapHexPartieBasse(&compteur_y,rendu, &Hexagone, _map);
 
     //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
@@ -213,55 +190,11 @@ void GenerationHexagone(unsigned char _terrain, SDL_Renderer* rendu, SDL_Rect *H
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void GenererLigneHexagone(unsigned char _numeros_ligne,unsigned char _nb_hex,SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile* _map, unsigned char _x_lecture)
 {
     for(unsigned char i=0; i < (_nb_hex); i++)
     {
-        InitialiseHexagone(_rendu, _hex, _map[][_x_lecture+i]);
+        InitialiseHexagone(_rendu, _hex, _map[_x_lecture+i][_nb_hex]);
     }
 }
 
@@ -270,11 +203,11 @@ void GenererMapHexPartieHaute(unsigned char* _compteur_y, SDL_Renderer* _rendu, 
 {
     for(unsigned char j=6;j<NOMBRE_HEXAGONES_LIGNES;j++)
     {
-        if (*compteur_y==3){carte[i][d]=terrain-48;}
-        else if (*compteur_y==2){carte[i+1][d]=terrain-48;}
-        else if (*compteur_y==1){carte[i+1][d]=terrain-48;}                                  
-        else if (*compteur_y==0)compteur_y
-        GenererLigneHexagone(j, _rendu, _hex, _map, );
+        if (*compteur_y==3)compteur_y=0;
+        else if (*compteur_y==2)compteur_y=1;
+        else if (*compteur_y==1)compteur_y=1;                                 
+        else if (*compteur_y==0)compteur_y=2;
+        GenererLigneHexagone(j, _rendu, _hex, _map, compteur_y);
         *_compteur_y++;                                                                          
         DecallageHexagoneY(_hex,_compteur_y);
     }
@@ -283,7 +216,7 @@ void GenererMapHexPartieHaute(unsigned char* _compteur_y, SDL_Renderer* _rendu, 
 
 void GenererMapHexPartieMilieu(unsigned char _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile* _map)
 {
-    GenererLigneHexagone(NOMBRE_HEXAGONES_LIGNES, _rendu, _hex, _map);
+    GenererLigneHexagone(NOMBRE_HEXAGONES_LIGNES, _rendu, _hex, _map,);
     *_compteur_y--;
     DecallageHexagoneY(_hex,_compteur_y);
 }
@@ -293,7 +226,11 @@ void GenererMapHexPartieBasse(unsigned char _compteur_y, SDL_Renderer* _rendu, S
 {
     for(unsigned char j=9;j>5;j--)
     {
-        GenererLigneHexagone(j, _rendu, _hex, _map);
+        if (*compteur_y==3)compteur_y=0;
+        else if (*compteur_y==2)compteur_y=1;
+        else if (*compteur_y==1)compteur_y=1;                                 
+        else if (*compteur_y==0)compteur_y=2;
+        GenererLigneHexagone(j, _rendu, _hex, _map,compteur_y);
         *_compteur_y--;
         DecallageHexagoneY(_hex,_compteur_y);
     }
@@ -315,42 +252,6 @@ void InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone,Tuile _tuile)
     GenerationHexagone(_tuile.type_terrain, _rendu, _Hexagone);                                      
     DecallageHexagoneX(_Hexagone);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //--------------------------------------------/Decallage Nouvel hexagon/--------------------------------------------------//
