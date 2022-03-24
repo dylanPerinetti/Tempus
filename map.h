@@ -27,18 +27,22 @@ typedef struct
 {
   	Coordonnees coordonnees;
 	unsigned char type_terrain;
-	unsigned char nombre_de_pion;
+	unsigned char nombre_pion;
 	Pions pion_dessus[5];
 	Cite cite_dessus;
 
 }Tuile;
 
-void CreeMapTuile();
-void InitialiserCoordonneesTuile(Tuile* _tuile);								//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
-void InitialiserTypeTerrainTuile(Tuile* _tuile, unsigned char _Type_terrain);	//	InitialiserTypeTerrainTuile( <&Tuiles>, <Type de terrain>) par defaut il est a 99.
-void InitialiserCiteTuile(Tuile* _tuile, Cite* _cite);							//	InitialiserCiteTuile( < &Tuiles >, < &Cite >)
-void InitialiserPionsTuile(Tuile* _tuile, Pions _pion_dessus[]);				//	InitialiserPionsTuile( < &Tuiles >, < Tableaus de pion >)
+void CreeMapTuile(Tuile _map[10][10]);
+void InitialiserCoordonneesTuile(Tuile* _tuile);						//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
+void InitialiserTypeTerrainTuile(Tuile* _tuile);					//	InitialiserTypeTerrainTuile( <&Tuiles>, <Type de terrain>) par defaut il est a 99.
+void InitialiserNombresPionsTuile(Tuile* _tuile);
 
+int InitialiserPionsTuile(Tuile* _tuile, Pions _pion_dessus[]);	//	InitialiserPionsTuile( < &Tuiles >, < Tableaus de pion >)
+int InitialiserCiteTuile(Tuile* _tuile, Cite* _cite);				//	InitialiserCiteTuile( < &Tuiles >, < &Cite >)
+
+int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion);
+int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
 int ChangerCoordonneesTuile(Tuile* _tuile, unsigned char _x, unsigned char _y);			//	ChangerCoordonneesTuiles( <&Tuiles>, <Coordonnee X>, <Coordonnee Y>)
 
 int EcrireTuilesBinaire();				//	EcrireBinaire()
