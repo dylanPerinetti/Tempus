@@ -7,13 +7,12 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient le code Pincipal du jeu (main).
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 23/03/2022
-Pour correctif de beug
+Dernière modifications par dylanPerinetti le 22/03/2022
 */
 
 #include "objet.h"
 #include "joueur.h"
-#include "fenetre.h"
+//#include "fenetre.h"
 #include "map.h"
 
 #define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
@@ -40,8 +39,19 @@ int main(int argc,const char* argv[])
 			exit(EXIT_FAILURE);
 		}
 	}
+
+
+
+
+
 	int choix_utilisateur=0;
 	Joueur tableau_joueur[4];
+	Tuile map[10][10];
+	//GenererMapTuiles
+
+
+
+
 
 	printf("\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
 	
@@ -56,7 +66,7 @@ int main(int argc,const char* argv[])
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
 	            //DebutJeu();					//Initialisations du jeu
-	            if(GRAPHIQUE != 0)AfficherFenetre();
+	            //if(GRAPHIQUE != 0)AfficherFenetre(MAP);
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
