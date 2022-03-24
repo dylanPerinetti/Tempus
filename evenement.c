@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez au evenement-graphique dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "evenement.h".
 
 Fait par dylan le 21/03/2022
-Dernière modifications par dylanPerinetti le 23/03/2022
+Dernière modifications par dylanPerinetti le 24/03/2022
 
 */
 #include "evenement.h"
