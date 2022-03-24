@@ -7,7 +7,7 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient les fonction liez à la fenetre dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "fenetre.h".
 
-Fait par MrTNTX(Rémi) le 15/03/2022
+Fait par MrTNTX (Rémi) le 15/03/2022
 Dernière modifications par dylanPerinetti le 24/03/2022
 
 */
@@ -29,7 +29,7 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 
 
 
-int AfficherFenetre(Tuile* _map)
+int AfficherFenetre(Tuile _map[10][10])
 {
     srand(time(NULL));
     SDL_Window *fenetre = NULL;  
@@ -40,15 +40,15 @@ int AfficherFenetre(Tuile* _map)
     SDL_bool programme_lance = SDL_TRUE;
 
     unsigned char compteur_y;
-    //int carte[10][10]; //inutiles avec les tuiles                 
-    for(j=0;j<10;j++)
+    /*//int carte[10][10]; //inutiles avec les tuiles                 
+    for(unsigned char j=0;j<10;j++)
     {
-        for(i=0;i<10;i++)
+        for(unsigned char i=0;i<10;i++)
         {
             carte[i][j]=7;             
         }
     }
-
+    */
     SDL_Rect Fond_ocean; 
     SDL_Rect Hexagone; 
 
@@ -72,16 +72,19 @@ int AfficherFenetre(Tuile* _map)
 
     if (SDL_QueryTexture(tex_ocean, NULL, NULL, &Fond_ocean.w, &Fond_ocean.h) != 0)Erreur(3);
     if (SDL_RenderCopy(rendu, tex_ocean, NULL, &Fond_ocean) != 0)Erreur(4);
-    
+
     SDL_RenderPresent(rendu);                                   
+
+
 
     GenererMapHexPartieHaute(&compteur_y,rendu, &Hexagone, _map);
     GenererMapHexPartieMilieu(&compteur_y,rendu, &Hexagone, _map);
     GenererMapHexPartieBasse(&compteur_y,rendu, &Hexagone, _map);
 
+
     //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
     
-    NouvelleCite(0,5,5,2,rendu,&Hexagone);
+    //ouvelleCite(0,5,5,2,rendu,&Hexagone);
     SDL_Delay(5000);
     while(programme_lance)
     {
@@ -99,6 +102,7 @@ int AfficherFenetre(Tuile* _map)
     SDL_DestroyRenderer(rendu);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
+    return 0;
 }
 
 //-----------------------------------Sous-Programmes--------------------------------------------------//
@@ -107,12 +111,12 @@ int AfficherFenetre(Tuile* _map)
 char CharactereAleatoire()        // pourquoi tu retourne-tu des pointeur Je vien de les supprimer !
 {
     int random = rand()%101;
-    if (random<PRCT_PRAIRIE){return "0";}
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE){return "1";}  
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET){return "2";}  
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE){return "3";} 
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP){return "4";} 
-    else {return "5";}
+    if (random<PRCT_PRAIRIE)return 0;
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE)return 1;  
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET)return 2;  
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return 3; 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return 4; 
+    else return 5;
 }
 
 
@@ -181,7 +185,7 @@ void GenerationHexagone(unsigned char _terrain, SDL_Renderer* rendu, SDL_Rect *H
     SDL_Surface *image = NULL;
 
     char fichier_terrain[]="src/Img/Case/Case_9_Dim.bmp";
-    fichier_terrain[18] = terrain;
+    fichier_terrain[18] = _terrain;
     
     image = SDL_LoadBMP(fichier_terrain);
             
@@ -190,7 +194,51 @@ void GenerationHexagone(unsigned char _terrain, SDL_Renderer* rendu, SDL_Rect *H
 
 
 
-void GenererLigneHexagone(unsigned char _numeros_ligne,unsigned char _nb_hex,SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile* _map, unsigned char _x_lecture)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void GenererLigneHexagone(unsigned char _nb_hex,SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10], unsigned char _x_lecture)
 {
     for(unsigned char i=0; i < (_nb_hex); i++)
     {
@@ -199,40 +247,42 @@ void GenererLigneHexagone(unsigned char _numeros_ligne,unsigned char _nb_hex,SDL
 }
 
 
-void GenererMapHexPartieHaute(unsigned char* _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile* _map)
+void GenererMapHexPartieHaute(unsigned char* _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10])
 {
     for(unsigned char j=6;j<NOMBRE_HEXAGONES_LIGNES;j++)
     {
-        if (*compteur_y==3)compteur_y=0;
-        else if (*compteur_y==2)compteur_y=1;
-        else if (*compteur_y==1)compteur_y=1;                                 
-        else if (*compteur_y==0)compteur_y=2;
-        GenererLigneHexagone(j, _rendu, _hex, _map, compteur_y);
-        *_compteur_y++;                                                                          
-        DecallageHexagoneY(_hex,_compteur_y);
+        int st;
+        if (*_compteur_y==3)st=0;
+        else if (*_compteur_y==2)st=1;
+        else if (*_compteur_y==1)st=1;                                 
+        else if (*_compteur_y==0)st=2;
+        GenererLigneHexagone(j, _rendu, _hex, _map, st);
+        (*_compteur_y)++;                                                                          
+        DecallageHexagoneY(_hex, *_compteur_y);
     }
 }
 
 
-void GenererMapHexPartieMilieu(unsigned char _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile* _map)
+void GenererMapHexPartieMilieu(unsigned char* _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10])
 {
-    GenererLigneHexagone(NOMBRE_HEXAGONES_LIGNES, _rendu, _hex, _map,);
-    *_compteur_y--;
-    DecallageHexagoneY(_hex,_compteur_y);
+    GenererLigneHexagone(NOMBRE_HEXAGONES_LIGNES, _rendu, _hex, _map, *_compteur_y);
+    (*_compteur_y)--;
+    DecallageHexagoneY(_hex,*_compteur_y);
 }
 
 
-void GenererMapHexPartieBasse(unsigned char _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile* _map) 
+void GenererMapHexPartieBasse(unsigned char* _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10]) 
 {
     for(unsigned char j=9;j>5;j--)
     {
-        if (*compteur_y==3)compteur_y=0;
-        else if (*compteur_y==2)compteur_y=1;
-        else if (*compteur_y==1)compteur_y=1;                                 
-        else if (*compteur_y==0)compteur_y=2;
-        GenererLigneHexagone(j, _rendu, _hex, _map,compteur_y);
-        *_compteur_y--;
-        DecallageHexagoneY(_hex,_compteur_y);
+        int st;
+        if (*_compteur_y==3)st=0;
+        else if (*_compteur_y==2)st=1;
+        else if (*_compteur_y==1)st=1;                                 
+        else if (*_compteur_y==0)st=2;
+        GenererLigneHexagone(j, _rendu, _hex, _map,st);
+        (*_compteur_y)--;
+        DecallageHexagoneY(_hex,*_compteur_y);
     }
 }
 
@@ -254,6 +304,15 @@ void InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone,Tuile _tuile)
 }
 
 
+
+
+
+
+
+
+
+
+
 //--------------------------------------------/Decallage Nouvel hexagon/--------------------------------------------------//
 
 void DecallageHexagoneX(SDL_Rect *Hex)
@@ -264,7 +323,7 @@ void DecallageHexagoneX(SDL_Rect *Hex)
 
 //--------------------------------------------/Decallage Nouvelle ligne/--------------------------------------------------//
 
-void DecallageHexagoneY(SDL_Rect *Hex, int d)
+void DecallageHexagoneY(SDL_Rect *Hex, unsigned char d)
 {
     Hex->y = Hex->y + UNITE_Y;
     Hex->x = (TAILLE_FENETRE-624)/2-(50*d);
@@ -276,7 +335,7 @@ char IntEnChar(int Entier)
 }
 
 //--------------------------------------------/Generation ou Prise d'une Cité/---------------------------------------------//
-
+/*
 void NouvelleCite(int joueur, int coordx, int coordy, int taille, SDL_Renderer* rendu, SDL_Rect *Hex)
 {
     SDL_Texture *tex_case = NULL;
@@ -299,7 +358,7 @@ void NouvelleCite(int joueur, int coordx, int coordy, int taille, SDL_Renderer* 
     
    TextureRendu(image, tex_case, rendu, Hex);     
 }
-
+*/
 //---------------------------------------/Traitement de l'image et application sur le rendu/------------------------------//
 
 
@@ -325,3 +384,4 @@ void AfficherVersionSDL()
     SDL_VERSION(&nb);
     printf("Votre version de SDL est %d.%d.%d\n", nb.major, nb.minor, nb.patch);
 }
+
