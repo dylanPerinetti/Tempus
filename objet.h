@@ -10,7 +10,7 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "objet.c" .
 
 
 Fait par dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par dylanPerinetti le 24/03/2022
 */
 
 #ifndef __OBJET_H__
