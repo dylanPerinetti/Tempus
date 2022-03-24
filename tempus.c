@@ -1,4 +1,4 @@
-/*
+*
 
 -------------- TEMPUS --------------
 
@@ -12,7 +12,7 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 
 #include "objet.h"
 #include "joueur.h"
-//#include "fenetre.h"
+#include "fenetre.h"
 #include "map.h"
 
 #define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
@@ -48,7 +48,7 @@ int main(int argc,const char* argv[])
 	Joueur tableau_joueur[4];
 	Tuile map[10][10];
 	CreeMapTuile(map);
-	//GenererMapTuiles
+	CreeMapTuile(map);
 
 
 
@@ -67,7 +67,7 @@ int main(int argc,const char* argv[])
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
 	            //DebutJeu();					//Initialisations du jeu
-	            //if(GRAPHIQUE != 0)AfficherFenetre(MAP);
+	            if(GRAPHIQUE != 0)AfficherFenetre(map);
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
