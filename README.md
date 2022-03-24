@@ -16,9 +16,9 @@ git clone https://github.com/dylanPerinetti/tempus
 ```
 cd tempus
 ```
-3. Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
+3. Pour compiler avec gcc (si vous le posséder déjà sur votre machine) utilisez la commande suivante :
 ```
-gcc *.c -o tempus
+ gcc *c -o tempus -I/Library/Frameworks/SDL2.framework/Headers -F/Library/Frameworks -framework SDL2
 
 ```
 4.a) Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
@@ -50,9 +50,9 @@ par :
 ```
 cd tempus
 ```
-3. Pour compiler avec gcc (si vous le posséder déjà votre machine) utilisez la commande suivante :
+3. Pour compiler avec gcc (si vous le posséder déjà sur votre machine) utilisez la commande suivante :
 ```
-gcc *.c -o tempus
+gcc *c -o bin/tempus -I include -L lib -lmingw32 -lSDL2main -lSDL2
 
 ```
 4.a) Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
