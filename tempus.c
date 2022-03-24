@@ -7,7 +7,7 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient le code Pincipal du jeu (main).
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par dylanPerinetti le 24/03/2022
 */
 
 #include "objet.h"
@@ -25,7 +25,7 @@ int main(int argc,const char* argv[])
 		if(strcmp(argv[1],"-g")==0 ) 
 		{
 			system(NETTOYER_TERMINAL);
-			printf("\n\nVous venez de choisir de lancer Tempus SANS la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
+			printf("\n\nVous venez de choisir de lancer Tempus \033[31;01mSANS\033[00m la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
 			GRAPHIQUE = 0;
 		}
 		else if(strcmp(argv[1],"-h")==0 ) 
@@ -47,13 +47,14 @@ int main(int argc,const char* argv[])
 	int choix_utilisateur=0;
 	Joueur tableau_joueur[4];
 	Tuile map[10][10];
+	CreeMapTuile(map);
 	//GenererMapTuiles
 
 
 
 
 
-	printf("\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
+	printf("\n\n\n\nBonjour, Bienvenue a sur \033[34;01mTEMPUS 3.0\033[00m\n\n\n");
 	
 
 	do{
