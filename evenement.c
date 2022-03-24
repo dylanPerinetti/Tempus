@@ -9,14 +9,14 @@ En savoir plus sur leur utilisation dans le ficheier "evenement.h".
 
 Fait par dylan le 21/03/2022
 Dernière modifications par dylanPerinetti le 23/03/2022
-Pour correctif de beug
+
 */
 #include "evenement.h"
 
 int PlacerPionGraphiqueSurMap(Pions* _pion,unsigned char _x,unsigned char _y)
 {
-	int _coord_depart_x = _pion->coordonnees.X;
-	int _coord_depart_y = _pion->coordonnees.Y;
+	unsigned char _coord_depart_x = _pion->coordonnees.X;
+	unsigned char _coord_depart_y = _pion->coordonnees.Y;
 	PlacerPionSurMap(_pion, _x, _y);
 	// PAS COMPLETE
 	return 0;
