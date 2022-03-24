@@ -14,7 +14,7 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 */
 #ifndef __EVENEMENT_H__
 #define __EVENEMENT_H__
-#include "fenetre.h"
+//#include "fenetre.h"
 #include "map.h"
 //#include "objet.h"
 

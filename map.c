@@ -30,9 +30,9 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 
 void CreeMapTuile(Tuile _map[10][10])
 {
-	for (unsigned char i = 0; i < Y_MAX; ++i)
+	for (int i = 0; i < Y_MAX; i++)
 	{
-		for (unsigned char j = 0; j < X_MAX; ++j)
+		for (int j = 0; j < X_MAX; j++)
 		{
 			InitialiserCoordonneesTuile(&_map[i][j]);
 			InitialiserTypeTerrainTuile(&_map[i][j]);
@@ -147,3 +147,5 @@ void AfficherErreurEvenement(int _erreur)
 			fprintf(stderr,"\nErreur Inconnue");
 	}
 }
+
+

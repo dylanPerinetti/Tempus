@@ -7,15 +7,13 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient les fonction liez à la fenetre dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "fenetre.h".
 
-Fait par MrTNTX (Rémi) le 15/03/2022
-Dernière modifications par dylanPerinetti le 24/03/2022
+Fait par MrTNTX le 15/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022
 
 */
 #include "fenetre.h"
-#include "map.h"
 
 #define TAILLE_FENETRE 1200
-#define NOMBRE_HEXAGONES_LIGNES 10
 #define UNITE_X 102
 #define UNITE_Y 88
 #define DIM_PION 40
@@ -26,10 +24,11 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 #define PRCT_CHAMP 10
 #define PRCT_LAC 10
 
+//---------------------------------Rémi 16/03/2022-------------------------------//
 
 
 
-int AfficherFenetre(Tuile _map[10][10])
+int AfficherFenetre()
 {
     srand(time(NULL));
     SDL_Window *fenetre = NULL;  
@@ -39,16 +38,18 @@ int AfficherFenetre(Tuile _map[10][10])
     SDL_Texture *tex_case = NULL;
     SDL_bool programme_lance = SDL_TRUE;
 
-    unsigned char compteur_y;
-    /*//int carte[10][10]; //inutiles avec les tuiles                 
-    for(unsigned char j=0;j<10;j++)
+    int i=0;
+    int j=0;
+    int d=0;
+    int carte[10][10];                 
+    for(j=0;j<10;j++)
     {
-        for(unsigned char i=0;i<10;i++)
+        for(i=0;i<10;i++)
         {
             carte[i][j]=7;             
         }
     }
-    */
+
     SDL_Rect Fond_ocean; 
     SDL_Rect Hexagone; 
 
@@ -75,17 +76,68 @@ int AfficherFenetre(Tuile _map[10][10])
 
     SDL_RenderPresent(rendu);                                   
 
+    //-----------------------------------Génération Random Partie Haute--------------------------------//
+    
 
+    for(j=6;j<10;j++)
+    {
+        for(i=0;i<j;i++)
+        {
+            char terrain = InitialiseHexagone(rendu, &Hexagone);                       
+            /*
+                // AVANTS LA FONCTION : InitialiseHexagone()
 
-    GenererMapHexPartieHaute(&compteur_y,rendu, &Hexagone, _map);
-    GenererMapHexPartieMilieu(&compteur_y,rendu, &Hexagone, _map);
-    GenererMapHexPartieBasse(&compteur_y,rendu, &Hexagone, _map);
+            char terrain = Aleatoire();                        
+            GenerationHexagone(terrain, rendu, &Hexagone);                                  
+            DecallageHexagoneX(&Hexagone);
+            */
+            if (d==3){carte[i][d]=terrain-48;}
+            else if (d==2){carte[i+1][d]=terrain-48;}
+            else if (d==1){carte[i+1][d]=terrain-48;}                                  
+            else if (d==0){carte[i+2][d]=terrain-48;}
+        }
+        d++;                                                                          
+        DecallageHexagoneY(&Hexagone,d);
+    }
+
+    //-----------------------------------Génération Random Milieu--------------------------------//
+    for(i=0;i<10;i++)
+    {
+        char terrain = InitialiseHexagone(rendu, &Hexagone); 
+        carte[i][4]=terrain-48;
+    }
+    d--;
+    DecallageHexagoneY(&Hexagone, d);
+    
+
+    //-----------------------------------Génération Random Partie Basse--------------------------------//
+    for(j=9;j>5;j--)
+    {
+        for(i=0;i<j;i++)
+        {
+            char terrain = InitialiseHexagone(rendu, &Hexagone);
+            if (d==3){carte[i][8-d]=terrain-48;}
+            else if (d==2){carte[i+1][8-d]=terrain-48;}
+            else if (d==1){carte[i+1][8-d]=terrain-48;}
+            else if (d==0){carte[i+2][8-d]=terrain-48;}
+        }
+        d--;
+        DecallageHexagoneY(&Hexagone, d);
+    }
+
+    //-----------------------------------Imprime la carte-------------------------------------------------//
+    for(j=0;j<10;j++)
+        {
+            for(i=0;i<10;i++)
+            {
+                printf("%d ",carte[i][j]);            
+            }
+        printf("\n");
+        }    
 
 
     //-----------------------------------Delai et Detruit les objets ensuite--------------------------------//
-    
-    //ouvelleCite(0,5,5,2,rendu,&Hexagone);
-    SDL_Delay(5000);
+        SDL_Delay(5000);
     while(programme_lance)
     {
     SDL_Event event;
@@ -102,21 +154,20 @@ int AfficherFenetre(Tuile _map[10][10])
     SDL_DestroyRenderer(rendu);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
-    return 0;
 }
 
 //-----------------------------------Sous-Programmes--------------------------------------------------//
     
 
-char CharactereAleatoire()        // pourquoi tu retourne-tu des pointeur Je vien de les supprimer !
+char CharactereAleatoire()        // pourquoi tu retourn-tu des pointeur ?? 
 {
     int random = rand()%101;
-    if (random<PRCT_PRAIRIE)return 0;
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE)return 1;  
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET)return 2;  
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return 3; 
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return 4; 
-    else return 5;
+    if (random<PRCT_PRAIRIE){return *"0";}
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE){return *"1";}  
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET){return *"2";}  
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE){return *"3";} 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP){return *"4";} 
+    else {return *"5";}
 }
 
 
@@ -179,113 +230,18 @@ void DeplacePionMap(Pions* _pion, int departx, int departy, int nombre_pions_dep
 
 }
 //--------------------------------/Generation de la Texture d'un Hexagone/---------------------------------//
-void GenerationHexagone(unsigned char _terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
+void GenerationHexagone(char terrain, SDL_Renderer* rendu, SDL_Rect *Hex)
 {
     SDL_Texture *tex_case = NULL;
     SDL_Surface *image = NULL;
 
     char fichier_terrain[]="src/Img/Case/Case_9_Dim.bmp";
-    fichier_terrain[18] = _terrain;
+    fichier_terrain[18] = terrain;
     
     image = SDL_LoadBMP(fichier_terrain);
             
     TextureRendu(image, tex_case, rendu, Hex);                                            
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void GenererLigneHexagone(unsigned char _nb_hex,SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10], unsigned char _x_lecture)
-{
-    for(unsigned char i=0; i < (_nb_hex); i++)
-    {
-        InitialiseHexagone(_rendu, _hex, _map[_x_lecture+i][_nb_hex]);
-    }
-}
-
-
-void GenererMapHexPartieHaute(unsigned char* _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10])
-{
-    for(unsigned char j=6;j<NOMBRE_HEXAGONES_LIGNES;j++)
-    {
-        int st;
-        if (*_compteur_y==3)st=0;
-        else if (*_compteur_y==2)st=1;
-        else if (*_compteur_y==1)st=1;                                 
-        else if (*_compteur_y==0)st=2;
-        GenererLigneHexagone(j, _rendu, _hex, _map, st);
-        (*_compteur_y)++;                                                                          
-        DecallageHexagoneY(_hex, *_compteur_y);
-    }
-}
-
-
-void GenererMapHexPartieMilieu(unsigned char* _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10])
-{
-    GenererLigneHexagone(NOMBRE_HEXAGONES_LIGNES, _rendu, _hex, _map, *_compteur_y);
-    (*_compteur_y)--;
-    DecallageHexagoneY(_hex,*_compteur_y);
-}
-
-
-void GenererMapHexPartieBasse(unsigned char* _compteur_y, SDL_Renderer* _rendu, SDL_Rect* _hex,Tuile _map[10][10]) 
-{
-    for(unsigned char j=9;j>5;j--)
-    {
-        int st;
-        if (*_compteur_y==3)st=0;
-        else if (*_compteur_y==2)st=1;
-        else if (*_compteur_y==1)st=1;                                 
-        else if (*_compteur_y==0)st=2;
-        GenererLigneHexagone(j, _rendu, _hex, _map,st);
-        (*_compteur_y)--;
-        DecallageHexagoneY(_hex,*_compteur_y);
-    }
-}
-
 
 void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur)
 {
@@ -297,21 +253,13 @@ void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _haut
 
 
 
-void InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone,Tuile _tuile)
+char InitialiseHexagone(SDL_Renderer* _rendu, SDL_Rect *_Hexagone)
 {
-    GenerationHexagone(_tuile.type_terrain, _rendu, _Hexagone);                                      
+    int _terrain = CharactereAleatoire();
+    GenerationHexagone(_terrain, _rendu, _Hexagone);                                          
     DecallageHexagoneX(_Hexagone);
+    return _terrain;
 }
-
-
-
-
-
-
-
-
-
-
 
 //--------------------------------------------/Decallage Nouvel hexagon/--------------------------------------------------//
 
@@ -323,7 +271,7 @@ void DecallageHexagoneX(SDL_Rect *Hex)
 
 //--------------------------------------------/Decallage Nouvelle ligne/--------------------------------------------------//
 
-void DecallageHexagoneY(SDL_Rect *Hex, unsigned char d)
+void DecallageHexagoneY(SDL_Rect *Hex, int d)
 {
     Hex->y = Hex->y + UNITE_Y;
     Hex->x = (TAILLE_FENETRE-624)/2-(50*d);
@@ -384,4 +332,6 @@ void AfficherVersionSDL()
     SDL_VERSION(&nb);
     printf("Votre version de SDL est %d.%d.%d\n", nb.major, nb.minor, nb.patch);
 }
+
+
 

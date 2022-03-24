@@ -1,4 +1,4 @@
-/*
+/*************************************************** 
 
 -------------- TEMPUS --------------
 
@@ -8,16 +8,15 @@ Ce fichier contient les fonction liez au Joueur dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier joueur.h
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 23/03/2022
+Dernière modifications par dylanPerinetti le 22/03/2022
 
-*/
+****************************************************/
 #include "objet.h"
 #include "joueur.h"
 
 #define NOMBRE_PION 16
 #define NOMBRE_CITE 8
 #define COORDONNEES_INVENTAIRE 99
-
 
 void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'un nouveaux joueur
 {
@@ -77,16 +76,16 @@ void AfficherNiveauJoueur(Joueur* j)	//Pour Afficher le niveaux d'un joueur
 void AfficherInventaireJoueur(Joueur* j)//Pour Afficher L'inventaire d'un joueur
 {
 	int *tab=InventaireJoueur(j);
-	printf("Le joueur %d Possede %d Pions et Possede %d Cite",j->couleur ,tab[0],tab[1]);
+	printf("\nLe joueur %d Possede %d Pions et Possede %d Cite",j->couleur ,tab[0],tab[1]);
 }
 
 
 int* InventaireJoueur(Joueur* _joueur)	//Pour Ranger l'inventaire dans un tableau[<PIONS>,<CITE>]
 {
-	static int _tab_joueur[2];
-	_tab_joueur[0] = InventairePions(_joueur);
-	_tab_joueur[1] = InventaireCite(_joueur);
-	return _tab_joueur;
+	static int _tab_static[2];
+	_tab_static[0] = InventairePions(_joueur);
+	_tab_static[1] = InventaireCite(_joueur);
+	return _tab_static;
 }
 
 
@@ -126,3 +125,4 @@ int RecupererPion(Joueur _joueur,Pions* _pion)
 	}
 	else return 11;
 }
+
