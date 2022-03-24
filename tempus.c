@@ -48,7 +48,6 @@ int main(int argc,const char* argv[])
 	Joueur tableau_joueur[4];
 	Tuile map[10][10];
 	CreeMapTuile(map);
-	CreeMapTuile(map);
 
 
 
