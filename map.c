@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez à la map dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "map.h".
 
 Fait par Dylan le 22/03/2022
-Dernière modifications par dylanPerinetti le 23/03/2022
+Dernière modifications par dylanPerinetti le 24/03/2022
 
 	Je suis acctuellement en train de develloper :
 		- void CreeMapTuile();
@@ -35,7 +35,7 @@ void InitialiserCoordonneesTuile(Tuile* _tuile)
 }
 
 
-void InitialiserTypeTerrainTuile(Tuile* _tuile, unsigned char _Type_terrain)
+void InitialiserTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain)
 {
 	_tuile->type_de_terrain = VALEUR_INVENTAIRE;	
 }
@@ -107,6 +107,7 @@ void AfficherErreurEvenement(int _erreur)
 			fprintf(stderr,"\nErreur Inconnue");
 	}
 }
+
 
 
 
