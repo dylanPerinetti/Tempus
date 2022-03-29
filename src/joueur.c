@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez au Joueur dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier joueur.h
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par dylanPerinetti le 29/03/2022
 
 ****************************************************/
 #include "objet.h"
@@ -20,9 +20,6 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 
 void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'un nouveaux joueur
 {
-	//malloc(sizeof(char)*);
-	//free();
-	//strcpy(j->nom_utilisateur,nom);
 	InitialiserCouleurJoueur(_joueur,_couleur);
 	InitialiserNiveauJoueur(_joueur);
 	for (unsigned char i = 0; i < NOMBRE_PION; ++i)
@@ -40,7 +37,7 @@ void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'u
 }
 
 
-void Cree4Joueurs(Joueur tab[])			//Pour Créé 4 Joueur
+void Cree4Joueurs(Joueur tab[])
 {
 	for (unsigned char i = 0; i < 4; ++i)
 	{
@@ -61,19 +58,19 @@ void InitialiserNiveauJoueur(Joueur* _joueur)
 }
 
 
-void AugmenterNiveauJoueur(Joueur* j)	//Pour Indenter le niveux d'un joueuer 
+void AugmenterNiveauJoueur(Joueur* j)
 {
 	j->niveaux_joueur++;
 }
 
 
-void AfficherNiveauJoueur(Joueur* j)	//Pour Afficher le niveaux d'un joueur
+void AfficherNiveauJoueur(Joueur* j)
 {
 	printf("\nLe niveau du Joueur%u est %u \n", j->couleur, j->niveaux_joueur);
 }
 
 
-void AfficherInventaireJoueur(Joueur* j)//Pour Afficher L'inventaire d'un joueur
+void AfficherInventaireJoueur(Joueur* j)
 {
 	int *tab=InventaireJoueur(j);
 	printf("\nLe joueur %d Possede %d Pions et Possede %d Cite",j->couleur ,tab[0],tab[1]);
@@ -89,11 +86,11 @@ int* InventaireJoueur(Joueur* _joueur)	//Pour Ranger l'inventaire dans un tablea
 }
 
 
-int InventairePions(Joueur* _joueur)	//Pour Répertorier les Pions d'un joueur dans l'inventaire
+int InventairePions(Joueur* _joueur)
 {
 	int nb_de_pion_dans_le_stuff = 0;
 
-	for (unsigned char i = 0; i < 16; ++i)
+	for (unsigned char i = 0; i < NOMBRE_PION; ++i)
 	{
 		if(_joueur->pion_possede[i].coordonnees.X == COORDONNEES_INVENTAIRE && _joueur->pion_possede[i].coordonnees.Y == COORDONNEES_INVENTAIRE)
 			nb_de_pion_dans_le_stuff++;
@@ -103,11 +100,11 @@ int InventairePions(Joueur* _joueur)	//Pour Répertorier les Pions d'un joueur d
 }
 
 
-int InventaireCite(Joueur* _joueur)		//Pour Répertorier les Cite d'un joueur dans l'inventaire
+int InventaireCite(Joueur* _joueur)
 {
 	int nb_de_cite_dans_le_stuff=0;
 
-	for (unsigned char i = 0; i < 8; ++i)
+	for (unsigned char i = 0; i < NOMBRE_CITE; ++i)
 	{
 		if(_joueur->cite_possede[i].coordonnees.X == COORDONNEES_INVENTAIRE && _joueur->cite_possede[i].coordonnees.Y == COORDONNEES_INVENTAIRE)
 			nb_de_cite_dans_le_stuff++;
@@ -125,4 +122,3 @@ int RecupererPion(Joueur _joueur,Pions* _pion)
 	}
 	else return 11;
 }
-
