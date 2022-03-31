@@ -22,6 +22,15 @@ Je suis acctuellement en train de develloper :
 #ifndef __MAP_H__
 #define __MAP_H__
 #include "objet.h"
+#include <stdlib.h>
+#include <time.h>
+#define PRCT_PRAIRIE 40
+#define PRCT_MONTAGNE 20
+#define PRCT_FORET 10
+#define PRCT_COLLINE 10
+#define PRCT_CHAMP 10
+#define PRCT_LAC 10
+
 
 typedef struct
 {
@@ -33,8 +42,9 @@ typedef struct
 
 }Tuile;
 
-void CreeMapTuile(Tuile _map[10][10]);
-void InitialiserCoordonneesTuile(Tuile* _tuile);						//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
+void CreeMapTuile(Tuile _map[10][10]);								//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
+char RandomizeTuile();
+void InitialiserCoordonneesTuile(Tuile* _tuile);						
 void InitialiserTypeTerrainTuile(Tuile* _tuile);					//	InitialiserTypeTerrainTuile( <&Tuiles>, <Type de terrain>) par defaut il est a 99.
 void InitialiserNombresPionsTuile(Tuile* _tuile);
 
@@ -43,7 +53,8 @@ int InitialiserCiteTuile(Tuile* _tuile, Cite* _cite);				//	InitialiserCiteTuile
 
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion);
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
-int ChangerCoordonneesTuile(Tuile* _tuile, unsigned char _x, unsigned char _y);			//	ChangerCoordonneesTuiles( <&Tuiles>, <Coordonnee X>, <Coordonnee Y>)
+int ChangerCoordonneesTuile(Tuile* _tuile, unsigned char _x, unsigned char _y);				//	ChangerCoordonneesTuiles( <&Tuiles>, <Coordonnee X>, <Coordonnee Y>)
+		
 
 int EcrireTuilesBinaire();				//	EcrireBinaire()
 int LectureTuilesBinaire();				//	LectureBinaire()
