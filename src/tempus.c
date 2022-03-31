@@ -25,12 +25,12 @@ int main(int argc,char* argv[])
 		if(strcmp(argv[1],"-g")==0 ) 
 		{
 			system(NETTOYER_TERMINAL);
-			printf("\n\nVous venez de choisir de lancer Tempus \033[31;01mSANS\033[00m la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
+			fprintf(stdout,"\n\nVous venez de choisir de lancer Tempus \033[31;01mSANS\033[00m la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
 			GRAPHIQUE = 0;
 		}
 		else if(strcmp(argv[1],"-h")==0 ) 
 		{
-			fprintf(stderr,"\n[ Argment | %s ]Pour Afficher l'Aide \n[ Argment | -g ]Pour lancer sans la version Graphique\n\n",argv[1]);
+			fprintf(stdout,"\n[ Argment | %s ]Pour Afficher l'Aide \n[ Argment | -g ]Pour lancer sans la version Graphique\n\n",argv[1]);
 			return 1;
 		}
 		else
@@ -47,7 +47,7 @@ int main(int argc,char* argv[])
 	Tuile map[10][10];
 	CreeMapTuile(map);
 
-	printf("\n\n\n\nBonjour, Bienvenue a sur \033[34;01mTEMPUS 3.0\033[00m\n\n\n");
+	printf("\n\n\n\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
 	
 
 	do{
