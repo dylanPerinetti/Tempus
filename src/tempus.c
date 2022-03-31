@@ -17,7 +17,7 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 
 #define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
-int main(int argc,const char* argv[])
+int main(int argc,char* argv[])
 {
 	int GRAPHIQUE = 1;
 	if(argc == 2)
