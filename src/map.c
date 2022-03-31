@@ -30,6 +30,7 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 
 void CreeMapTuile(Tuile _map[10][10])
 {
+	srand(time(NULL));
 	for (int i = 0; i < Y_MAX; i++)
 	{
 		for (int j = 0; j < X_MAX; j++)
@@ -38,9 +39,9 @@ void CreeMapTuile(Tuile _map[10][10])
 			InitialiserTypeTerrainTuile(&_map[i][j]);
 			InitialiserNombresPionsTuile(&_map[i][j]);
 			ChangerCoordonneesTuile(&_map[i][j], i, j);
-			ChangerTypeTerrainTuile(&_map[i][j],1);
+			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
 			ChangerNombresPionsTuile(&_map[i][j],1);
-			printf("\nInitialisation de la tuiles x = %u | y = %u \033[36;01mTerminer\033[00m",_map[i][j].coordonnees.X,_map[i][j].coordonnees.Y);
+			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %u ",_map[i][j].coordonnees.X,_map[i][j].coordonnees.Y, _map[i][j].type_terrain);
 
 		}
 	}
@@ -146,6 +147,19 @@ void AfficherErreurEvenement(int _erreur)
 		default:
 			fprintf(stderr,"\nErreur Inconnue");
 	}
+
+}
+
+char RandomizeTuile()
+{
+	
+	int random = rand()%101;
+    if (random<PRCT_PRAIRIE)return 0;
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE)return 1;
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET)return 2; 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return 3; 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return 4; 
+    else return 5;
 }
 
 
