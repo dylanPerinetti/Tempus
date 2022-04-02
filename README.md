@@ -12,25 +12,25 @@ Créé par Rémi Perrier-Gustin (MrTNTX) et Dylan Perinetti (dylanPerinetti)
 
 1. Pour telecharger le dosser complet entrez :
 ```
-git clone https://github.com/dylanPerinetti/tempus
+git clone https://github.com/dylanPerinetti/Tempus
 ```
 2. Puis entrez la commmande suivantes pour entrer dans le dossier :
 ```
-cd tempus
+cd Tempus
 ```
 3. Pour compiler avec gcc (si vous le posséder déjà sur votre machine) utilisez la commande suivante :
 ```
- gcc src/*c -o tempus -I/Library/Frameworks/SDL2.framework/Headers -F/Library/Frameworks -framework SDL2
+ gcc src/*c -o Tempus -I/Library/Frameworks/SDL2.framework/Headers -F/Library/Frameworks -framework SDL2
 
 ```
 4.a) Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
 ```
-./tempus
+./Tempus
 ```
 4.b) Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!  
 Vous pourrez tout de même Jouer en entrant la commande :
 ```
-./tempus -g
+./Tempus -g
 ```  
   
   
@@ -50,21 +50,21 @@ par :
   
 2. Puis entrez la commmande suivantes dans le PowerShell pour entrer dans le dossier :
 ```
-cd tempus
+cd Tempus
 ```
 3. Pour compiler avec gcc (si vous le posséder déjà sur votre machine) utilisez la commande suivante :
 ```
-gcc src/*c -o bin/tempus -I include -L lib -lmingw32 -lSDL2main -lSDL2
+gcc src/*c -o bin/Tempus -I include -L lib -lmingw32 -lSDL2main -lSDL2
 
 ```
 4.a) Enfin pour lancer la version graphique du jeu (Avec SDL) entrez ceci :
 ```
-tempus
+Tempus
 ```
 4.b) Si vous ne parvenez pas à compiler ou lancer la version graphique pas de panique !!!  
 Vous pourrez tout de même Jouer en entrant la commande :
 ```
-tempus -g
+Tempus -g
 ``` 
   
   
