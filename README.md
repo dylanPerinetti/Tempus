@@ -3,8 +3,8 @@
 Ce projet est notre projet de fin de 1erannée dans la matière algorithmique à l'ESTACA.  
 Il a pour but de créer notre version du jeu Tempus en français et codé 100% en langage C.  
 Pour faire la partie graphique nous avons utiliser SDL.  
-Et voici le git pour en savoir plus sur SDL/SDL2 : https://github.com/libsdl-org/SDL. 
-
+Et voici le git [SDL](https://github.com/libsdl-org/SDL) et le [siteweb](https://wiki.libsdl.org/FrontPage)
+pour en savoir plus.
 
 Créé par Rémi Perrier-Gustin (MrTNTX) et Dylan Perinetti (dylanPerinetti)
 
