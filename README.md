@@ -1,4 +1,7 @@
-# Tempus 
+# Tempus Second
+
+Cette Branche n'est pas complète et elle diffère de la branche [Main](https://github.com/dylanPerinetti/Tempus), par la structure des Pions, Cité, Coordonnée, ID_Objet...
+
 
 Ce projet est notre projet de fin de 1erannée dans la matière algorithmique à l'ESTACA.  
 Il a pour but de créer notre version du jeu Tempus en français et codé 100% en langage C.  
