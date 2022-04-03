@@ -15,7 +15,7 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 #include "fenetre.h"
 #include "map.h"
 
-#define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
+#define NETTOYER_TERMINAL "cls"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
 int main(int argc,char* argv[])
 {
@@ -25,12 +25,12 @@ int main(int argc,char* argv[])
 		if(strcmp(argv[1],"-g")==0 ) 
 		{
 			system(NETTOYER_TERMINAL);
-			fprintf(stdout,"\n\nVous venez de choisir de lancer Tempus \033[31;01mSANS\033[00m la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
+			printf("\n\nVous venez de choisir de lancer Tempus la version GRAPHIQUE\nPour l'activer QUITTER et relancez le jeu\n\n");
 			GRAPHIQUE = 0;
 		}
 		else if(strcmp(argv[1],"-h")==0 ) 
 		{
-			fprintf(stdout,"\n[ Argment | %s ]Pour Afficher l'Aide \n[ Argment | -g ]Pour lancer sans la version Graphique\n\n",argv[1]);
+			fprintf(stderr,"\n[ Argment | %s ]Pour Afficher l'Aide \n[ Argment | -g ]Pour lancer sans la version Graphique\n\n",argv[1]);
 			return 1;
 		}
 		else
@@ -47,7 +47,7 @@ int main(int argc,char* argv[])
 	Tuile map[10][10];
 	CreeMapTuile(map);
 
-	printf("\n\n\n\nBonjour, Bienvenue a sur TEMPUS 3.0\n\n\n");
+	printf("\n\n\n\nBonjour, Bienvenue a sur \n\n\n");
 	
 
 	do{
@@ -60,7 +60,7 @@ int main(int argc,char* argv[])
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
 	            //DebutJeu();					//Initialisations du jeu
-	            if(GRAPHIQUE != 0)AfficherFenetre();
+	            if(GRAPHIQUE != 0)AfficherFenetre(map);
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);

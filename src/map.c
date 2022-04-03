@@ -40,9 +40,40 @@ void CreeMapTuile(Tuile _map[10][10])
 			InitialiserNombresPionsTuile(&_map[i][j]);
 			ChangerCoordonneesTuile(&_map[i][j], i, j);
 			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
-			ChangerNombresPionsTuile(&_map[i][j],1);
-			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %u ",_map[i][j].coordonnees.X,_map[i][j].coordonnees.Y, _map[i][j].type_terrain);
-
+			ChangerNombresPionsTuile(&_map[i][j],'1');
+			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c ",_map[i][j].coordonnees.X,_map[i][j].coordonnees.Y, _map[i][j].type_terrain);
+			if(i==0)
+			{
+				if(j<3||j>5)
+				{
+					ChangerTypeTerrainTuile(&_map[i][j], '7');
+				}
+			}
+			if(i==1)
+			{
+				if(j==0||j==8)
+				{
+					ChangerTypeTerrainTuile(&_map[i][j], '7');
+				}
+			}
+			if(i==8)
+			{
+				if(j<2||j>6)
+				{
+					ChangerTypeTerrainTuile(&_map[i][j], '7');
+				}
+			}
+			if(i==9)
+			{
+				if(j!=4)
+				{
+					ChangerTypeTerrainTuile(&_map[i][j], '7');
+				}
+			}
+			if(j==9)
+			{
+				ChangerTypeTerrainTuile(&_map[i][j], '7');
+			}
 		}
 	}
 }
@@ -154,12 +185,12 @@ char RandomizeTuile()
 {
 	
 	int random = rand()%101;
-    if (random<PRCT_PRAIRIE)return 0;
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE)return 1;
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET)return 2; 
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return 3; 
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return 4; 
-    else return 5;
+    if (random<PRCT_PRAIRIE)return '0';
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE)return '1';
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET)return '2'; 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return '3'; 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return '4'; 
+    else return '5';
 }
 
 
