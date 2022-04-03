@@ -88,7 +88,7 @@ void RefreshCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     unsigned char type=_map[i][j].type_terrain;
     unsigned char nombre=_map[i][j].nombre_pion;
     unsigned char couleur='1';                                          //Temporaire le temps de regler le probleme des pions
-    unsigned char taille='2';                                           //Temporaire aussi le temps de régler ville
+    unsigned char taille='1';                                           //Temporaire aussi le temps de régler ville
 
     int coordgraphx=DEPART_X+(UNITE_X*i);
     int coordgraphy=DEPART_Y+(88*j);                                    //88 pcq je l'avais calculé ya longtemps
@@ -99,7 +99,7 @@ void RefreshCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     InitialiseRect(&Hexagone, coordgraphx , coordgraphy, UNITE_X, UNITE_Y);
     GenerationHexagone(type, _rendu, &Hexagone);
 
-    GenerationVille(taille, couleur, _rendu, &Hexagone);
+    //GenerationVille(taille, couleur, _rendu, &Hexagone);
     
     coordgraphx=coordgraphx + (UNITE_X/2) - (DIM_PION/2);
     coordgraphy=coordgraphy + (UNITE_Y/2) - (DIM_PION/2);
@@ -146,7 +146,8 @@ void GenerationHexagone(unsigned char terrain, SDL_Renderer* _rendu, SDL_Rect *H
     
     image = SDL_LoadBMP(fichier_terrain);
             
-    TextureRendu(image, tex_case, _rendu, Hex);                                            
+    TextureRendu(image, tex_case, _rendu, Hex);
+    SDL_DestroyTexture(tex_case);                                            
 }
 
 void GenerationVille(unsigned char _taille, unsigned char _couleur, SDL_Renderer* _rendu, SDL_Rect *Hex)
@@ -160,6 +161,7 @@ void GenerationVille(unsigned char _taille, unsigned char _couleur, SDL_Renderer
     
     image = SDL_LoadBMP(fichier_ville);
     TextureRendu(image, tex_ville, _rendu, Hex); 
+    SDL_DestroyTexture(tex_ville);
 }
 
 void GenerationPion(unsigned char _nombre, unsigned char _couleur, SDL_Renderer* _rendu, SDL_Rect *Hex)
@@ -171,7 +173,8 @@ void GenerationPion(unsigned char _nombre, unsigned char _couleur, SDL_Renderer*
     fichier_pion[17] = _couleur;
     fichier_pion[19] = _nombre;    
     image = SDL_LoadBMP(fichier_pion);
-    TextureRendu(image, tex_case, _rendu, Hex);                             
+    TextureRendu(image, tex_case, _rendu, Hex);  
+    SDL_DestroyTexture(tex_case);                           
 }
 
 void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _rendu, SDL_Rect *Hex)
