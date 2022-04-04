@@ -34,7 +34,6 @@ Je suis acctuellement en train de develloper :
 
 typedef struct
 {
-  	Coordonnees coordonnees;
 	unsigned char type_terrain;
 	unsigned char nombre_pion;
 	unsigned char couleur;
@@ -44,8 +43,7 @@ typedef struct
 
 void CreeMapTuile(Tuile _map[10][10]);								//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
 char RandomizeTuile();
-
-void InitialiserCoordonneesTuile(Tuile* _tuile);						
+						
 void InitialiserTypeTerrainTuile(Tuile* _tuile);					//	InitialiserTypeTerrainTuile( <&Tuiles>, <Type de terrain>) par defaut il est a 99.
 void InitialiserNombresPionsTuile(Tuile* _tuile);
 
