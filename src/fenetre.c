@@ -45,7 +45,7 @@ int AfficherFenetre(Tuile _map[10][10])
     {
         for(j=0;j<10;j++)
         {
-            RefreshCase(_map, i, j, rendu);
+            MajCase(_map, i, j, rendu);
         }
     }
 
@@ -80,7 +80,7 @@ void Erreur(int error)
     exit(EXIT_FAILURE);
 }
 
-void RefreshCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
+void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
 {
     SDL_Rect Hexagone;
     SDL_Rect Pion;
