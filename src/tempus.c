@@ -75,10 +75,11 @@ int main(int argc,char* argv[])
 	            printf("Veuillez resaisir votre choix");
 	            break;
 	    }
-
-	    //______________________   ZONE TESTE   ________________________//
+	//______________________   ZONE TESTE   ________________________//
 		printf("\nPremier argument utile : %s\n",argv[1]); // teste
-		//_____________________   FIN ZONE TESTE   _______________________//
+		
+		
+	//_____________________   FIN ZONE TESTE   _______________________//
     }while (choix_utilisateur!=4);
     return 0;
 }
