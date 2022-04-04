@@ -112,20 +112,17 @@ int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain)
 	return 0;	
 }
 
-
-int ChangerCoordonneesTuile(Tuile* _tuile, unsigned char _x, unsigned char _y)
+int ChangerCouleurTuile(Tuile* _tuile, unsigned char _couleur)
 {
-	if((_tuile->coordonnees.X == VALEUR_INVENTAIRE)&&(_tuile->coordonnees.Y == VALEUR_INVENTAIRE))
-	{
-		if( _x >= X_MIN && _x <= X_MAX)_tuile->coordonnees.X = _x;
-		else return 41;
-		if( _y >= Y_MIN && _y <= Y_MAX)_tuile->coordonnees.Y = _y;
-		else return 42;
-		return 0;
-	}
-	else return 4;
+	_tuile->couleur = _couleur;
+	return 0;	
 }
 
+int ChangerTailleVilleTuile(Tuile* _tuile, unsigned char _taille_ville)
+{
+	_tuile->taille_ville = _taille_ville;
+	return 0;	
+}
 
 int EcrireTuilesBinaire(Tuile* _tuile)
 {
