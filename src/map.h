@@ -53,9 +53,9 @@ int InitialiserCiteTuile(Tuile* _tuile, Cite* _cite);				//	InitialiserCiteTuile
 
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion);
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
-int ChangerCoordonneesTuile(Tuile* _tuile, unsigned char _x, unsigned char _y);				//	ChangerCoordonneesTuiles( <&Tuiles>, <Coordonnee X>, <Coordonnee Y>)
+int ChangerCouleurTuile(Tuile* _tuile, unsigned char _couleur);
+int ChangerTailleVilleTuile(Tuile* _tuile, unsigned char _taille_ville);
 		
-
 int EcrireTuilesBinaire();				//	EcrireBinaire()
 int LectureTuilesBinaire();				//	LectureBinaire()
 
