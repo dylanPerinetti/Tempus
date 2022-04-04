@@ -35,13 +35,11 @@ void CreeMapTuile(Tuile _map[10][10])
 	{
 		for (int j = 0; j < X_MAX; j++)
 		{
-			InitialiserCoordonneesTuile(&_map[i][j]);
 			InitialiserTypeTerrainTuile(&_map[i][j]);
 			InitialiserNombresPionsTuile(&_map[i][j]);
-			ChangerCoordonneesTuile(&_map[i][j], i, j);
 			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
 			ChangerNombresPionsTuile(&_map[i][j],'1');
-			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c ",_map[i][j].coordonnees.X,_map[i][j].coordonnees.Y, _map[i][j].type_terrain);
+			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c ", i, j, _map[i][j].type_terrain);
 			if(i==0)
 			{
 				if(j<3||j>5)
@@ -77,14 +75,6 @@ void CreeMapTuile(Tuile _map[10][10])
 		}
 	}
 }
-
-
-void InitialiserCoordonneesTuile(Tuile* _tuile)
-{
-	_tuile->coordonnees.X = VALEUR_INVENTAIRE;
-	_tuile->coordonnees.Y = VALEUR_INVENTAIRE;
-}
-
 
 void InitialiserTypeTerrainTuile(Tuile* _tuile)
 {
