@@ -37,8 +37,8 @@ typedef struct
   	Coordonnees coordonnees;
 	unsigned char type_terrain;
 	unsigned char nombre_pion;
-	Pions pion_dessus[5];
-	Cite cite_dessus;
+	unsigned char couleur;
+	unsigned char taille_ville;
 
 }Tuile;
 
