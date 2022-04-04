@@ -29,7 +29,7 @@ int AfficherFenetre(Tuile _map[10][10]);					//Génération de la Map initiale a
 void AfficherVersionSDL();		//Affiche la version de sdl
 void Erreur(int error);			//Message d'erreur SDL (UNIQUEMENT)
 
-void RefreshCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu);            //Reset une case a une certaine coordonnée, avec le type de cases, le nombre de pions et de villes (ça fait tout enft)
+void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu);            //Reset une case a une certaine coordonnée, avec le type de cases, le nombre de pions et de villes (ça fait tout enft)
 void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur);        //Initialise les Rectangles SDL 
 
 void GenerationOcean(SDL_Renderer* _rendu);                                                           //Génère le fond océan
