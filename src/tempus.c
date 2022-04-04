@@ -78,24 +78,6 @@ int main(int argc,char* argv[])
 
 	    //______________________   ZONE TESTE   ________________________//
 		printf("\nPremier argument utile : %s\n",argv[1]); // teste
-		Tuile tuile;
-		tuile.coordonnees.X=4;
-		tuile.coordonnees.Y=4;
-		EcrireTuilesBinaire(&tuile);
-		for (int j = 0; j < 4; ++j)
-		{
-			for (int i = 0; i < 16; ++i)
-	    	{
-	    		tuile.coordonnees.X=i;
-				tuile.coordonnees.Y=j;
-	    		printf("\n%d",EcrireTuilesBinaire(&tuile));
-	    		PlacerPionSurMap(&tableau_joueur[j].pion_possede[i],4,4);
-				AfficherInventaireJoueur(&tableau_joueur[j]);
-			}
-		}
-		Tuile _tuile;
-		LectureTuilesBinaire(&_tuile);
-		printf("_tuile %d %d",_tuile.coordonnees.X,_tuile.coordonnees.Y);
 		//_____________________   FIN ZONE TESTE   _______________________//
     }while (choix_utilisateur!=4);
     return 0;
