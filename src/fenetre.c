@@ -13,11 +13,12 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 */
 #include "fenetre.h"
 
-#define TAILLE_FENETRE 1200
+#define LARGEUR_FENETRE 1400
+#define HAUTEUR_FENETRE 900
 #define UNITE_X 104
 #define UNITE_Y 120
 #define DEPART_X 100
-#define DEPART_Y 100
+#define DEPART_Y 50
 
 
 #define DIM_PION 40
@@ -38,7 +39,7 @@ int AfficherFenetre(Tuile _map[10][10])
     
     AfficherVersionSDL(); 
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)Erreur(1);
-    SDL_CreateWindowAndRenderer(TAILLE_FENETRE, TAILLE_FENETRE, 0, &fenetre, &rendu);
+    SDL_CreateWindowAndRenderer(LARGEUR_FENETRE, HAUTEUR_FENETRE, 0, &fenetre, &rendu);
     GenerationOcean(rendu);
 
     for(i=0;i<10;i++)
@@ -99,7 +100,6 @@ void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     
     unsigned char type=_map[i][j].type_terrain;
     unsigned char nombre=_map[i][j].nombre_pion;
-    printf("%c",nombre);
     unsigned char couleur='1';                                          //Temporaire le temps de regler le probleme des pions
     unsigned char taille='1';
     int curseur=_map[i][j].curseur;                                      //Temporaire aussi le temps de régler ville
@@ -137,7 +137,7 @@ void GenerationOcean(SDL_Renderer* _rendu)
     SDL_Texture *tex_ocean = NULL;
     SDL_Surface *image = NULL;
     SDL_Rect Fond_ocean; 
-    InitialiseRect(&Fond_ocean, 0, 0, TAILLE_FENETRE, TAILLE_FENETRE);
+    InitialiseRect(&Fond_ocean, 0, 0, LARGEUR_FENETRE, HAUTEUR_FENETRE);
     image = SDL_LoadBMP("src/Img/Case/Sea.bmp");                  
     tex_ocean = SDL_CreateTextureFromSurface(_rendu, image);
     if (tex_ocean == NULL)Erreur(2);
