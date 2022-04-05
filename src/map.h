@@ -38,6 +38,7 @@ typedef struct
 	unsigned char nombre_pion;
 	unsigned char couleur;
 	unsigned char taille_ville;
+	int curseur;
 
 }Tuile;
 
@@ -46,6 +47,7 @@ char RandomizeTuile();
 						
 void InitialiserTypeTerrainTuile(Tuile* _tuile);					//	InitialiserTypeTerrainTuile( <&Tuiles>, <Type de terrain>) par defaut il est a 99.
 void InitialiserNombresPionsTuile(Tuile* _tuile);
+void InitialiserCurseur(Tuile* _tuile, int bool);
 
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion);
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
@@ -57,5 +59,6 @@ int LectureTuilesBinaire();				//	LectureBinaire()
 
 
 void AfficherErreurEvenement(int _erreur);
+int CaseInterdite(int i, int j);
 
 #endif

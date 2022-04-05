@@ -17,6 +17,7 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 
 #include "map.h"
 #include "objet.h"
+#include "evenement.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
@@ -36,8 +37,9 @@ void GenerationOcean(SDL_Renderer* _rendu);                                     
 void GenerationHexagone(unsigned char _terrain, SDL_Renderer* _rendu, SDL_Rect *Hex);			           //Crée un Hexagone a partir d'un fichier bmp																		
 void GenerationVille(unsigned char _taille, unsigned char _couleur, SDL_Renderer* _rendu, SDL_Rect *Hex);	//Crée une Ville a partir d'un fichier bmp
 void GenerationPion(unsigned char _nombre, unsigned char _couleur, SDL_Renderer* _rendu, SDL_Rect *Hex);    //Crée une Pion a partir d'un fichier bmp
+void GenerationCurseur(int _curseur, SDL_Renderer* _rendu, SDL_Rect *Hex);
 
-void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _rendu, SDL_Rect *Hex);	//Applique une texture qu'on lui envoie sur le rendu            
+void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _rendu, SDL_Rect *Hex);	//Applique une texture qu'on lui envoie sur le rendu         
 
 
 #endif

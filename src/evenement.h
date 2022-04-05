@@ -14,15 +14,13 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 */
 #ifndef __EVENEMENT_H__
 #define __EVENEMENT_H__
-//#include "fenetre.h"
+#include <SDL.h>
+#include "fenetre.h"
 #include "map.h"
-//#include "objet.h"
+#include "objet.h"
 
-int DeplacerPionGraphiqueDroite(Pions* _pion,unsigned char _x,unsigned char _y);          //Déplacer pion graphiquement a Droite
-int DeplacerPionGraphiqueGauche(Pions* _pion,unsigned char _x,unsigned char _y);          //Déplacer pion graphiquement a Gauche
-int DeplacerPionGraphiqueHautDroite(Pions* _pion,unsigned char _x,unsigned char _y);      //Déplacer pion en Haut graphiquement a Droite
-int DeplacerPionGraphiqueHautGauche(Pions* _pion,unsigned char _x,unsigned char _y);      //Déplacer pion en Haut graphiquement a Gauche
-int DeplacerPionGraphiqueBasDroite(Pions* _pion,unsigned char _x,unsigned char _y);       //Déplacer pion en Bas graphiquement a Droite
-int DeplacerPionGraphiqueBasGauche(Pions* _pion,unsigned char _x,unsigned char _y);       //Déplacer pion en Bas graphiquement a Gauche
-
+int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu);
+int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);
+int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu);
+int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu);
 #endif

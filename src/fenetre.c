@@ -53,18 +53,30 @@ int AfficherFenetre(Tuile _map[10][10])
     {
     SDL_Event event;
     while(SDL_PollEvent(&event))
+    {
         switch(event.type)
         {
+            case SDL_KEYDOWN: 
+            switch(event.key.keysym.sym)
+            {
+                case SDLK_DOWN: CurseurBas(_map, rendu); continue;
+                case SDLK_UP: CurseurHaut(_map, rendu); continue;
+                case SDLK_RIGHT: CurseurDroite(_map, rendu); continue;
+                case SDLK_LEFT: CurseurGauche(_map, rendu); continue;
+
+                default : continue;
+            }
+
             case SDL_QUIT: programme_lance = SDL_FALSE; break;
             default : break;
         }
-    } 
+    }
+} 
     
     SDL_DestroyRenderer(rendu);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
-}
-    
+}   
 
 
 void AfficherVersionSDL()
@@ -87,8 +99,10 @@ void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     
     unsigned char type=_map[i][j].type_terrain;
     unsigned char nombre=_map[i][j].nombre_pion;
+    printf("%c",nombre);
     unsigned char couleur='1';                                          //Temporaire le temps de regler le probleme des pions
-    unsigned char taille='1';                                           //Temporaire aussi le temps de régler ville
+    unsigned char taille='1';
+    int curseur=_map[i][j].curseur;                                      //Temporaire aussi le temps de régler ville
 
     int coordgraphx=DEPART_X+(UNITE_X*i);
     int coordgraphy=DEPART_Y+(88*j);                                    //88 pcq je l'avais calculé ya longtemps
@@ -98,8 +112,8 @@ void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     }
     InitialiseRect(&Hexagone, coordgraphx , coordgraphy, UNITE_X, UNITE_Y);
     GenerationHexagone(type, _rendu, &Hexagone);
-
-    //GenerationVille(taille, couleur, _rendu, &Hexagone);
+    GenerationVille(taille, couleur, _rendu, &Hexagone);
+    GenerationCurseur(curseur, _rendu, &Hexagone);
     
     coordgraphx=coordgraphx + (UNITE_X/2) - (DIM_PION/2);
     coordgraphy=coordgraphy + (UNITE_Y/2) - (DIM_PION/2);
@@ -177,6 +191,21 @@ void GenerationPion(unsigned char _nombre, unsigned char _couleur, SDL_Renderer*
     SDL_DestroyTexture(tex_case);                           
 }
 
+void GenerationCurseur(int _curseur, SDL_Renderer* _rendu, SDL_Rect *Hex)
+{
+    SDL_Texture *tex_curseur = NULL;
+    SDL_Surface *image = NULL;
+
+    if(_curseur==1)
+    {
+        char fichier_curseur[]="src/Img/Curseur/Curs.bmp";
+        image = SDL_LoadBMP(fichier_curseur);
+        TextureRendu(image, tex_curseur, _rendu, Hex); 
+    }
+    
+    SDL_DestroyTexture(tex_curseur);
+}
+
 void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _rendu, SDL_Rect *Hex)
 {
     SDL_SetColorKey(_image, SDL_TRUE, SDL_MapRGB(_image->format, 255, 255, 255));    
@@ -191,3 +220,5 @@ void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _ren
 
         SDL_RenderPresent(_rendu);
 }
+
+

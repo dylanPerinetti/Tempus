@@ -37,43 +37,17 @@ void CreeMapTuile(Tuile _map[10][10])
 		{
 			InitialiserTypeTerrainTuile(&_map[i][j]);
 			InitialiserNombresPionsTuile(&_map[i][j]);
+			InitialiserCurseur(&_map[i][j], 0);
 			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
-			ChangerNombresPionsTuile(&_map[i][j],'1');
+			ChangerNombresPionsTuile(&_map[i][j],'0');
 			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c ", i, j, _map[i][j].type_terrain);
-			if(i==0)
+			if(CaseInterdite(i,j)==1)
 			{
-				if(j<3||j>5)
-				{
 					ChangerTypeTerrainTuile(&_map[i][j], '7');
-				}
-			}
-			if(i==1)
-			{
-				if(j==0||j==8)
-				{
-					ChangerTypeTerrainTuile(&_map[i][j], '7');
-				}
-			}
-			if(i==8)
-			{
-				if(j<2||j>6)
-				{
-					ChangerTypeTerrainTuile(&_map[i][j], '7');
-				}
-			}
-			if(i==9)
-			{
-				if(j!=4)
-				{
-					ChangerTypeTerrainTuile(&_map[i][j], '7');
-				}
-			}
-			if(j==9)
-			{
-				ChangerTypeTerrainTuile(&_map[i][j], '7');
 			}
 		}
 	}
+	InitialiserCurseur(&_map[5][5], 1);
 }
 
 void InitialiserTypeTerrainTuile(Tuile* _tuile)
@@ -87,7 +61,10 @@ void InitialiserNombresPionsTuile(Tuile* _tuile)
 	_tuile->nombre_pion = VALEUR_INVENTAIRE;
 }
 
-
+void InitialiserCurseur(Tuile* _tuile, int bool)
+{
+	_tuile->curseur = bool;
+}
 
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion)
 {
@@ -113,6 +90,8 @@ int ChangerTailleVilleTuile(Tuile* _tuile, unsigned char _taille_ville)
 	_tuile->taille_ville = _taille_ville;
 	return 0;	
 }
+
+
 
 int EcrireTuilesBinaire(Tuile* _tuile)
 {
@@ -178,6 +157,44 @@ char RandomizeTuile()
     else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return '3'; 
     else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return '4'; 
     else return '5';
+}
+
+int CaseInterdite(int i, int j)
+{
+	if(i==0)
+	{
+		if(j<3||j>5)
+		{
+			return 1;
+		}
+	}
+	if(i==1)
+	{
+		if(j==0||j==8)
+		{
+			return 1;
+		}
+	}
+	if(i==8)
+	{
+		if(j<2||j>6)
+		{
+			return 1;
+		}
+	}
+	if(i==9)
+	{
+		if(j!=4)
+		{
+			return 1;
+		}
+	}
+	if(j==9)
+	{
+		return 1;
+	}
+
+	else return 0;
 }
 
 

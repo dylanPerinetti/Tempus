@@ -14,8 +14,9 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 #include "joueur.h"
 #include "fenetre.h"
 #include "map.h"
+#include "evenement.h"
 
-#define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
+#define NETTOYER_TERMINAL "cls"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
 int main(int argc,char* argv[])
 {
@@ -75,11 +76,10 @@ int main(int argc,char* argv[])
 	            printf("Veuillez resaisir votre choix");
 	            break;
 	    }
-	//______________________   ZONE TESTE   ________________________//
+
+	    //______________________   ZONE TESTE   ________________________//
 		printf("\nPremier argument utile : %s\n",argv[1]); // teste
-		
-		
-	//_____________________   FIN ZONE TESTE   _______________________//
+		//_____________________   FIN ZONE TESTE   _______________________//
     }while (choix_utilisateur!=4);
     return 0;
 }

@@ -13,11 +13,100 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 */
 #include "evenement.h"
 
-int PlacerPionGraphiqueSurMap(Pions* _pion,unsigned char _x,unsigned char _y)
+
+int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu)
 {
-	unsigned char _coord_depart_x = _pion->coordonnees.X;
-	unsigned char _coord_depart_y = _pion->coordonnees.Y;
-	PlacerPionSurMap(_pion, _x, _y);
-	// PAS COMPLETE
-	return 0;
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+        	if(_map[i][j].curseur==1)
+        	{
+            if(j!=9)
+            {
+            if(CaseInterdite(i,j+1)==0)
+           	{
+				_map[i][j].curseur=0;
+                _map[i][j+1].curseur=1;
+
+                MajCase(_map, i, j, _rendu);
+                MajCase(_map, i, j+1, _rendu);
+                return 0;
+			}
+			}
+			}
+        }
+    }
+}
+
+int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu)
+{
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(_map[i][j].curseur==1)
+            {
+            if(j!=0)
+            {
+            if(CaseInterdite(i,j-1)==0)
+           	{
+                _map[i][j].curseur=0;
+                _map[i][j-1].curseur=1;
+                MajCase(_map, i, j, _rendu);
+                MajCase(_map, i, j-1, _rendu);
+                return 0;
+            }
+        	}
+        	}
+        }
+    }
+}
+
+int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu)
+{
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(_map[i][j].curseur==1)
+            {
+           	if(i!=9)
+           	{
+           	if(CaseInterdite(i+1,j)==0)
+           	{
+                _map[i][j].curseur=0;
+                _map[i+1][j].curseur=1;
+                MajCase(_map, i, j, _rendu);
+                MajCase(_map, i+1, j, _rendu);
+                return 0;
+            }
+        	}
+        	}
+        }
+    }
+}
+
+int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
+{
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(_map[i][j].curseur==1)
+            {
+            if(i!=0)
+            {
+            if(CaseInterdite(i-1,j)==0)
+           	{
+                _map[i][j].curseur=0;
+                _map[i-1][j].curseur=1;
+                MajCase(_map, i, j, _rendu);
+                MajCase(_map, i-1, j, _rendu);
+                return 0;
+            }
+        	}
+        	}
+        }
+    }
 }
