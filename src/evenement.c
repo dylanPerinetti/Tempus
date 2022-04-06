@@ -89,16 +89,31 @@ int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
 
 int SelectionCase(Tuile _map[10][10])
 {
+	int choix;
 	for(int i=0; i<10; i++)
     {
         for(int j=0; j<10; j++)
         {
             if(_map[i][j].curseur==1)
             {
-                printf("\nVous avez selectionne le pion sur la case %d %d",i,j);
-                printf("\n vous avez choisis %d",ChoixAction());
+                if(_map[i][j].nombre_pion!='0')
+                {
+				printf("\nVous avez selectionne le pion sur la case %d %d",i,j);       //il reste a coder la verification de la couleur du pion pour que le joueur 1 puisse pas jouer avec les pions du joueur 2.
+                choix=ChoixAction();
+                printf("\nVous avez choisis %d",choix);
+                switch(choix)
+                {
+                	case 1:break;
+
+
+
+                }
+
+
                 return 0;
-        	}
+                }
+                else printf("\nVous n'avez pas selectionne un de vos pions"); return 0;
+            }
         }
     }
 }
@@ -112,6 +127,9 @@ int ChoixAction()
 	printf("\n3 : Combattre");
 	printf("\n4 : Avoir une idee");
 	printf("\n4 : Construire une cite\n");
-	scanf("%d",choix);
+	do
+	{
+	scanf("%d",&choix);
+	}while(choix>4||choix<1);
 	return choix;
 }

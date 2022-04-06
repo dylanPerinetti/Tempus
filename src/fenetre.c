@@ -101,9 +101,9 @@ void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     
     unsigned char type=_map[i][j].type_terrain;
     unsigned char nombre=_map[i][j].nombre_pion;
-    unsigned char couleur='1';                                          //Temporaire le temps de regler le probleme des pions
-    unsigned char taille='1';
-    int curseur=_map[i][j].curseur;                                      //Temporaire aussi le temps de régler ville
+    unsigned char couleur=_map[i][j].couleur;                               
+    unsigned char taille=_map[i][j].taille_ville;
+    int curseur=_map[i][j].curseur;                                      
 
     int coordgraphx=DEPART_X+(UNITE_X*i);
     int coordgraphy=DEPART_Y+(88*j);                                    //88 pcq je l'avais calculé ya longtemps

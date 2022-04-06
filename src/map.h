@@ -44,11 +44,8 @@ typedef struct
 
 void CreeMapTuile(Tuile _map[10][10]);								//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
 char RandomizeTuile();
-						
-void InitialiserTypeTerrainTuile(Tuile* _tuile);					//	InitialiserTypeTerrainTuile( <&Tuiles>, <Type de terrain>) par defaut il est a 99.
-void InitialiserNombresPionsTuile(Tuile* _tuile);
-void InitialiserCurseur(Tuile* _tuile, int bool);
 
+void InitialiserCurseur(Tuile* _tuile, int bool);
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion);
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
 int ChangerCouleurTuile(Tuile* _tuile, unsigned char _couleur);

@@ -35,12 +35,13 @@ void CreeMapTuile(Tuile _map[10][10])
 	{
 		for (int j = 0; j < X_MAX; j++)
 		{
-			InitialiserTypeTerrainTuile(&_map[i][j]);
-			InitialiserNombresPionsTuile(&_map[i][j]);
 			InitialiserCurseur(&_map[i][j], 0);
 			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
 			ChangerNombresPionsTuile(&_map[i][j],'0');
-			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c ", i, j, _map[i][j].type_terrain);
+			ChangerCouleurTuile(&_map[i][j],'0');
+			ChangerTailleVilleTuile(&_map[i][j],'0');
+			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c | Couleur de la Tuile = %c |", i, j, _map[i][j].type_terrain,_map[i][j].couleur);
+			printf("\n|Nombre de pion = %c | Taille de la Ville = %c | Curseur = %d\n",_map[i][j].nombre_pion,_map[i][j].taille_ville,_map[i][j].curseur);
 			if(CaseInterdite(i,j)==1)
 			{
 					ChangerTypeTerrainTuile(&_map[i][j], '7');
@@ -48,18 +49,9 @@ void CreeMapTuile(Tuile _map[10][10])
 		}
 	}
 	InitialiserCurseur(&_map[5][5], 1);
+	ChangerNombresPionsTuile(&_map[4][4],'1');
 }
 
-void InitialiserTypeTerrainTuile(Tuile* _tuile)
-{
-	_tuile->type_terrain = VALEUR_INVENTAIRE;	
-}
-
-
-void InitialiserNombresPionsTuile(Tuile* _tuile)
-{
-	_tuile->nombre_pion = VALEUR_INVENTAIRE;
-}
 
 void InitialiserCurseur(Tuile* _tuile, int bool)
 {
@@ -69,7 +61,13 @@ void InitialiserCurseur(Tuile* _tuile, int bool)
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion)
 {
 	_tuile->nombre_pion = _nombre_pion;
+	if(_nombre_pion==0)
+	{
+		ChangerCouleurTuile(_tuile,'0');
+	}
+	else ChangerCouleurTuile(_tuile,'1');  //<----- pour l'instant je mets 1 par defaut mais on changera pour que ce soit le nombre correspondant au joueur qui joue
 	return 0;
+
 }
 
 
