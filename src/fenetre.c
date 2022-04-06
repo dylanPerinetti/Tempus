@@ -64,6 +64,7 @@ int AfficherFenetre(Tuile _map[10][10])
                 case SDLK_UP: CurseurHaut(_map, rendu); continue;
                 case SDLK_RIGHT: CurseurDroite(_map, rendu); continue;
                 case SDLK_LEFT: CurseurGauche(_map, rendu); continue;
+                case SDLK_SPACE: SelectionCase(_map); continue;
 
                 default : continue;
             }

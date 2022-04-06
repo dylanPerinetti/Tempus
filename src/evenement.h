@@ -23,4 +23,7 @@ int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu);
+
+int SelectionCase(Tuile _map[10][10]);
+int ChoixAction();
 #endif

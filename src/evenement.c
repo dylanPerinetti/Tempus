@@ -86,3 +86,32 @@ int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
         }
     }
 }
+
+int SelectionCase(Tuile _map[10][10])
+{
+	for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(_map[i][j].curseur==1)
+            {
+                printf("\nVous avez selectionne le pion sur la case %d %d",i,j);
+                printf("\n vous avez choisis %d",ChoixAction());
+                return 0;
+        	}
+        }
+    }
+}
+
+int ChoixAction()
+{	
+	int choix;
+	printf("\nQue voulez vous faire ?");
+	printf("\n1 : Deplacer des pions");
+	printf("\n2 : Avoir des Enfants");
+	printf("\n3 : Combattre");
+	printf("\n4 : Avoir une idee");
+	printf("\n4 : Construire une cite\n");
+	scanf("%d",choix);
+	return choix;
+}
