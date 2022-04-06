@@ -20,20 +20,14 @@ int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu)
     {
         for(int j=0; j<10; j++)
         {
-        	if(_map[i][j].curseur==1)
+        	if(_map[i][j].curseur==1&&j!=9&&CaseInterdite(i,j+1)==0)
         	{
-            if(j!=9)
-            {
-            if(CaseInterdite(i,j+1)==0)
-           	{
 				_map[i][j].curseur=0;
                 _map[i][j+1].curseur=1;
 
                 MajCase(_map, i, j, _rendu);
                 MajCase(_map, i, j+1, _rendu);
                 return 0;
-			}
-			}
 			}
         }
     }
@@ -45,20 +39,14 @@ int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu)
     {
         for(int j=0; j<10; j++)
         {
-            if(_map[i][j].curseur==1)
+            if(_map[i][j].curseur==1&&j!=0&&CaseInterdite(i,j-1)==0)
             {
-            if(j!=0)
-            {
-            if(CaseInterdite(i,j-1)==0)
-           	{
                 _map[i][j].curseur=0;
                 _map[i][j-1].curseur=1;
                 MajCase(_map, i, j, _rendu);
                 MajCase(_map, i, j-1, _rendu);
                 return 0;
             }
-        	}
-        	}
         }
     }
 }
@@ -69,19 +57,13 @@ int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu)
     {
         for(int j=0; j<10; j++)
         {
-            if(_map[i][j].curseur==1)
+            if(_map[i][j].curseur==1&&i!=9&&CaseInterdite(i+1,j)==0)
             {
-           	if(i!=9)
-           	{
-           	if(CaseInterdite(i+1,j)==0)
-           	{
                 _map[i][j].curseur=0;
                 _map[i+1][j].curseur=1;
                 MajCase(_map, i, j, _rendu);
                 MajCase(_map, i+1, j, _rendu);
                 return 0;
-            }
-        	}
         	}
         }
     }
@@ -93,19 +75,13 @@ int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
     {
         for(int j=0; j<10; j++)
         {
-            if(_map[i][j].curseur==1)
+            if(_map[i][j].curseur==1&&i!=0&&CaseInterdite(i-1,j)==0)
             {
-            if(i!=0)
-            {
-            if(CaseInterdite(i-1,j)==0)
-           	{
                 _map[i][j].curseur=0;
                 _map[i-1][j].curseur=1;
                 MajCase(_map, i, j, _rendu);
                 MajCase(_map, i-1, j, _rendu);
                 return 0;
-            }
-        	}
         	}
         }
     }
