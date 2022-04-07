@@ -10,14 +10,13 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "evenement.
 
 
 Fait par dylan le 21/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par dylanPerinetti le 06/04/2022
 */
 #ifndef __EVENEMENT_H__
 #define __EVENEMENT_H__
-#include <SDL.h>
+
 #include "fenetre.h"
 #include "map.h"
-#include "objet.h"
 
 int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);

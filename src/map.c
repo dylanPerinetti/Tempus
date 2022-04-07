@@ -20,6 +20,7 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 		- void AfficherErreurEvenement(int _erreur);
 		
 */
+
 #include "map.h"
 
 #define X_MIN 0
@@ -28,6 +29,9 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 #define Y_MAX 10
 #define VALEUR_INVENTAIRE 99 // Valeur par deafut de tous se qui a été initialiser /!\ cette dernier dois depasser la plus grande coordonnes de la map soit 10/10
 
+
+/*--------------------------------------------------------------------------*/
+
 void CreeMapTuile(Tuile _map[10][10])
 {
 	srand(time(NULL));
@@ -35,13 +39,12 @@ void CreeMapTuile(Tuile _map[10][10])
 	{
 		for (int j = 0; j < X_MAX; j++)
 		{
+			InitialiserTypeTerrainTuile(&_map[i][j]);
+			InitialiserNombresPionsTuile(&_map[i][j]);
 			InitialiserCurseur(&_map[i][j], 0);
 			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
 			ChangerNombresPionsTuile(&_map[i][j],'0');
-			ChangerCouleurTuile(&_map[i][j],'0');
-			ChangerTailleVilleTuile(&_map[i][j],'0');
-			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c | Couleur de la Tuile = %c |", i, j, _map[i][j].type_terrain,_map[i][j].couleur);
-			printf("\n|Nombre de pion = %c | Taille de la Ville = %c | Curseur = %d\n",_map[i][j].nombre_pion,_map[i][j].taille_ville,_map[i][j].curseur);
+			//printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c ", i, j, _map[i][j].type_terrain);
 			if(CaseInterdite(i,j)==1)
 			{
 					ChangerTypeTerrainTuile(&_map[i][j], '7');
@@ -49,27 +52,38 @@ void CreeMapTuile(Tuile _map[10][10])
 		}
 	}
 	InitialiserCurseur(&_map[5][5], 1);
-	ChangerNombresPionsTuile(&_map[4][4],'1');
 }
 
+/*--------------------------------------------------------------------------*/
+
+void InitialiserTypeTerrainTuile(Tuile* _tuile)
+{
+	_tuile->type_terrain = VALEUR_INVENTAIRE;	
+}
+
+/*--------------------------------------------------------------------------*/
+
+void InitialiserNombresPionsTuile(Tuile* _tuile)
+{
+	_tuile->nombre_pion = VALEUR_INVENTAIRE;
+}
+
+/*--------------------------------------------------------------------------*/
 
 void InitialiserCurseur(Tuile* _tuile, int bool)
 {
 	_tuile->curseur = bool;
 }
 
+/*--------------------------------------------------------------------------*/
+
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion)
 {
 	_tuile->nombre_pion = _nombre_pion;
-	if(_nombre_pion==0)
-	{
-		ChangerCouleurTuile(_tuile,'0');
-	}
-	else ChangerCouleurTuile(_tuile,'1');  //<----- pour l'instant je mets 1 par defaut mais on changera pour que ce soit le nombre correspondant au joueur qui joue
 	return 0;
-
 }
 
+/*--------------------------------------------------------------------------*/
 
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain)
 {
@@ -77,11 +91,15 @@ int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain)
 	return 0;	
 }
 
+/*--------------------------------------------------------------------------*/
+
 int ChangerCouleurTuile(Tuile* _tuile, unsigned char _couleur)
 {
 	_tuile->couleur = _couleur;
 	return 0;	
 }
+
+/*--------------------------------------------------------------------------*/
 
 int ChangerTailleVilleTuile(Tuile* _tuile, unsigned char _taille_ville)
 {
@@ -89,7 +107,7 @@ int ChangerTailleVilleTuile(Tuile* _tuile, unsigned char _taille_ville)
 	return 0;	
 }
 
-
+/*--------------------------------------------------------------------------*/
 
 int EcrireTuilesBinaire(Tuile* _tuile)
 {
@@ -105,6 +123,7 @@ int EcrireTuilesBinaire(Tuile* _tuile)
 	return 0;
 }
 
+/*--------------------------------------------------------------------------*/
 
 int LectureTuilesBinaire(Tuile* _tuile)
 {
@@ -120,6 +139,7 @@ int LectureTuilesBinaire(Tuile* _tuile)
 	return 0;
 }
 
+/*--------------------------------------------------------------------------*/
 
 void AfficherErreurEvenement(int _erreur)
 {
@@ -145,6 +165,8 @@ void AfficherErreurEvenement(int _erreur)
 
 }
 
+/*--------------------------------------------------------------------------*/
+
 char RandomizeTuile()
 {
 	
@@ -156,6 +178,8 @@ char RandomizeTuile()
     else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return '4'; 
     else return '5';
 }
+
+/*--------------------------------------------------------------------------*/
 
 int CaseInterdite(int i, int j)
 {
@@ -195,4 +219,4 @@ int CaseInterdite(int i, int j)
 	else return 0;
 }
 
-
+/*--------------------------------------------------------------------------*/

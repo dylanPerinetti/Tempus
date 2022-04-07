@@ -7,16 +7,15 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient le code Pincipal du jeu (main).
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 24/03/2022
+Dernière modifications par dylanPerinetti le 06/04/2022
 */
-
-#include "objet.h"
-#include "joueur.h"
-#include "fenetre.h"
 #include "map.h"
+#include "deplacement.h"
+#include "fenetre.h"
+#include "joueur.h"
 #include "evenement.h"
 
-#define NETTOYER_TERMINAL "cls"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
+#define NETTOYER_TERMINAL "clear" //Si vous etes sur windows remplacer "clear" par "cls"  
 
 int main(int argc,char* argv[])
 {
