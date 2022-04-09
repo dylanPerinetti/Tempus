@@ -10,19 +10,13 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "fenetre.c"
 
 
 Fait par MrTNTX et dylan le 15/03/2022
-Dernière modifications par dylanPerinetti le 22/03/2022
+Dernière modifications par Rémi(MrTNTX) le 06/04/2022
 */
 #ifndef __FENETRE_H__
 #define __FENETRE_H__
 
 #include "map.h"
-#include "objet.h"
 #include "evenement.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <SDL.h>
-#include <time.h>
-#include <string.h>
 
 
 int AfficherFenetre(Tuile _map[10][10]);					//Génération de la Map initiale a partir du tableau de tuile
@@ -43,4 +37,3 @@ void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _ren
 
 
 #endif
-

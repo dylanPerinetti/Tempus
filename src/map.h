@@ -10,7 +10,7 @@ Pour mieux comprendre leur fonctionnement rendez-vous sur le fichier "map.c" .
 
 
 Crée par dylanPerinetti le 22/03/2022
-Dernière modifications par dylanPerinetti le 24/03/2022
+Dernière modifications par dylanPerinetti le 06/04/2022
 
 Je suis acctuellement en train de develloper :
 	- Structure MAP 
@@ -21,9 +21,13 @@ Je suis acctuellement en train de develloper :
 
 #ifndef __MAP_H__
 #define __MAP_H__
-#include "objet.h"
+
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <SDL.h>
 #include <time.h>
+
 #define PRCT_PRAIRIE 40
 #define PRCT_MONTAGNE 20
 #define PRCT_FORET 10
@@ -44,8 +48,11 @@ typedef struct
 
 void CreeMapTuile(Tuile _map[10][10]);								//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
 char RandomizeTuile();
-
+						
+void InitialiserTypeTerrainTuile(Tuile* _tuile);					//	InitialiserTypeTerrainTuile( <&Tuiles>, <Type de terrain>) par defaut il est a 99.
+void InitialiserNombresPionsTuile(Tuile* _tuile);
 void InitialiserCurseur(Tuile* _tuile, int bool);
+
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion);
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
 int ChangerCouleurTuile(Tuile* _tuile, unsigned char _couleur);
