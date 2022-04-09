@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez à la fenetre dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "fenetre.h".
 
 Fait par MrTNTX le 15/03/2022
-Dernière modifications par Rémi(MRTNTX) le 03/04/2022
+Dernière modifications par dylanPerinetti le 24/03/2022
 
 */
 #include "fenetre.h"
@@ -19,7 +19,11 @@ Dernière modifications par Rémi(MRTNTX) le 03/04/2022
 #define UNITE_Y 120
 #define DEPART_X 100
 #define DEPART_Y 50
+
+
 #define DIM_PION 40
+
+//---------------------------------Rémi 03/04/2022-------------------------------//
 
 
 
@@ -29,6 +33,11 @@ int AfficherFenetre(Tuile _map[10][10])
     SDL_Window *fenetre = NULL;  
     SDL_Renderer *rendu = NULL;
     SDL_bool programme_lance = SDL_TRUE;
+
+    int phase_jeu=0;                               //0 sélection de case, 1 déplacement de pions, 2 faire des gosses, 3 Attaquer, 4 avoir une idée, 5 Construire une cité
+    int case_select_x=0;
+    int case_select_y=0;                           //Ces 3 trucs la seront contenus dans la struct joueur
+    int point_deplacement=4;
 
     int i=0;
     int j=0;
@@ -60,7 +69,7 @@ int AfficherFenetre(Tuile _map[10][10])
                 case SDLK_UP: CurseurHaut(_map, rendu); continue;
                 case SDLK_RIGHT: CurseurDroite(_map, rendu); continue;
                 case SDLK_LEFT: CurseurGauche(_map, rendu); continue;
-                case SDLK_SPACE: SelectionCase(_map); continue;
+                case SDLK_SPACE: SelectionCase(_map, rendu, &phase_jeu, &case_select_x, &case_select_y, &point_deplacement); continue;
 
                 default : continue;
             }
@@ -97,9 +106,9 @@ void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     
     unsigned char type=_map[i][j].type_terrain;
     unsigned char nombre=_map[i][j].nombre_pion;
-    unsigned char couleur='1';                                          //Temporaire le temps de regler le probleme des pions
-    unsigned char taille='1';
-    int curseur=_map[i][j].curseur;                                      //Temporaire aussi le temps de régler ville
+    unsigned char couleur=_map[i][j].couleur;                               
+    unsigned char taille=_map[i][j].taille_ville;
+    int curseur=_map[i][j].curseur;                                      
 
     int coordgraphx=DEPART_X+(UNITE_X*i);
     int coordgraphy=DEPART_Y+(88*j);                                    //88 pcq je l'avais calculé ya longtemps
