@@ -20,14 +20,27 @@ Dernière modifications par dylanPerinetti le 06/04/2022
 
 #include "map.h"
 
+typedef struct Niveau
+{
+	int niveau;
+	char nom_age[20];
+	int deplacement;
+	int distance;
+	int enfants;
+	int nbre_pion_max;
+	int actions;
+}Niveau;
+
+
 typedef struct Joueur
 {
 	char* nom_utilisateur;
 	unsigned char couleur;
-	unsigned char niveaux_joueur;
+	Niveau niveaux_joueur;
 	unsigned char pions_possede;
 	unsigned char cite_possede;
-}Joueur;										//Pour Cree la Structure d'un joueur
+}Joueur;
+
 
 void InitialiserCouleurJoueur(Joueur* _joueur,unsigned char _couleur);	//Pour Initialiser la couleur de joueur a 0
 void InitialiserNiveauJoueur(Joueur* _joueur);							//Pour Initialiser le niveux de joueur a 0

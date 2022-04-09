@@ -16,7 +16,6 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #define __FENETRE_H__
 
 #include "map.h"
-#include "objet.h"
 #include "evenement.h"
 #include <stdio.h>
 #include <stdlib.h>

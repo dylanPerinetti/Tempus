@@ -34,10 +34,10 @@ int AfficherFenetre(Tuile _map[10][10])
     SDL_Renderer *rendu = NULL;
     SDL_bool programme_lance = SDL_TRUE;
 
-    int phase_jeu=0;                               //0 sélection de case, 1 déplacement de pions, 2 faire des gosses, 3 Attaquer, 4 avoir une idée, 5 Construire une cité
-    int case_select_x=0;
-    int case_select_y=0;                           //Ces 3 trucs la seront contenus dans la struct joueur
-    int point_deplacement=4;
+    int memoire[5]; //Tableau int : int selectionx; int selectiony; int phase_jeu; int point_dep_restant; int nbre_pion_deplace;
+    memoire[2]=0;
+    memoire[3]=4;
+    memoire[4]=-1;
 
     int i=0;
     int j=0;
@@ -69,7 +69,7 @@ int AfficherFenetre(Tuile _map[10][10])
                 case SDLK_UP: CurseurHaut(_map, rendu); continue;
                 case SDLK_RIGHT: CurseurDroite(_map, rendu); continue;
                 case SDLK_LEFT: CurseurGauche(_map, rendu); continue;
-                case SDLK_SPACE: SelectionCase(_map, rendu, &phase_jeu, &case_select_x, &case_select_y, &point_deplacement); continue;
+                case SDLK_SPACE: SelectionCase(_map, rendu, memoire); continue;
 
                 default : continue;
             }

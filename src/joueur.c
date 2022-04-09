@@ -33,7 +33,7 @@ void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'u
 
 void Cree4Joueurs(Joueur* _tab)
 {
-	for(unsigned char _i = 0; _i < 4; ++_i) CreeJoueur(&_tab[_i], _i+1);
+	for(unsigned char i = 0; i < 4; ++i) CreeJoueur(&_tab[i], i+1);
 }
 
 /*--------------------------------------------------------------------------*/
@@ -47,14 +47,19 @@ void InitialiserCouleurJoueur(Joueur* _joueur,unsigned char _couleur)
 
 void InitialiserNiveauJoueur(Joueur* _joueur)
 {
-	_joueur->niveaux_joueur=0;
+	_joueur->niveaux_joueur.niveau=0;
+	_joueur->niveaux_joueur.deplacement=1;
+	_joueur->niveaux_joueur.distance=1;
+	_joueur->niveaux_joueur.enfants=1;
+	_joueur->niveaux_joueur.nbre_pion_max=2;
+	_joueur->niveaux_joueur.actions=3;
 }
 
 /*--------------------------------------------------------------------------*/
 
 void AugmenterNiveauJoueur(Joueur* _joueur)
 {
-	_joueur->niveaux_joueur++;
+	_joueur->niveaux_joueur.niveau++;                     //A finir ça va etre long sa mere
 }
 
 /*--------------------------------------------------------------------------*/

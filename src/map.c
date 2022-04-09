@@ -196,4 +196,14 @@ int CaseInterdite(int i, int j)
 	else return 0;
 }
 
+int CaseAdjacente(int departx, int departy, int arriveex, int arriveey)
+{
+	if(arriveex==departx&&(arriveey==departy-1||arriveey==departy+1)) return 1;
+
+	else if(arriveex=departx+1&&(arriveey==departy||arriveey==departy+1)) return 1;
+
+	else if(arriveex=departx+-1&&(arriveey==departy||arriveey==departy+1)) return 1;
+
+	else return 0;
+}
 

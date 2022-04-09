@@ -21,8 +21,8 @@ Je suis acctuellement en train de develloper :
 
 #ifndef __MAP_H__
 #define __MAP_H__
-#include "objet.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #define PRCT_PRAIRIE 40
 #define PRCT_MONTAGNE 20
@@ -32,7 +32,7 @@ Je suis acctuellement en train de develloper :
 #define PRCT_LAC 10
 
 
-typedef struct
+typedef struct Tuile
 {
 	unsigned char type_terrain;
 	unsigned char nombre_pion;
@@ -57,5 +57,6 @@ int LectureTuilesBinaire();				//	LectureBinaire()
 
 void AfficherErreurEvenement(int _erreur);
 int CaseInterdite(int i, int j);
+int CaseAdjacente(int departx, int departy, int arriveex, int arriveey);
 
 #endif
