@@ -22,13 +22,13 @@ Dernière modifications par dylanPerinetti le 06/04/2022
 
 typedef struct Niveau
 {
-	int niveau;
-	char nom_age[20];
-	int deplacement;
-	int distance;
-	int enfants;
-	int nbre_pion_max;
-	int actions;
+	unsigned char niveau;
+	//char nom_age[20];
+	unsigned char deplacement;
+	unsigned char distance;		// J'ai oublier se que c'est deja ? 
+	unsigned char enfants;
+	unsigned char nbre_pion_max;
+	unsigned char actions;
 }Niveau;
 
 
