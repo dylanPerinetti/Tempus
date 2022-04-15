@@ -22,19 +22,18 @@ Dernière modifications par dylanPerinetti le 06/04/2022
 
 typedef struct Niveau
 {
-	unsigned char niveau;
-	//char nom_age[20];
-	unsigned char deplacement;
-	unsigned char distance;		// J'ai oublier se que c'est deja ? 
-	unsigned char enfants;
-	unsigned char nbre_pion_max;
-	unsigned char actions;
+	int niveau;
+	int deplacement;
+	int distance;
+	int enfants;
+	int nbre_pion_max;
+	int actions;
 }Niveau;
 
 
 typedef struct Joueur
 {
-	char* nom_utilisateur;
+	char pseudo[20];
 	unsigned char couleur;
 	Niveau niveaux_joueur;
 	unsigned char pions_possede;

@@ -16,6 +16,7 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #define __FENETRE_H__
 
 #include "map.h"
+#include "joueur.h"
 #include "evenement.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +25,7 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #include <string.h>
 
 
-int AfficherFenetre(Tuile _map[10][10]);					//Génération de la Map initiale a partir du tableau de tuile
+int AfficherFenetre(Tuile _map[10][10], Joueur tableau_joueur[4], SDL_Renderer *_rendu, SDL_Window *_fenetre);					//Génération de la Map initiale a partir du tableau de tuile
 
 void AfficherVersionSDL();		//Affiche la version de sdl
 void Erreur(int error);			//Message d'erreur SDL (UNIQUEMENT)

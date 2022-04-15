@@ -27,62 +27,27 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 
 
 
-int AfficherFenetre(Tuile _map[10][10])
+int AfficherFenetre(Tuile _map[10][10], Joueur tableau_joueur[4], SDL_Renderer *_rendu, SDL_Window *_fenetre)
 {
     srand(time(NULL));
-    SDL_Window *fenetre = NULL;  
-    SDL_Renderer *rendu = NULL;
-    SDL_bool programme_lance = SDL_TRUE;
-
-    int memoire[5]; //Tableau int : int selectionx; int selectiony; int phase_jeu; int point_dep_restant; int nbre_pion_deplace;
-    memoire[2]=0;
-    memoire[3]=4;
-    memoire[4]=-1;
 
     int i=0;
     int j=0;
     
     AfficherVersionSDL(); 
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)Erreur(1);
-    SDL_CreateWindowAndRenderer(LARGEUR_FENETRE, HAUTEUR_FENETRE, 0, &fenetre, &rendu);
-    GenerationOcean(rendu);
+    SDL_CreateWindowAndRenderer(LARGEUR_FENETRE, HAUTEUR_FENETRE, 0, &_fenetre, &_rendu);
+    GenerationOcean(_rendu);
 
     for(i=0;i<10;i++)
     {
         for(j=0;j<10;j++)
         {
-            MajCase(_map, i, j, rendu);
+            MajCase(_map, i, j, _rendu);
         }
     }
 
-    while(programme_lance)
-    {
-    SDL_Event event;
-    while(SDL_PollEvent(&event))
-    {
-        switch(event.type)
-        {
-            case SDL_KEYDOWN: 
-            switch(event.key.keysym.sym)
-            {
-                case SDLK_DOWN: CurseurBas(_map, rendu); continue;
-                case SDLK_UP: CurseurHaut(_map, rendu); continue;
-                case SDLK_RIGHT: CurseurDroite(_map, rendu); continue;
-                case SDLK_LEFT: CurseurGauche(_map, rendu); continue;
-                case SDLK_SPACE: SelectionCase(_map, rendu, memoire); continue;
-
-                default : continue;
-            }
-
-            case SDL_QUIT: programme_lance = SDL_FALSE; break;
-            default : break;
-        }
-    }
-} 
-    
-    SDL_DestroyRenderer(rendu);
-    SDL_DestroyWindow(fenetre);
-    SDL_Quit();
+    LancementPartie(_map, tableau_joueur, _rendu, _fenetre);
 }   
 
 
@@ -216,7 +181,7 @@ void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _ren
 {
     SDL_SetColorKey(_image, SDL_TRUE, SDL_MapRGB(_image->format, 255, 255, 255));    
 
-        _texture = SDL_CreateTextureFromSurface(_rendu, _image);                    
+        _texture = SDL_CreateTextureFromSurface(_rendu, _image);
         if (_texture == NULL)Erreur(2);
 
         SDL_FreeSurface(_image);

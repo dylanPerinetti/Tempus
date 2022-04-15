@@ -36,7 +36,7 @@ void CreeMapTuile(Tuile _map[10][10])
 		{
 			InitialiserCurseur(&_map[i][j], 0);
 			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
-			ChangerNombresPionsTuile(&_map[i][j],'0');
+			ChangerNombresPionsTuile(&_map[i][j],'0','0');
 			ChangerCouleurTuile(&_map[i][j],'0');
 			ChangerTailleVilleTuile(&_map[i][j],'0');
 			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c | Couleur de la Tuile = %c |", i, j, _map[i][j].type_terrain,_map[i][j].couleur);
@@ -48,9 +48,10 @@ void CreeMapTuile(Tuile _map[10][10])
 		}
 	}
 	InitialiserCurseur(&_map[5][5], 1);
-	ChangerNombresPionsTuile(&_map[4][4],'1');
-	ChangerNombresPionsTuile(&_map[3][3],'1');
-	ChangerCouleurTuile(&_map[3][3],'2');
+	ChangerNombresPionsTuile(&_map[4][4],'1','1');
+	ChangerNombresPionsTuile(&_map[3][3],'1','2');
+	ChangerNombresPionsTuile(&_map[5][5],'2','3');
+	ChangerNombresPionsTuile(&_map[6][6],'1','4');
 }
 
 
@@ -59,14 +60,14 @@ void InitialiserCurseur(Tuile* _tuile, int bool)
 	_tuile->curseur = bool;
 }
 
-int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion)
+int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion, unsigned char _couleur)
 {
 	_tuile->nombre_pion = _nombre_pion;
 	if(_nombre_pion==0)
 	{
 		ChangerCouleurTuile(_tuile,'0');
 	}
-	else ChangerCouleurTuile(_tuile,'1');  //<----- pour l'instant je mets 1 par defaut mais on changera pour que ce soit le nombre correspondant au joueur qui joue
+	else ChangerCouleurTuile(_tuile, _couleur);  //<----- pour l'instant je mets 1 par defaut mais on changera pour que ce soit le nombre correspondant au joueur qui joue
 	return 0;
 
 }
@@ -162,47 +163,43 @@ int CaseInterdite(int i, int j)
 {
 	if(i==0)
 	{
-		if(j<3||j>5)
-		{
-			return 1;
-		}
+		if(j<3||j>5) return 1;
 	}
+	
 	if(i==1)
 	{
-		if(j==0||j==8)
-		{
-			return 1;
-		}
+		if(j==0||j==8) return 1;
 	}
+	
 	if(i==8)
 	{
-		if(j<2||j>6)
-		{
-			return 1;
-		}
+		if(j<2||j>6) return 1;
 	}
+	
 	if(i==9)
 	{
-		if(j!=4)
-		{
-			return 1;
-		}
+		if(j!=4) return 1;
 	}
-	if(j==9)
-	{
-		return 1;
-	}
+	
+	if(j==9) return 1;
 
 	else return 0;
 }
 
 int CaseAdjacente(int departx, int departy, int arriveex, int arriveey)
 {
-	if(arriveex==departx&&(arriveey==departy-1||arriveey==departy+1)) return 1;
-
-	else if(arriveex=departx+1&&(arriveey==departy||arriveey==departy+1)) return 1;
-
-	else if(arriveex=departx+-1&&(arriveey==departy||arriveey==departy+1)) return 1;
+	if(arriveey==departy&&(arriveex==departx-1||arriveex==departx+1)) return 1;
+	
+	if(departy%2==0)
+	{
+		if((arriveey==departy+1)&&((arriveex==departx)||(arriveex==departx-1))) return 1;
+		if((arriveey==departy-1)&&((arriveex==departx)||(arriveex==departx-1))) return 1;
+	}
+	else if(departy%2!=0)
+	{
+		if((arriveey==departy+1)&&((arriveex==departx)||(arriveex==departx+1))) return 1;
+		if((arriveey==departy-1)&&((arriveex==departx)||(arriveex==departx+1))) return 1;
+	}
 
 	else return 0;
 }

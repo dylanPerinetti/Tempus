@@ -46,7 +46,7 @@ void CreeMapTuile(Tuile _map[10][10]);								//	InitialiserCoordonneesTuile( <&
 char RandomizeTuile();
 
 void InitialiserCurseur(Tuile* _tuile, int bool);
-int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion);
+int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion, unsigned char _couleur);
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
 int ChangerCouleurTuile(Tuile* _tuile, unsigned char _couleur);
 int ChangerTailleVilleTuile(Tuile* _tuile, unsigned char _taille_ville);

@@ -15,7 +15,7 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 #include "map.h"
 #include "evenement.h"
 
-#define NETTOYER_TERMINAL "clear"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
+#define NETTOYER_TERMINAL "cls"				//Si vous etes sur windows dans le CMD remplacer par "cls"  
 
 int main(int argc,char* argv[])
 {
@@ -46,6 +46,8 @@ int main(int argc,char* argv[])
 	Joueur tableau_joueur[4];
 	Tuile map[10][10];
 	CreeMapTuile(map);
+	SDL_Renderer *rendu = NULL;
+	SDL_Window *fenetre = NULL;  
 
 	printf("\n\n\n\nBonjour, Bienvenue a sur \n\n\n");
 	
@@ -60,7 +62,7 @@ int main(int argc,char* argv[])
 	            system(NETTOYER_TERMINAL);
 	            Cree4Joueurs(tableau_joueur);
 	            //DebutJeu();					//Initialisations du jeu
-	            if(GRAPHIQUE != 0)AfficherFenetre(map);
+	            if(GRAPHIQUE != 0){AfficherFenetre(map, tableau_joueur, rendu, fenetre);}
 	            break;
 	        case 2:
 	            system(NETTOYER_TERMINAL);
