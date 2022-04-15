@@ -6,7 +6,7 @@ Pour faire la partie graphique nous avons utiliser SDL.
 Et voici le git [SDL](https://github.com/libsdl-org/SDL) et le [siteweb](https://wiki.libsdl.org/FrontPage)
 pour en savoir plus.
 
-Créé par Rémi Perrier-Gustin (MrTNTX) et Dylan Perinetti (dylanPerinetti)
+Créé par Rémi Perrier-Gustin ([MrTNTX](https://github.com/Mrtntx)) et Dylan Perinetti (dylanPerinetti)
 
 ## Commande pour l'Installer et le Lancer (Linux et Mac OS):
 
