@@ -41,10 +41,7 @@ int AfficherFenetre(Tuile _map[10][10], Joueur tableau_joueur[4], SDL_Renderer *
 
     for(i=0;i<10;i++)
     {
-        for(j=0;j<10;j++)
-        {
-            MajCase(_map, i, j, _rendu);
-        }
+        for(j=0;j<10;j++) MajCase(_map, i, j, _rendu);
     }
 
     LancementPartie(_map, tableau_joueur, _rendu, _fenetre);
