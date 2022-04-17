@@ -8,7 +8,7 @@ Ce fichier contient les fonction liez à la map dans le Jeu Tempus.
 En savoir plus sur leur utilisation dans le ficheier "map.h".
 
 Fait par Dylan le 22/03/2022
-Dernière modifications par dylanPerinetti le 24/03/2022
+Dernière modifications par dylanPerinetti le 17/04/2022
 
 	Je suis acctuellement en train de develloper :
 		- void CreeMapTuile();
@@ -41,10 +41,7 @@ void CreeMapTuile(Tuile _map[10][10])
 			ChangerTailleVilleTuile(&_map[i][j],'0');
 			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c | Couleur de la Tuile = %c |", i, j, _map[i][j].type_terrain,_map[i][j].couleur);
 			printf("\n|Nombre de pion = %c | Taille de la Ville = %c | Curseur = %d\n",_map[i][j].nombre_pion,_map[i][j].taille_ville,_map[i][j].curseur);
-			if(CaseInterdite(i,j)==1)
-			{
-					ChangerTypeTerrainTuile(&_map[i][j], '7');
-			}
+			if(CaseInterdite(i,j)==1) ChangerTypeTerrainTuile(&_map[i][j], '7');
 		}
 	}
 	InitialiserCurseur(&_map[5][5], 1);
@@ -63,10 +60,7 @@ void InitialiserCurseur(Tuile* _tuile, int bool)
 int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion, unsigned char _couleur)
 {
 	_tuile->nombre_pion = _nombre_pion;
-	if(_nombre_pion==0)
-	{
-		ChangerCouleurTuile(_tuile,'0');
-	}
+	if(_nombre_pion==0) ChangerCouleurTuile(_tuile,'0');
 	else ChangerCouleurTuile(_tuile, _couleur);  //<----- pour l'instant je mets 1 par defaut mais on changera pour que ce soit le nombre correspondant au joueur qui joue
 	return 0;
 
@@ -161,25 +155,13 @@ char RandomizeTuile()
 
 int CaseInterdite(int i, int j)
 {
-	if(i==0)
-	{
-		if(j<3||j>5) return 1;
-	}
+	if((i==0) && (j<3||j>5)) return 1;
 	
-	if(i==1)
-	{
-		if(j==0||j==8) return 1;
-	}
+	if((i==1) && (j==0||j==8)) return 1;
 	
-	if(i==8)
-	{
-		if(j<2||j>6) return 1;
-	}
+	if((i==8) && (j<2||j>6)) return 1;
 	
-	if(i==9)
-	{
-		if(j!=4) return 1;
-	}
+	if((i==9) && (j!=4)) return 1;
 	
 	if(j==9) return 1;
 
