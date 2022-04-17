@@ -7,7 +7,7 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient le code Pincipal du jeu (main).
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le 24/03/2022
+Dernière modifications par dylanPerinetti le  17/04/2022
 */
 
 #include "joueur.h"
@@ -77,10 +77,8 @@ int main(int argc,char* argv[])
 	            printf("Veuillez resaisir votre choix");
 	            break;
 	    }
-
-	    //______________________   ZONE TESTE   ________________________//
-		printf("\nPremier argument utile : %s\n",argv[1]); // teste
-		//_____________________   FIN ZONE TESTE   _______________________//
+	//______________________   ZONE TESTE   ________________________//
+	//_____________________   FIN ZONE TESTE   _______________________//
     }while (choix_utilisateur!=4);
     return 0;
 }
