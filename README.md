@@ -67,6 +67,8 @@ Vous pourrez tout de même Jouer en entrant la commande :
 Tempus -g
 ``` 
   
+MERCI et GG :) 
+  
   
   
   
