@@ -25,16 +25,20 @@ int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu);
-int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, int _memoire[5], Joueur _joueur);
+int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur);
 
 
-void SelectionPion(Tuile _map[10][10], int i, int j, int _memoire[5], Joueur _joueur);
-int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int i, int j, int _memoire[5], Joueur _joueur);
+int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, Joueur _joueur);
+int TestDeplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, int point_dep, int *nbre_pion, Joueur _joueur);
+
+int PlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur);
+int TestPlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur);
 
 
 void DeplacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, int departx, int departy, int arriveex, int arriveey, unsigned char couleur, int nbre_pion_deplace);
-void NouvelleSelectionCase(int _memoire[5],  int _coordx, int _coordy);
 int ChoixAction();
+void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy);
+
 #endif
 
 // Dans SelectionMap, Deplacement, DeplacementPion et Nouvelle Selection Case.

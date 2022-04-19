@@ -47,26 +47,26 @@ void InitialiserCouleurJoueur(Joueur* _joueur,unsigned char _couleur)
 
 void InitialiserNiveauJoueur(Joueur* _joueur)
 {
-	_joueur->niveaux_joueur.niveau=0;
-	_joueur->niveaux_joueur.deplacement=1;
-	_joueur->niveaux_joueur.distance=1;
-	_joueur->niveaux_joueur.enfants=1;
-	_joueur->niveaux_joueur.nbre_pion_max=2;
-	_joueur->niveaux_joueur.actions=3;
+	_joueur->niveau_joueur.niveau=0;
+	_joueur->niveau_joueur.deplacement=1;
+	_joueur->niveau_joueur.distance=1;
+	_joueur->niveau_joueur.enfants=1;
+	_joueur->niveau_joueur.nbre_pion_max=2;
+	_joueur->niveau_joueur.actions=3;
 }
 
 /*--------------------------------------------------------------------------*/
 
 void AugmenterNiveauJoueur(Joueur* _joueur)
 {
-	_joueur->niveaux_joueur.niveau++;                     //A finir ça va etre long sa mere
+	_joueur->niveau_joueur.niveau++;                     //A finir ça va etre long sa mere
 }
 
 /*--------------------------------------------------------------------------*/
 
 void AfficherNiveauJoueur(Joueur* _joueur)
 {
-	printf("\nLe niveau du Joueur%u est %u \n", _joueur->couleur, _joueur->niveaux_joueur);
+	printf("\nLe niveau du Joueur%u est %u \n", _joueur->couleur, _joueur->niveau_joueur);
 }
 
 /*--------------------------------------------------------------------------*/

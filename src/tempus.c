@@ -7,7 +7,7 @@ Retrouver le Projet complet sur Git "https://github.com/dylanPerinetti/tempus"
 Ce fichier contient le code Pincipal du jeu (main).
 
 Fait par dylan le 14/03/2022
-Dernière modifications par dylanPerinetti le  17/04/2022
+Dernière modifications par dylanPerinetti le 24/03/2022
 */
 
 #include "joueur.h"

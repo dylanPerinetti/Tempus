@@ -35,7 +35,7 @@ typedef struct Joueur
 {
 	char pseudo[20];
 	unsigned char couleur;
-	Niveau niveaux_joueur;
+	Niveau niveau_joueur;
 	unsigned char pions_possede;
 	unsigned char cite_possede;
 }Joueur;
