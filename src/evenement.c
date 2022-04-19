@@ -16,7 +16,6 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu, SDL_Window* _fenetre)
 {
 	int fin_tour=0;
-	int k=0;
 	SDL_bool programme_lance = SDL_TRUE;
 	int memoire[5]; //Tableau int : int selectionx; int selectiony; int phase_jeu; int point_dep_restant; int nbre_pion_deplace;
     memoire[2]=0;
@@ -29,14 +28,34 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 	for(int i=0;i<4;i++)
 	{
 		printf("\nJoueur %d :", i+1);
-		scanf("%s",_joueur[0].pseudo);
-		printf("\nBienvenue %s", _joueur[0].pseudo);
+		scanf("%s",_joueur[i].pseudo);
+		printf("\nBienvenue %s", _joueur[i].pseudo);
 	}
 
 	SDL_Event event;
 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	for(int i=0; i<3; i++)
 	{
+		printf("\n\n---------Au tour du joueur %s-----------", _joueur[i].pseudo);
 	    while(programme_lance&&fin_tour==0)
 	    {
 	        SDL_Event event;
@@ -51,7 +70,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 			                case SDLK_UP: CurseurHaut(_map, _rendu); continue;
 			                case SDLK_RIGHT: CurseurDroite(_map, _rendu); continue;
 			                case SDLK_LEFT: CurseurGauche(_map, _rendu); continue;
-			                case SDLK_SPACE: fin_tour=SelectionCase(_map, _rendu, memoire, _joueur[k]); continue;
+			                case SDLK_SPACE: fin_tour=SelectionCase(_map, _rendu, memoire, _joueur[i]); continue;
 
 			             	default : continue;
 	            		}
@@ -61,9 +80,9 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 	            }
 	        }
 	    }
+	    
 	    memoire[2]=0; memoire[3]=4; memoire[4]=-1;
-	    k++;
-	    printf("\nAu tour du joueur %d", k+1);
+	    
 	    fin_tour=0;
 	}
     
