@@ -13,12 +13,9 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 */
 #include "evenement.h"
 
+
 void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu, SDL_Window* _fenetre)
 {
-	int fin_tour=0;
-	int i,j;
-	SDL_bool programme_lance = SDL_TRUE;
-	
 	printf("\n---------------------Bienvenue dans Tempus-----------------------");
 	printf("\n\n Veuillez entrer les pseudos des joueurs :");
 	
@@ -29,12 +26,10 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 		printf("\nBienvenue %s", _joueur[i].pseudo);
 	}
 
-	SDL_Event event;
-
-	printf("\n\nVous allez chacun pouvoir, a votre tour, placer 3 pions sur l'ile de Tempus. Choisissez bien !");
-	for(i=0; i<3; i++)
+	printf("\n\nVous allez chacun pouvoir, chacun votre tour, placer 3 pions sur l'ile de Tempus. Choisissez bien !");
+	for(int i=0; i<3; i++)
 	{
-		for(j=0; j<4; j++)
+		for(int j=0; j<4; j++)
 		{
 			printf("\n\n-------Joueur %s, a vous---------",_joueur[j].pseudo);
 			PlacementPion(_map, _rendu, _joueur[j]);
@@ -44,40 +39,84 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 	printf("\n\n-------------Debut de la partie--------------");
 	
 
-	
-	for(int i=0; i<3; i++)
-	{
-		printf("\n\n---------Au tour du joueur %s-----------", _joueur[i].pseudo);
-	    while(programme_lance&&fin_tour==0)
-	    {
-	        SDL_Event event;
-	        while(SDL_PollEvent(&event))
-	        {
-	            switch(event.type)
-	            {
-	                case SDL_KEYDOWN: 
-			            switch(event.key.keysym.sym)
-			            {
-			                case SDLK_DOWN: CurseurBas(_map, _rendu); continue;
-			                case SDLK_UP: CurseurHaut(_map, _rendu); continue;
-			                case SDLK_RIGHT: CurseurDroite(_map, _rendu); continue;
-			                case SDLK_LEFT: CurseurGauche(_map, _rendu); continue;
-			                case SDLK_SPACE: fin_tour = SelectionCase(_map, _rendu, _joueur[i]); continue;
+	int i=0;
 
-			             	default : continue;
-	            		}
-	            	
-	            	case SDL_QUIT: programme_lance = SDL_FALSE; break;
-	                default : break;
-	            }
-	        }
-	    }
-	    fin_tour=0;
+	while(_joueur[0].niveau_joueur.actions>0||_joueur[1].niveau_joueur.actions>0||_joueur[2].niveau_joueur.actions>0||_joueur[3].niveau_joueur.actions>0)
+	{
+		for(i=0;i<4;i++)
+		{
+			system(NETTOYER_TERMINAL);
+			printf("\n\n---------Au tour du joueur %s-----------", _joueur[i].pseudo);
+			
+			if(_joueur[i].niveau_joueur.actions>0) 
+			{
+				printf("\nIl vous reste %d actions pour cet age", _joueur[i].niveau_joueur.actions); 
+				SelectionCase(_map, _rendu, _joueur[i], _fenetre);
+				_joueur[i].niveau_joueur.actions=_joueur[i].niveau_joueur.actions-1;
+			}
+			
+			else printf("\nVous n'avez plus de points d'actions, vous passez donc votre tour");
+		}
 	}
-    
-    SDL_DestroyRenderer(_rendu);
-    SDL_DestroyWindow(_fenetre);
-    SDL_Quit();
+	printf("\n\n--------TOUS LES JOUEURS N'ONT PLUS DE POINTS D'ACTIONS, FIN DE L'AGE------------");
+}
+
+
+int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_Window *_fenetre)
+{
+	int fin_tour=0;
+	SDL_bool programme_lance = SDL_TRUE;
+	
+	while(programme_lance&&fin_tour==0)
+	{
+		SDL_Event event;
+		while(SDL_PollEvent(&event))
+		{
+			switch(event.type)
+			{
+				case SDL_KEYDOWN: 
+				switch(event.key.keysym.sym)
+				{
+					case SDLK_DOWN: CurseurBas(_map, _rendu); continue;
+					case SDLK_UP: CurseurHaut(_map, _rendu); continue;
+					case SDLK_RIGHT: CurseurDroite(_map, _rendu); continue;
+					case SDLK_LEFT: CurseurGauche(_map, _rendu); continue;
+					case SDLK_SPACE: fin_tour=SelectionPion(_map, _rendu, _joueur); continue;
+
+					default : continue;
+				}
+
+				case SDL_QUIT: programme_lance = SDL_FALSE; SDL_DestroyRenderer(_rendu); SDL_DestroyWindow(_fenetre); SDL_Quit(); break;
+				default : break;
+			}
+		}
+	}
+}
+
+int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
+{
+	int coordx;
+	int coordy;
+	int action;
+	RechercheCurseur(_map, &coordx, &coordy);
+
+	if(_map[coordx][coordy].nombre_pion!='0'&&_map[coordx][coordy].couleur==(_joueur.couleur+48))      
+    {
+		printf("\nVous avez selectionne le pion sur la case %d %d",coordx,coordy);       
+        action=ChoixAction();
+        printf("\nVous avez choisis %d", action);
+        switch(action)
+        {
+            case 1: Deplacement(_map, _rendu, &coordx, &coordy, _joueur); break;
+            case 2:break;
+            case 3:break;
+            case 4:break;
+            case 5:break;
+		}
+        return 1;
+	}
+	else printf("\nVous n'avez pas selectionne un de vos pions %d %c %d %c", _joueur.couleur+48, _joueur.couleur+48, _map[coordx][coordy].couleur, _map[coordx][coordy].couleur); return 0;
+
 }
 
 
@@ -154,32 +193,6 @@ int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
     }
 }
 
-int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
-{
-	int coordx;
-	int coordy;
-	int action;
-	RechercheCurseur(_map, &coordx, &coordy);
-
-	if(_map[coordx][coordy].nombre_pion!='0'&&_map[coordx][coordy].couleur==(_joueur.couleur+48))      
-    {
-		printf("\nVous avez selectionne le pion sur la case %d %d",coordx,coordy);       
-        action=ChoixAction();
-        printf("\nVous avez choisis %d", action);
-        switch(action)
-        {
-            case 1: Deplacement(_map, _rendu, &coordx, &coordy, _joueur); break;
-            case 2:break;
-            case 3:break;
-            case 4:break;
-            case 5:break;
-		}
-
-        return 1;
-	}
-	else printf("\nVous n'avez pas selectionne un de vos pions %d %c %d %c", _joueur.couleur+48, _joueur.couleur+48, _map[coordx][coordy].couleur, _map[coordx][coordy].couleur); return 0;
-
-}
 
 
 int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, Joueur _joueur)
@@ -260,7 +273,7 @@ int TestDeplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int 
 						scanf("%d",nbre_pion);
 					
 						if(*nbre_pion>_map[ncoordx][ncoordy].nombre_pion-47) printf("\nIl n'y a pas assez pions sur cette case, saisissez une nouvelle valeur");
-						if(*nbre_pion>_joueur.niveau_joueur.deplacement) printf("\nVous n'avez pas atteint l'age pour deplacer autant de pions");
+						else if(*nbre_pion>_joueur.niveau_joueur.deplacement) printf("\nVous n'avez pas atteint l'age pour deplacer autant de pions");
 				
 					}while(*nbre_pion>_map[ncoordx][ncoordy].nombre_pion-47||*nbre_pion>_joueur.niveau_joueur.deplacement);
 				}
@@ -365,6 +378,7 @@ int ChoixAction()
 	{
 	printf("\n");
 	scanf("%d",&choix);
+	if(choix>5||choix<1) printf("\n Vous devez choisir une valeur entre 1 et 5");
 	}while(choix>5||choix<1);
 	return choix;
 }

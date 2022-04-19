@@ -52,7 +52,7 @@ void InitialiserNiveauJoueur(Joueur* _joueur)
 	_joueur->niveau_joueur.distance=1;
 	_joueur->niveau_joueur.enfants=1;
 	_joueur->niveau_joueur.nbre_pion_max=2;
-	_joueur->niveau_joueur.actions=3;
+	_joueur->niveau_joueur.actions=1;
 }
 
 /*--------------------------------------------------------------------------*/

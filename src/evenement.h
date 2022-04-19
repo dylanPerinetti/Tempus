@@ -18,15 +18,19 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 #include "fenetre.h"
 #include "map.h"
 #include "joueur.h"
+#define NETTOYER_TERMINAL "cls"
 
 void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu, SDL_Window* _fenetre);
+
+
+
+int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_Window *_fenetre);
+int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur);
 
 int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu);
-int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur);
-
 
 int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, Joueur _joueur);
 int TestDeplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, int point_dep, int *nbre_pion, Joueur _joueur);
