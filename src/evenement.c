@@ -62,6 +62,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 }
 
 
+
 int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_Window *_fenetre)
 {
 	int fin_tour=0;
@@ -92,6 +93,8 @@ int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_
 		}
 	}
 }
+
+
 
 int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
 {
@@ -378,7 +381,7 @@ int ChoixAction()
 	{
 	printf("\n");
 	scanf("%d",&choix);
-	if(choix>5||choix<1) printf("\n Vous devez choisir une valeur entre 1 et 5");
+	if(choix>5||choix<1) printf("\nVous devez choisir une valeur entre 1 et 5");
 	}while(choix>5||choix<1);
 	return choix;
 }
