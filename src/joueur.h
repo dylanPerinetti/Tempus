@@ -22,12 +22,16 @@ Dernière modifications par dylanPerinetti le 06/04/2022
 
 typedef struct Niveau
 {
-	int niveau;
-	int deplacement;
-	int distance;
-	int enfants;
-	int nbre_pion_max;
-	int actions;
+	unsigned char niveau;
+	unsigned char deplacement;
+	unsigned char distance;
+	unsigned char enfants;
+	unsigned char nbre_pion_max;
+	unsigned char voyage_naval;
+	unsigned char carte_pioche;
+	unsigned char carte_max;
+	unsigned char actions;
+
 }Niveau;
 
 

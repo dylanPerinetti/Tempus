@@ -14,8 +14,13 @@ Dernière modifications par dylanPerinetti le 24/03/2022
 #include "evenement.h"
 
 
+/*-----------------------------------------------------------------------------------------------------------------*/
+
 void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu, SDL_Window* _fenetre)
 {
+	int i=0;
+	int age=0;
+
 	printf("\n---------------------Bienvenue dans Tempus-----------------------");
 	printf("\n\n Veuillez entrer les pseudos des joueurs :");
 	
@@ -32,35 +37,47 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 		for(int j=0; j<4; j++)
 		{
 			printf("\n\n-------Joueur %s, a vous---------",_joueur[j].pseudo);
-			PlacementPion(_map, _rendu, _joueur[j]);
+			PlacementPion(_map, _rendu, &_joueur[j], _fenetre);
+			printf("\n%d",_joueur[j].pions_possede);
 		}
 	}
 
 	printf("\n\n-------------Debut de la partie--------------");
 	
-
-	int i=0;
-
-	while(_joueur[0].niveau_joueur.actions>0||_joueur[1].niveau_joueur.actions>0||_joueur[2].niveau_joueur.actions>0||_joueur[3].niveau_joueur.actions>0)
+	while(_joueur[0].niveau_joueur.niveau<10||_joueur[1].niveau_joueur.niveau<10||_joueur[2].niveau_joueur.niveau<10||_joueur[3].niveau_joueur.niveau<10)
 	{
-		for(i=0;i<4;i++)
+		while(_joueur[0].niveau_joueur.actions>0||_joueur[1].niveau_joueur.actions>0||_joueur[2].niveau_joueur.actions>0||_joueur[3].niveau_joueur.actions>0)
 		{
-			system(NETTOYER_TERMINAL);
-			printf("\n\n---------Au tour du joueur %s-----------", _joueur[i].pseudo);
-			
-			if(_joueur[i].niveau_joueur.actions>0) 
+			for(i=0;i<4;i++)
 			{
-				printf("\nIl vous reste %d actions pour cet age", _joueur[i].niveau_joueur.actions); 
-				SelectionCase(_map, _rendu, _joueur[i], _fenetre);
-				_joueur[i].niveau_joueur.actions=_joueur[i].niveau_joueur.actions-1;
+				system(NETTOYER_TERMINAL);
+				printf("\n\n---------Au tour du joueur %s-----------", _joueur[i].pseudo);
+				
+				if(_joueur[i].niveau_joueur.actions>0) 
+				{
+					printf("\nIl vous reste %d actions pour cet age", _joueur[i].niveau_joueur.actions); 
+					SelectionCase(_map, _rendu, _joueur[i], _fenetre);
+					_joueur[i].niveau_joueur.actions=_joueur[i].niveau_joueur.actions-1;
+				}
+				
+				else printf("\nVous n'avez plus de points d'actions, vous passez donc votre tour");
 			}
-			
-			else printf("\nVous n'avez plus de points d'actions, vous passez donc votre tour");
 		}
+		system(NETTOYER_TERMINAL);
+		age++;
+		
+		printf("\n\n--------TOUS LES JOUEURS N'ONT PLUS DE POINTS D'ACTIONS, FIN DE L'AGE------------");
+		printf("\nTous les joueurs atteignent l'age %d \nDe plus, le joueur 1 ayant le plus de cartes idees monte a l'age %d", age, age+1); //Pour l'instant je fixe le joueur 1 on verra plus tard pour la suite.
+		
+		for(i=0;i<4;i++) 
+		{
+			if(_joueur[i].niveau_joueur.niveau<age) AugmenterNiveauJoueur(&_joueur[i]);
+		}
+		AugmenterNiveauJoueur(&_joueur[1]); //la meme
 	}
-	printf("\n\n--------TOUS LES JOUEURS N'ONT PLUS DE POINTS D'ACTIONS, FIN DE L'AGE------------");
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 
 int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_Window *_fenetre)
@@ -82,7 +99,7 @@ int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_
 					case SDLK_UP: CurseurHaut(_map, _rendu); continue;
 					case SDLK_RIGHT: CurseurDroite(_map, _rendu); continue;
 					case SDLK_LEFT: CurseurGauche(_map, _rendu); continue;
-					case SDLK_SPACE: fin_tour=SelectionPion(_map, _rendu, _joueur); continue;
+					case SDLK_SPACE: fin_tour=SelectionPion(_map, _rendu, _joueur, _fenetre); continue;
 
 					default : continue;
 				}
@@ -94,9 +111,10 @@ int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_
 	}
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 
-int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
+int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_Window *_fenetre)
 {
 	int coordx;
 	int coordy;
@@ -107,14 +125,13 @@ int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
     {
 		printf("\nVous avez selectionne le pion sur la case %d %d",coordx,coordy);       
         action=ChoixAction();
-        printf("\nVous avez choisis %d", action);
         switch(action)
         {
-            case 1: Deplacement(_map, _rendu, &coordx, &coordy, _joueur); break;
-            case 2:break;
-            case 3:break;
-            case 4:break;
-            case 5:break;
+            case 1: printf("\nVous avez choisis de deplacer vos pions"); Deplacement(_map, _rendu, &coordx, &coordy, _joueur, _fenetre); break;
+            case 2: printf("\nVous avez choisis %d", action); break;
+            case 3: printf("\nVous avez choisis %d", action); break;
+            case 4: printf("\nVous avez choisis %d", action);break;
+            case 5: printf("\nVous avez choisis %d", action);break;
 		}
         return 1;
 	}
@@ -122,6 +139,7 @@ int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
 
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu)
 {
@@ -142,6 +160,8 @@ int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu)
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
+
 int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu)
 {
     for(int i=0; i<10; i++)
@@ -159,6 +179,8 @@ int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu)
         }
     }
 }
+
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu)
 {
@@ -178,6 +200,8 @@ int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu)
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
+
 int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
 {
     for(int i=0; i<10; i++)
@@ -196,9 +220,9 @@ int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
-
-int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, Joueur _joueur)
+int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, Joueur _joueur, SDL_Window *_fenetre)
 {
 	
 	SDL_bool programme_lance = SDL_TRUE;
@@ -226,7 +250,7 @@ int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_co
 			                default : continue;
 	            		}
 	            	
-	            	case SDL_QUIT: programme_lance = SDL_FALSE; break;
+	            	case SDL_QUIT: programme_lance = SDL_FALSE; SDL_DestroyRenderer(_rendu); SDL_DestroyWindow(_fenetre); SDL_Quit(); break;
 	                default : break;
 	            }
 	        }
@@ -236,6 +260,7 @@ int Deplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_co
 	printf("\nVous n'avez plus de points de deplacement...");
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 int TestDeplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int *_coordy, int point_dep, int *nbre_pion, Joueur _joueur)
 {
@@ -299,8 +324,9 @@ int TestDeplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int 
 	else printf("\nVous devez selectionner une case adjacente"); return 0;
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
-int PlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
+int PlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur *_joueur, SDL_Window *_fenetre)
 {
 	SDL_bool programme_lance = SDL_TRUE;
 	int fin_tour=0;
@@ -323,15 +349,16 @@ int PlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
 					default : continue;
 				}
 
-				case SDL_QUIT: programme_lance = SDL_FALSE; break;
+				case SDL_QUIT: programme_lance = SDL_FALSE; SDL_DestroyRenderer(_rendu); SDL_DestroyWindow(_fenetre); SDL_Quit(); break;
 				default : break;
 			}
 		}
 	}
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
-int TestPlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
+int TestPlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur *_joueur)
 {
 	int coordx;
 	int coordy;
@@ -344,13 +371,13 @@ int TestPlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
 		printf("\nVous ne pouvez pas poser de pions sur un lac");
 		return 0;
 	}
-	else if(_map[coordx][coordy].couleur!=_joueur.couleur+48&&_map[coordx][coordy].couleur!='0')
+	else if(_map[coordx][coordy].couleur!=_joueur->couleur+48&&_map[coordx][coordy].couleur!='0')
 	{
 		printf("\nCette case appartient deja a quelqu'un d'autre");
 		return 0;
 	}
 	
-	else if(_map[coordx][coordy].nombre_pion>_joueur.niveau_joueur.nbre_pion_max+48)
+	else if(_map[coordx][coordy].nombre_pion>=_joueur->niveau_joueur.nbre_pion_max+48)
 	{
 		printf("\nVous n'avez pas atteint l'age pour avoir autant de pions sur une case");
 		return 0;
@@ -358,14 +385,16 @@ int TestPlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur)
 	
 	else
 	{
+		_joueur->pions_possede--;
+		printf("\n%d",_joueur->pions_possede);
 		_map[coordx][coordy].nombre_pion++;
-		_map[coordx][coordy].couleur=_joueur.couleur+48;
+		_map[coordx][coordy].couleur=_joueur->couleur+48;
 		MajCase(_map, coordx, coordy, _rendu); 
 		return 1;
 	}
 }
 
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 int ChoixAction()  
 {	
@@ -386,6 +415,8 @@ int ChoixAction()
 	return choix;
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
+
 void DeplacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, int departx, int departy, int arriveex, int arriveey, unsigned char couleur, int nbre_pion_deplace)
 {
 	_map[departx][departy].nombre_pion = _map[departx][departy].nombre_pion-nbre_pion_deplace;
@@ -400,9 +431,9 @@ void DeplacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, int departx, int 
 	
 	MajCase(_map, departx, departy, _rendu); 
 	MajCase(_map, arriveex, arriveey, _rendu);
-	//printf("\n %d %d %c %d %d %c %c %c", departy, departy, _map[departx][departy].nombre_pion, arriveex, arriveey, _map[arriveex][arriveey].nombre_pion, _map[departx][departy].couleur,_map[arriveex][arriveey].couleur);
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy)
 {
@@ -418,3 +449,4 @@ void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy)
         }
     }
 }
+/*-----------------------------------------------------------------------------------------------------------------*/

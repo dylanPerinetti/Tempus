@@ -52,14 +52,30 @@ void InitialiserNiveauJoueur(Joueur* _joueur)
 	_joueur->niveau_joueur.distance=1;
 	_joueur->niveau_joueur.enfants=1;
 	_joueur->niveau_joueur.nbre_pion_max=2;
-	_joueur->niveau_joueur.actions=1;
+	_joueur->niveau_joueur.voyage_naval=0;
+	_joueur->niveau_joueur.carte_pioche=1;
+	_joueur->niveau_joueur.carte_max=5;
+	_joueur->niveau_joueur.actions=1;  //3
 }
 
 /*--------------------------------------------------------------------------*/
 
 void AugmenterNiveauJoueur(Joueur* _joueur)
 {
-	_joueur->niveau_joueur.niveau++;                     //A finir ça va etre long sa mere
+	int oui;
+	_joueur->niveau_joueur.niveau++;
+	switch(_joueur->niveau_joueur.niveau)
+	{
+		case 1: _joueur->niveau_joueur.carte_pioche=2; _joueur->niveau_joueur.distance=2; break;
+		case 2: _joueur->niveau_joueur.enfants=2; break;
+		case 3: _joueur->niveau_joueur.nbre_pion_max=3; _joueur->niveau_joueur.actions=1; break; //4
+		case 4: _joueur->niveau_joueur.distance=2; break;
+		case 5: _joueur->niveau_joueur.deplacement=2; break;
+		case 6: _joueur->niveau_joueur.voyage_naval=1; _joueur->niveau_joueur.actions=1; break;  //5
+		case 7: _joueur->niveau_joueur.carte_max=7; break;
+		case 8: _joueur->niveau_joueur.nbre_pion_max=4; _joueur->niveau_joueur.actions=1; break; //6
+		case 9: _joueur->niveau_joueur.deplacement=3; _joueur->niveau_joueur.distance=5; break;
+	}
 }
 
 /*--------------------------------------------------------------------------*/
