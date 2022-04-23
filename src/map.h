@@ -23,6 +23,7 @@ Je suis acctuellement en train de develloper :
 #define __MAP_H__
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <time.h>
 #define PRCT_PRAIRIE 40
 #define PRCT_MONTAGNE 20

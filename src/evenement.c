@@ -26,9 +26,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 	
 	for(int i=0;i<4;i++)
 	{
-		printf("\nJoueur %d : ", i+1);
-		scanf("%s",_joueur[i].pseudo);
-		printf("\nBienvenue %s", _joueur[i].pseudo);
+		EntrerNomJoueur(&_joueur[i], i);
 	}
 
 	printf("\n\nVous allez chacun pouvoir, chacun votre tour, placer 3 pions sur l'ile de Tempus. Choisissez bien !");
@@ -66,9 +64,13 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 		system(NETTOYER_TERMINAL);
 		age++;
 		
+		char u;
 		printf("\n\n--------TOUS LES JOUEURS N'ONT PLUS DE POINTS D'ACTIONS, FIN DE L'AGE------------");
 		printf("\nTous les joueurs atteignent l'age %d \nDe plus, le joueur 1 ayant le plus de cartes idees monte a l'age %d", age, age+1); //Pour l'instant je fixe le joueur 1 on verra plus tard pour la suite.
-		
+		printf("\nEntrez o pour continuer");
+
+		scanf("%c", &u);
+
 		for(i=0;i<4;i++) 
 		{
 			if(_joueur[i].niveau_joueur.niveau<age) AugmenterNiveauJoueur(&_joueur[i]);
@@ -119,6 +121,8 @@ int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_
 	int coordx;
 	int coordy;
 	int action;
+	int retour;
+
 	RechercheCurseur(_map, &coordx, &coordy);
 
 	if(_map[coordx][coordy].nombre_pion!='0'&&_map[coordx][coordy].couleur==(_joueur.couleur+48))      
@@ -127,13 +131,12 @@ int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_
         action=ChoixAction();
         switch(action)
         {
-            case 1: printf("\nVous avez choisis de deplacer vos pions"); Deplacement(_map, _rendu, &coordx, &coordy, _joueur, _fenetre); break;
-            case 2: printf("\nVous avez choisis %d", action); break;
+            case 1: printf("\nVous avez choisis de deplacer vos pions"); Deplacement(_map, _rendu, &coordx, &coordy, _joueur, _fenetre); return 1; break;
+            case 2: printf("\nVous avez choisis de faire un enfant"); retour=FaireEnfant(_map, _rendu, &coordx, &coordy, &_joueur); return retour; break;
             case 3: printf("\nVous avez choisis %d", action); break;
             case 4: printf("\nVous avez choisis %d", action);break;
             case 5: printf("\nVous avez choisis %d", action);break;
 		}
-        return 1;
 	}
 	else printf("\nVous n'avez pas selectionne un de vos pions %d %c %d %c", _joueur.couleur+48, _joueur.couleur+48, _map[coordx][coordy].couleur, _map[coordx][coordy].couleur); return 0;
 
@@ -450,3 +453,79 @@ void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy)
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
+
+int FaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur)
+{
+	int compteur=_joueur->niveau_joueur.enfants;
+	
+	if(CaseNaissanceDispo(_map, _joueur)==0)
+	{
+		printf("\nVous ne controlez aucune prairie, vous ne pouvez donc pas faire d'enfants");
+		return 0;
+	}
+
+	if(_joueur->pions_possede==0)
+	{
+		printf("\nVous n'avez plus assez de pions pour pouvoir enfanter");
+		return 0;
+	}
+
+	if(TestFaireEnfant(_map, _rendu, _coordx, _coordy, _joueur)==1) compteur--;
+
+	while(compteur!=0 && _joueur->pions_possede!=0 && CaseNaissanceDispo(_map, _joueur)==1)
+	{
+		printf("\nVous pouvez encore faire %d enfant, veuillez choisir une autre case de prairie", compteur);
+			
+		SDL_bool programme_lance = SDL_TRUE;
+		int fin_tour=0;
+
+		while(programme_lance&&fin_tour==0)
+		{
+			SDL_Event event;
+			while(SDL_PollEvent(&event))
+			{
+				switch(event.type)
+				{
+					case SDL_KEYDOWN: 
+					switch(event.key.keysym.sym)
+					{
+						case SDLK_DOWN: CurseurBas(_map, _rendu); RechercheCurseur(_map, _coordx, _coordy); continue;
+						case SDLK_UP: CurseurHaut(_map, _rendu); RechercheCurseur(_map, _coordx, _coordy); continue;
+						case SDLK_RIGHT: CurseurDroite(_map, _rendu); RechercheCurseur(_map, _coordx, _coordy); continue;
+						case SDLK_LEFT: CurseurGauche(_map, _rendu); RechercheCurseur(_map, _coordx, _coordy); continue;
+						case SDLK_SPACE: fin_tour = TestFaireEnfant(_map, _rendu, _coordx, _coordy, _joueur); continue;
+
+						default : continue;
+					}
+					default : break;
+				}
+			}
+		}
+		compteur--;
+	}
+	return 1;
+}
+
+
+int TestFaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur)
+{
+	if(_map[*_coordx][*_coordy].type_terrain!=48)
+	{
+		printf("\nVous ne pouvez pas faire d'enfants sur une case autre qu'une prairie");
+		return 0;
+	}
+	else if(_joueur->niveau_joueur.nbre_pion_max+48<=_map[*_coordx][*_coordy].nombre_pion)
+	{
+		printf("Joueur : %d, Case : %d", _joueur->niveau_joueur.nbre_pion_max+48, _map[*_coordx][*_coordy].nombre_pion);
+		printf("\nIl y a trop de pions sur cette case");
+		return 0;
+	}
+
+	else
+	{
+		_map[*_coordx][*_coordy].nombre_pion++;
+		_joueur->pions_possede--;
+		MajCase(_map, *_coordx, *_coordy, _rendu);
+		return 1;
+	}
+}

@@ -62,19 +62,18 @@ void InitialiserNiveauJoueur(Joueur* _joueur)
 
 void AugmenterNiveauJoueur(Joueur* _joueur)
 {
-	int oui;
 	_joueur->niveau_joueur.niveau++;
 	switch(_joueur->niveau_joueur.niveau)
 	{
-		case 1: _joueur->niveau_joueur.carte_pioche=2; _joueur->niveau_joueur.distance=2; break;
-		case 2: _joueur->niveau_joueur.enfants=2; break;
-		case 3: _joueur->niveau_joueur.nbre_pion_max=3; _joueur->niveau_joueur.actions=1; break; //4
-		case 4: _joueur->niveau_joueur.distance=2; break;
-		case 5: _joueur->niveau_joueur.deplacement=2; break;
-		case 6: _joueur->niveau_joueur.voyage_naval=1; _joueur->niveau_joueur.actions=1; break;  //5
-		case 7: _joueur->niveau_joueur.carte_max=7; break;
-		case 8: _joueur->niveau_joueur.nbre_pion_max=4; _joueur->niveau_joueur.actions=1; break; //6
-		case 9: _joueur->niveau_joueur.deplacement=3; _joueur->niveau_joueur.distance=5; break;
+		case 1: _joueur->niveau_joueur.carte_pioche=2; _joueur->niveau_joueur.actions=3; break;
+		case 2: _joueur->niveau_joueur.enfants=2; _joueur->niveau_joueur.actions=3; break;
+		case 3: _joueur->niveau_joueur.nbre_pion_max=3; _joueur->niveau_joueur.actions=4; break; //4
+		case 4: _joueur->niveau_joueur.distance=2; _joueur->niveau_joueur.actions=4; break; //4
+		case 5: _joueur->niveau_joueur.deplacement=2; _joueur->niveau_joueur.actions=4; break; //4
+		case 6: _joueur->niveau_joueur.voyage_naval=1; _joueur->niveau_joueur.actions=5; break;  //5
+		case 7: _joueur->niveau_joueur.carte_max=7; _joueur->niveau_joueur.actions=5; break; //5
+		case 8: _joueur->niveau_joueur.nbre_pion_max=4; _joueur->niveau_joueur.actions=6; break; //6
+		case 9: _joueur->niveau_joueur.deplacement=3; _joueur->niveau_joueur.distance=5; _joueur->niveau_joueur.actions=6; break; //6
 	}
 }
 
@@ -117,3 +116,38 @@ int RecupererPion(Joueur* _joueur,Tuile* _tuile)
 }
 
 /*--------------------------------------------------------------------------*/
+
+int EntrerNomJoueur(Joueur *_joueur, int numero)
+{
+	printf("\nJoueur %d : ", numero+1);
+	scanf("%s", _joueur->pseudo);
+	printf("\nBienvenue %s", _joueur->pseudo);
+	
+	/*char entree[30];
+	int sortie=0;
+	
+	
+	gets(entree);
+	adresse=(char*)malloc(strlen(entree)+1);
+
+	if(adresse!=NULL)
+	{
+		strcpy(adresse, entree);
+		
+		return 0;
+	}
+	else return 1;*/
+}
+
+int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)
+{
+	for(int i=0; i<10; i++)
+	{
+		for(int j=0; j<10; j++)
+		{
+			if(_map[i][j].type_terrain=='0' && _joueur->couleur+48 ==_map[i][j].couleur && _joueur->niveau_joueur.nbre_pion_max+48>_map[i][j].nombre_pion) return 1;
+		}
+	}
+	return 0;
+}
+

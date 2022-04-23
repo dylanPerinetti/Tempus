@@ -20,6 +20,7 @@ Dernière modifications par dylanPerinetti le 06/04/2022
 
 #include "map.h"
 
+
 typedef struct Niveau
 {
 	unsigned char niveau;
@@ -60,6 +61,7 @@ int InventairePions(Joueur* _joueur);			//Pour Répertorier les Pions d'un joueu
 int InventaireCite(Joueur* _joueur);			//Pour Répertorier les Cite d'un joueur dans l'inventaire
 
 int RecupererPion(Joueur* _joueur,Tuile* _tuile);	//Placer un pion dans le stuff du joueur
-
+int EntrerNomJoueur(Joueur *_joueur, int numero);     //Entrer le nom d'un joueur
+int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur);
 
 #endif

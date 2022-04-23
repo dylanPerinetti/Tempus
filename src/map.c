@@ -200,3 +200,4 @@ int CaseAdjacente(int departx, int departy, int arriveex, int arriveey)
 	else return 0;
 }
 
+
