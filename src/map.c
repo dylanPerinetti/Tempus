@@ -9,15 +9,6 @@ En savoir plus sur leur utilisation dans le ficheier "map.h".
 
 Fait par Dylan le 22/03/2022
 Dernière modifications par dylanPerinetti le 24/03/2022
-
-	Je suis acctuellement en train de develloper :
-		- void CreeMapTuile();
-		- void InitialiserCoordonneesTuile(Tuile* _tuile);								
-		- void InitialiserTypeTerrainTuile(Tuile* _tuile, unsigned char _Type_terrain);	
-		- void InitialiserCiteTuile(Tuile* _tuile, Cite* _cite);							
-		- void InitialiserPionsTuile(Tuile* _tuile, Pions _pion_dessus[]);
-		- int ChangerCoordonneesTuile(Tuile* _tuile, unsigned char _x, unsigned char _y);
-		- void AfficherErreurEvenement(int _erreur);
 		
 */
 #include "map.h"
