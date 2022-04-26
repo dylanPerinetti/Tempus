@@ -26,7 +26,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 	
 	for(int i=0;i<4;i++)
 	{
-		EntrerNomJoueur(&_joueur[i], i);
+		EntrerNomJoueur(&_joueur[i]);
 	}
 
 	printf("\n\nVous allez chacun pouvoir, chacun votre tour, placer 3 pions sur l'ile de Tempus. Choisissez bien !");

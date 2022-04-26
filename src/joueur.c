@@ -117,26 +117,23 @@ int RecupererPion(Joueur* _joueur,Tuile* _tuile)
 
 /*--------------------------------------------------------------------------*/
 
-int EntrerNomJoueur(Joueur *_joueur, int numero)
+int EntrerNomJoueur(Joueur *_joueur)
 {
-	printf("\nJoueur %d : ", numero+1);
-	scanf("%s", _joueur->pseudo);
-	printf("\nBienvenue %s", _joueur->pseudo);
-	
-	/*char entree[30];
-	int sortie=0;
-	
-	
-	gets(entree);
-	adresse=(char*)malloc(strlen(entree)+1);
+	printf("\nJoueur %d : ", _joueur->couleur);
+	char poubelle[30];
+	char entree[30];
 
-	if(adresse!=NULL)
+	if(_joueur->couleur==1) gets(poubelle);
+	gets(entree);
+	_joueur->pseudo = (char*) malloc(strlen(entree)+1);
+
+	if(_joueur->pseudo!=NULL)
 	{
-		strcpy(adresse, entree);
-		
+		strcpy(_joueur->pseudo, entree);
+		printf("\nBienvenue %s", _joueur->pseudo);
 		return 0;
 	}
-	else return 1;*/
+	else return 1;
 }
 
 int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)
