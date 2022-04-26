@@ -35,15 +35,23 @@ typedef struct Niveau
 
 }Niveau;
 
+typedef struct Carte
+{
+	char couleur;
+	char effet;
+}Carte;
 
 typedef struct Joueur
 {
 	char* pseudo;
+	Carte carte_joueur[7];
 	unsigned char couleur;
 	Niveau niveau_joueur;
 	unsigned char pions_possede;
 	unsigned char cite_possede;
 }Joueur;
+
+
 
 
 void InitialiserCouleurJoueur(Joueur* _joueur,unsigned char _couleur);	//Pour Initialiser la couleur de joueur a 0
@@ -63,5 +71,7 @@ int InventaireCite(Joueur* _joueur);			//Pour Répertorier les Cite d'un joueur 
 int RecupererPion(Joueur* _joueur,Tuile* _tuile);	//Placer un pion dans le stuff du joueur
 int EntrerNomJoueur(Joueur *_joueur);     //Entrer le nom d'un joueur
 int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur);
+
+void PiocherCarte(Joueur* _joueur);
 
 #endif

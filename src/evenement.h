@@ -26,7 +26,6 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 
 int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur, SDL_Window *_fenetre);
 int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur _joueur,SDL_Window *_fenetre);
-
 int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu);
@@ -47,6 +46,3 @@ void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy);
 
 #endif
 
-// Dans SelectionMap, Deplacement, DeplacementPion et Nouvelle Selection Case.
-
-//Tableau int : int selectionx; int selectiony; int phase_jeu; int point_dep_restant; int nbre_pion_deplace;

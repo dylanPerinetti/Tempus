@@ -27,6 +27,11 @@ void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'u
 	InitialiserNiveauJoueur(_joueur);
 	_joueur->pions_possede = NOMBRE_PION;
 	_joueur->cite_possede = NOMBRE_CITE;
+	for(int i=0; i<7; i++)
+	{
+		_joueur->carte_joueur[i].couleur=0;
+		_joueur->carte_joueur[i].effet=0;
+	}
 }
 
 /*--------------------------------------------------------------------------*/
@@ -123,7 +128,8 @@ int EntrerNomJoueur(Joueur *_joueur)
 	char poubelle[30];
 	char entree[30];
 
-	if(_joueur->couleur==1) gets(poubelle);
+	if(_joueur->couleur==1) gets(poubelle); //Il y a un entrée dans la mémoire tampon, donc on a pas trouvé d'autres solutions pour le degager
+	
 	gets(entree);
 	_joueur->pseudo = (char*) malloc(strlen(entree)+1);
 
@@ -134,6 +140,45 @@ int EntrerNomJoueur(Joueur *_joueur)
 		return 0;
 	}
 	else return 1;
+}
+
+void PiocherCarte(Joueur* _joueur)
+{
+	int i=0; int fin=0; 
+	while(i<7&&fin==0)
+	{
+		if(_joueur->carte_joueur[i].couleur==0)
+		{
+			_joueur->carte_joueur[i].couleur = rand()%5;  //5 mais jsuis pas sur
+			_joueur->carte_joueur[i].effet = rand()%5;   //la meme
+			fin=1;
+		}
+	i++;
+	}
+}
+
+void RangerCartes(Joueur* _joueur)
+{
+	for(int i=0; i<7; i++)
+	{
+		if(_joueur.carte_joueur[i].couleur==0)
+		{
+			int j=6; int fin=0;
+			while(j>=0&&fin==0)
+			{
+				int memoire1, memoire2;
+				if(_joueur.carte_joueur[j].couleur!=0)
+				{
+					_joueur.carte_joueur[i].couleur=_joueur.carte_joueur[j].couleur;
+					_joueur.carte_joueur[i].effet=_joueur.carte_joueur[j].effet;
+					_joueur.carte_joueur[j].couleur=0;
+					_joueur.carte_joueur[j].effet=0;
+					fin=1;
+				}
+
+			}
+		}
+	}
 }
 
 int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)

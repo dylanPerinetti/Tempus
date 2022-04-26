@@ -399,61 +399,6 @@ int TestPlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur *_joueur)
 
 /*-----------------------------------------------------------------------------------------------------------------*/
 
-int ChoixAction()  
-{	
-	int choix;
-	printf("\n\n--------- Que voulez vous faire ? -----------");
-	printf("\n1 : Deplacer des pions");
-	printf("\n2 : Avoir des Enfants");
-	printf("\n3 : Combattre");
-	printf("\n4 : Avoir une idee");
-	printf("\n5 : Construire une cite\n");
-	
-	do
-	{
-	printf("\n");
-	scanf("%d",&choix);
-	if(choix>5||choix<1) printf("\nVous devez choisir une valeur entre 1 et 5");
-	}while(choix>5||choix<1);
-	return choix;
-}
-
-/*-----------------------------------------------------------------------------------------------------------------*/
-
-void DeplacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, int departx, int departy, int arriveex, int arriveey, unsigned char couleur, int nbre_pion_deplace)
-{
-	_map[departx][departy].nombre_pion = _map[departx][departy].nombre_pion-nbre_pion_deplace;
-	_map[arriveex][arriveey].nombre_pion = _map[arriveex][arriveey].nombre_pion+nbre_pion_deplace;
-	
-	_map[arriveex][arriveey].couleur = couleur;
-	
-	if(_map[departx][departy].nombre_pion==48)
-	{
-		_map[departx][departy].couleur = '0';
-	}
-	
-	MajCase(_map, departx, departy, _rendu); 
-	MajCase(_map, arriveex, arriveey, _rendu);
-}
-
-/*-----------------------------------------------------------------------------------------------------------------*/
-
-void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy)
-{
-	for(int i=0; i<10; i++)
-    {
-        for(int j=0; j<10; j++)
-        {
-            if(_map[i][j].curseur==1)
-            {
-            	*_coordx=i;
-            	*_coordy=j;
-            }
-        }
-    }
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-
 int FaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur)
 {
 	int compteur=_joueur->niveau_joueur.enfants;
@@ -528,4 +473,60 @@ int TestFaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int 
 		MajCase(_map, *_coordx, *_coordy, _rendu);
 		return 1;
 	}
+}
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+int ChoixAction()  
+{	
+	int choix;
+	printf("\n\n--------- Que voulez vous faire ? -----------");
+	printf("\n1 : Deplacer des pions");
+	printf("\n2 : Avoir des Enfants");
+	printf("\n3 : Combattre");
+	printf("\n4 : Avoir une idee");
+	printf("\n5 : Construire une cite\n");
+	
+	do
+	{
+	printf("\n");
+	scanf("%d",&choix);
+	if(choix>5||choix<1) printf("\nVous devez choisir une valeur entre 1 et 5");
+	}while(choix>5||choix<1);
+	return choix;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+void DeplacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, int departx, int departy, int arriveex, int arriveey, unsigned char couleur, int nbre_pion_deplace)
+{
+	_map[departx][departy].nombre_pion = _map[departx][departy].nombre_pion-nbre_pion_deplace;
+	_map[arriveex][arriveey].nombre_pion = _map[arriveex][arriveey].nombre_pion+nbre_pion_deplace;
+	
+	_map[arriveex][arriveey].couleur = couleur;
+	
+	if(_map[departx][departy].nombre_pion==48)
+	{
+		_map[departx][departy].couleur = '0';
+	}
+	
+	MajCase(_map, departx, departy, _rendu); 
+	MajCase(_map, arriveex, arriveey, _rendu);
+}
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy)
+{
+	for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(_map[i][j].curseur==1)
+            {
+            	*_coordx=i;
+            	*_coordy=j;
+            }
+        }
+    }
 }
