@@ -52,8 +52,6 @@ typedef struct Joueur
 }Joueur;
 
 
-
-
 void InitialiserCouleurJoueur(Joueur* _joueur,unsigned char _couleur);	//Pour Initialiser la couleur de joueur a 0
 void InitialiserNiveauJoueur(Joueur* _joueur);							//Pour Initialiser le niveux de joueur a 0
 void CreeJoueur(Joueur* _joueur,unsigned char _couleur);				//Pour la crééation d'un nouveaux joueur
@@ -69,9 +67,9 @@ int InventairePions(Joueur* _joueur);			//Pour Répertorier les Pions d'un joueu
 int InventaireCite(Joueur* _joueur);			//Pour Répertorier les Cite d'un joueur dans l'inventaire
 
 int RecupererPion(Joueur* _joueur,Tuile* _tuile);	//Placer un pion dans le stuff du joueur
-int EntrerNomJoueur(Joueur *_joueur);     //Entrer le nom d'un joueur
+int EntrerNomJoueur(Joueur *_joueur);      //Entrer le nom d'un joueur
 int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur);
 
-void PiocherCarte(Joueur* _joueur);
+void RangerCartes(Joueur* _joueur);
 
 #endif

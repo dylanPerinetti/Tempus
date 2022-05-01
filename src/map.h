@@ -60,4 +60,6 @@ void AfficherErreurEvenement(int _erreur);
 int CaseInterdite(int i, int j);
 int CaseAdjacente(int departx, int departy, int arriveex, int arriveey);
 
+int IntEnChar(int Entier);
+
 #endif

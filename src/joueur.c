@@ -29,8 +29,8 @@ void CreeJoueur(Joueur* _joueur,unsigned char _couleur)//pour la crééation d'u
 	_joueur->cite_possede = NOMBRE_CITE;
 	for(int i=0; i<7; i++)
 	{
-		_joueur->carte_joueur[i].couleur=0;
-		_joueur->carte_joueur[i].effet=0;
+		_joueur->carte_joueur[i].couleur=7;
+		_joueur->carte_joueur[i].effet=7;
 	}
 }
 
@@ -142,44 +142,31 @@ int EntrerNomJoueur(Joueur *_joueur)
 	else return 1;
 }
 
-void PiocherCarte(Joueur* _joueur)
-{
-	int i=0; int fin=0; 
-	while(i<7&&fin==0)
-	{
-		if(_joueur->carte_joueur[i].couleur==0)
-		{
-			_joueur->carte_joueur[i].couleur = rand()%5;  //5 mais jsuis pas sur
-			_joueur->carte_joueur[i].effet = rand()%5;   //la meme
-			fin=1;
-		}
-	i++;
-	}
-}
+//---------------------------------------------------------------------------//
 
 void RangerCartes(Joueur* _joueur)
 {
-	for(int i=0; i<7; i++)
+	int fin=0;
+	int i=0;
+	
+	while(fin==0&&i<7)
 	{
-		if(_joueur.carte_joueur[i].couleur==0)
+		if(_joueur->carte_joueur[i].couleur==7)
 		{
-			int j=6; int fin=0;
-			while(j>=0&&fin==0)
+			if(_joueur->carte_joueur[i+1].couleur==7) fin=1;
+			else
 			{
-				int memoire1, memoire2;
-				if(_joueur.carte_joueur[j].couleur!=0)
-				{
-					_joueur.carte_joueur[i].couleur=_joueur.carte_joueur[j].couleur;
-					_joueur.carte_joueur[i].effet=_joueur.carte_joueur[j].effet;
-					_joueur.carte_joueur[j].couleur=0;
-					_joueur.carte_joueur[j].effet=0;
-					fin=1;
-				}
-
+				_joueur->carte_joueur[i].couleur=_joueur->carte_joueur[i+1].couleur;
+				_joueur->carte_joueur[i].effet=_joueur->carte_joueur[i+1].effet;
+				_joueur->carte_joueur[i+1].couleur=7;
+				_joueur->carte_joueur[i+1].effet=7;
 			}
 		}
+		i++;
 	}
 }
+
+//----------------------------------------------------------------------//
 
 int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)
 {
@@ -187,9 +174,8 @@ int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)
 	{
 		for(int j=0; j<10; j++)
 		{
-			if(_map[i][j].type_terrain=='0' && _joueur->couleur+48 ==_map[i][j].couleur && _joueur->niveau_joueur.nbre_pion_max+48>_map[i][j].nombre_pion) return 1;
+			if(_map[i][j].type_terrain=='0' && IntEnChar(_joueur->couleur) ==_map[i][j].couleur && IntEnChar(_joueur->niveau_joueur.nbre_pion_max)>_map[i][j].nombre_pion) return 1;
 		}
 	}
 	return 0;
 }
-

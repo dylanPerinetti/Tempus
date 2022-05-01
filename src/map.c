@@ -192,3 +192,8 @@ int CaseAdjacente(int departx, int departy, int arriveex, int arriveey)
 }
 
 
+int IntEnChar(int Entier)
+{
+	Entier=Entier+48;
+	return Entier;
+}
