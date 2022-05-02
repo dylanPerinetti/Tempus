@@ -179,3 +179,40 @@ int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)
 	}
 	return 0;
 }
+
+//---------------------------------------------------------------------//
+
+void MeilleurJoueurAge(Tuile _map[10][10], Joueur _joueur[4], int _age)
+{
+	int TableauEpoque[10];
+	TableauEpoque[1]=3; TableauEpoque[2]=0; TableauEpoque[3]=4; TableauEpoque[4]=2; TableauEpoque[5]=3; TableauEpoque[6]=2; TableauEpoque[7]=4; TableauEpoque[8]=3; TableauEpoque[9]=2;
+	
+	int pjoueur[4];
+	pjoueur[0]=0; pjoueur[1]=0; pjoueur[2]=0; pjoueur[3]=0;
+
+	int max_point;
+	
+	for(int i=0; i<4; i++)
+	{
+		for(int j=0; j<10; j++)
+		{
+			for(int k=0; k<10; k++)
+			{
+				if(IntEnChar(TableauEpoque[_age])==_map[j][k].type_terrain&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pjoueur[i]++;
+				if(_map[j][k].taille_ville>IntEnChar(0)&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pjoueur[i]++;
+			}
+		}
+
+		if(pjoueur[i]>=pjoueur[0] && pjoueur[i]>=pjoueur[1] && pjoueur[i]>=pjoueur[2] && pjoueur[i]>=pjoueur[3]) max_point=pjoueur[i];
+	}
+
+	for(int i=0; i<4; i++)
+	{
+		if(pjoueur[i]==max_point)
+		{
+			printf("\nDe plus, le joueur %s a collecte le plus de point grace a ses cases et villes possedees : %d ! Il monte ainsi a l'age superieur\n", _joueur[i].pseudo, max_point);
+			AugmenterNiveauJoueur(&_joueur[i]);
+			system("PAUSE");
+		}
+	}
+}

@@ -71,5 +71,6 @@ int EntrerNomJoueur(Joueur *_joueur);      //Entrer le nom d'un joueur
 int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur);
 
 void RangerCartes(Joueur* _joueur);
+void MeilleurJoueurAge(Tuile _map[10][10], Joueur _joueur[4], int _age);
 
 #endif

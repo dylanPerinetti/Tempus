@@ -68,16 +68,15 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 		
 		char u;
 		printf("\n\n--------TOUS LES JOUEURS N'ONT PLUS DE POINTS D'ACTIONS, FIN DE L'AGE------------");
-		printf("\nTous les joueurs atteignent l'age %d \nDe plus, le joueur 1 ayant le plus de cartes idees monte a l'age %d", age, age+1); //Pour l'instant je fixe le joueur 1 on verra plus tard pour la suite.
-		printf("\nEntrez o pour continuer");
-
-		scanf("%c", &u);
+		printf("\nTous les joueurs atteignent l'age %d\n", age);
+		system("PAUSE");
 
 		for(i=0;i<4;i++) 
 		{
 			if(_joueur[i].niveau_joueur.niveau<age) AugmenterNiveauJoueur(&_joueur[i]);
 		}
-		AugmenterNiveauJoueur(&_joueur[1]); //la meme
+		
+		MeilleurJoueurAge(_map, _joueur, age);
 		MajNiveaux(_rendu, _joueur);
 	}
 }
