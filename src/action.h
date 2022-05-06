@@ -33,7 +33,9 @@ int FaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_co
 int TestFaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur);
 
 int PlacementVille(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur);
+
 int PiocherCarte(SDL_Renderer* _rendu, Joueur* _joueur);
+int TestPiocheCarte(Joueur* _joueur);
 
 void DeplacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, int departx, int departy, int arriveex, int arriveey, unsigned char couleur, int nbre_pion_deplace);
 int ChoixAction();

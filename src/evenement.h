@@ -33,5 +33,9 @@ int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurDroite(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu);
 
+int ChoixAction();
+void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy);
+int FinPartie(Tuile _map[10][10], Joueur _joueur[4]);
+
 
 #endif

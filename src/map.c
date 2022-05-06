@@ -54,7 +54,7 @@ int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion, unsigned
 	{
 		ChangerCouleurTuile(_tuile,'0');
 	}
-	else ChangerCouleurTuile(_tuile, _couleur);  //<----- pour l'instant je mets 1 par defaut mais on changera pour que ce soit le nombre correspondant au joueur qui joue
+	else ChangerCouleurTuile(_tuile, _couleur); 
 	return 0;
 
 }

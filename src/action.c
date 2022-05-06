@@ -197,7 +197,7 @@ int FaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_co
 	
 	if(CaseNaissanceDispo(_map, _joueur)==0)
 	{
-		printf("\nVous ne controlez aucune prairie, vous ne pouvez donc pas faire d'enfants");
+		printf("\nVous ne controlez aucun champs, vous ne pouvez donc pas faire d'enfants");
 		return 0;
 	}
 
@@ -246,9 +246,9 @@ int FaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_co
 
 int TestFaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur)
 {
-	if(_map[*_coordx][*_coordy].type_terrain!=IntEnChar(0))
+	if(_map[*_coordx][*_coordy].type_terrain!=IntEnChar(3))
 	{
-		printf("\nVous ne pouvez pas faire d'enfants sur une case autre qu'une prairie");
+		printf("\nVous ne pouvez pas faire d'enfants sur une case autre qu'un champs");
 		return 0;
 	}
 	else if(IntEnChar(_joueur->niveau_joueur.nbre_pion_max)<=_map[*_coordx][*_coordy].nombre_pion)
@@ -295,44 +295,33 @@ int PlacementVille(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *
 
 int PiocherCarte(SDL_Renderer* _rendu, Joueur* _joueur)
 {
-	int i=0; int fin=0; 
-	while(fin==0&&i<_joueur->niveau_joueur.carte_max)
+	int i=0; int fin=_joueur->niveau_joueur.carte_pioche;
+	
+	if (TestPiocheCarte==0) return 0;
+	
+	while(fin>0&&i<_joueur->niveau_joueur.carte_max)
 	{
 		if(_joueur->carte_joueur[i].couleur==7)
 		{
-			_joueur->carte_joueur[i].couleur = rand()%5;  //5 mais jsuis pas sur
-			_joueur->carte_joueur[i].effet = rand()%5;   //la meme
+			_joueur->carte_joueur[i].couleur = rand()%5; 
+			_joueur->carte_joueur[i].effet = rand()%5;   
 			MajCartes(_rendu, _joueur->carte_joueur); 
+			fin--;
 		}
-	
 	i++;
 	}
-	
-	printf("\nVous ne pouvez pas piocher plus de cartes"); return 0;
+	printf("\nVous ne pouvez pas piocher plus de cartes\n"); system("PAUSE"); return 1;
 }
 
-
-//-----------------------------------------------------------------------------------//
-
-
-int ChoixAction()  
-{	
-	int choix;
-	printf("\n\n--------- Que voulez vous faire ? -----------");
-	printf("\n1 : Deplacer des pions");
-	printf("\n2 : Avoir des Enfants");
-	printf("\n3 : Combattre");
-	printf("\n4 : Avoir une idee");
-	printf("\n5 : Construire une cite\n");
-	
-	do
+int TestPiocheCarte(Joueur* _joueur)
+{
+	for(int i=0;i<_joueur->niveau_joueur.carte_max;i++)
 	{
-	printf("\n");
-	scanf("%d",&choix);
-	if(choix>5||choix<1) printf("\nVous devez choisir une valeur entre 1 et 5");
-	}while(choix>5||choix<1);
-	return choix;
+		if(_joueur->carte_joueur[i].couleur!=7) return 1;
+	}
+	return 0;
 }
+
 
 /*-----------------------------------------------------------------------------------------------------------------*/
 
@@ -354,18 +343,4 @@ void DeplacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, int departx, int 
 
 /*-----------------------------------------------------------------------------------------------------------------*/
 
-void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy)
-{
-	for(int i=0; i<10; i++)
-    {
-        for(int j=0; j<10; j++)
-        {
-            if(_map[i][j].curseur==1)
-            {
-            	*_coordx=i;
-            	*_coordy=j;
-            }
-        }
-    }
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
+

@@ -49,19 +49,7 @@ int AfficherFenetre(Tuile _map[10][10], Joueur tableau_joueur[4], SDL_Renderer *
     LancementPartie(_map, tableau_joueur, _rendu, _fenetre);
 }   
 
-
-void AfficherVersionSDL()
-{
-    SDL_version nb;
-    SDL_VERSION(&nb);
-    printf("Votre version de SDL est %d.%d.%d\n", nb.major, nb.minor, nb.patch);
-}
-
-void Erreur(int error)
-{
-    printf("\nErreur %d, %s\n", error, SDL_GetError());
-    exit(EXIT_FAILURE);
-}
+//-----------------------------------------------------------------------------//
 
 void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
 {
@@ -92,27 +80,6 @@ void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
 
 }
 
-void MajCartes(SDL_Renderer* _rendu, Carte _carte[7])
-{
-    GenerationPlateauCartes(_rendu);
-    for(int i=0; i<7; i++) GenerationCartes(_rendu, _carte[i], i);
-}
-
-void MajNiveaux(SDL_Renderer* _rendu, Joueur _joueur[4])
-{
-    GenerationTableauNiveau(_rendu);
-    for(int i=0; i<4; i++) GenerationNiveauJoueur( _rendu, _joueur[i]);
-}
-
-void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur)
-{
-    _Rectangle->x = _x;
-    _Rectangle->y = _y;
-    _Rectangle->w = _largeur;
-    _Rectangle->h = _hauteur;
-}
-
-
 void GenerationOcean(SDL_Renderer* _rendu)
 {
     SDL_Texture *tex_ocean = NULL;
@@ -129,76 +96,6 @@ void GenerationOcean(SDL_Renderer* _rendu)
     if (SDL_RenderCopy(_rendu, tex_ocean, NULL, &Fond_ocean) != 0)Erreur(4);
 
     SDL_RenderPresent(_rendu);
-}
-
-void GenerationPlateauCartes(SDL_Renderer* _rendu)
-{
-    SDL_Texture *tex_plateau = NULL;
-    SDL_Surface *image = NULL;
-    
-    SDL_Rect Plateau;
-    InitialiseRect(&Plateau, LARGEUR_FENETRE/2-600, HAUTEUR_FENETRE-200, 1000, 200);
-    image = SDL_LoadBMP("src/Img/Carte/Plateau.bmp"); 
-    tex_plateau = SDL_CreateTextureFromSurface(_rendu, image);
-    if (tex_plateau == NULL)Erreur(2);
-
-    SDL_FreeSurface(image);
-
-    if (SDL_QueryTexture(tex_plateau, NULL, NULL, &Plateau.w, &Plateau.h) != 0)Erreur(3);
-    if (SDL_RenderCopy(_rendu, tex_plateau, NULL, &Plateau) != 0)Erreur(4);
-
-    SDL_RenderPresent(_rendu);
-}
-
-void GenerationCartes(SDL_Renderer* _rendu, Carte _carte, int i)
-{
-    SDL_Texture *tex_carte = NULL;
-    SDL_Surface *image = NULL;
-
-    SDL_Rect Carte;
-    InitialiseRect(&Carte, LARGEUR_FENETRE/2-525+(125*i), HAUTEUR_FENETRE-175, 100 , 150);
-    char fichier_carte[]="src/Img/Carte/Carte_9.bmp";                                        //On implementera les effets plus tard si on a le temps
-
-    fichier_carte[20] = IntEnChar(_carte.couleur);
-
-    image = SDL_LoadBMP(fichier_carte); 
-    TextureRendu(image, tex_carte, _rendu, &Carte);
-}
-
-void GenerationTableauNiveau(SDL_Renderer* _rendu)
-{
-    SDL_Texture *tex_tableau = NULL;
-    SDL_Surface *image = NULL;
-    
-    SDL_Rect Tableau;
-    InitialiseRect(&Tableau, LARGEUR_FENETRE-200, 0, 200, 1100);
-    image = SDL_LoadBMP("src/Img/Niveau/Tableau.bmp"); 
-    tex_tableau = SDL_CreateTextureFromSurface(_rendu, image);
-    if (tex_tableau == NULL)Erreur(2);
-
-    SDL_FreeSurface(image);
-
-    if (SDL_QueryTexture(tex_tableau, NULL, NULL, &Tableau.w, &Tableau.h) != 0)Erreur(3);
-    if (SDL_RenderCopy(_rendu, tex_tableau, NULL, &Tableau) != 0)Erreur(4);
-
-    SDL_RenderPresent(_rendu);
-}
-
-void GenerationNiveauJoueur(SDL_Renderer* _rendu, Joueur _joueur)
-{
-    SDL_Texture *tex_niveau = NULL;
-    SDL_Surface *image = NULL;
-    
-    SDL_Rect Niveau;
-    InitialiseRect(&Niveau, LARGEUR_FENETRE-189+46*(_joueur.couleur-1), 100+95*(_joueur.niveau_joueur.niveau), DIM_PION, DIM_PION);
-    char fichier_niveau[]="src/Img/Niveau/Niveau_9.bmp";
-
-    fichier_niveau[22] = IntEnChar(_joueur.couleur);
-    printf("%s",fichier_niveau);
-
-    image = SDL_LoadBMP(fichier_niveau); 
-    
-    TextureRendu(image, tex_niveau, _rendu, &Niveau);
 }
 
 void GenerationHexagone(unsigned char terrain, SDL_Renderer* _rendu, SDL_Rect *Hex)
@@ -257,6 +154,111 @@ void GenerationCurseur(int _curseur, SDL_Renderer* _rendu, SDL_Rect *Hex)
     SDL_DestroyTexture(tex_curseur);
 }
 
+//-----------------------------------------------------------------------------//
+
+void MajCartes(SDL_Renderer* _rendu, Carte _carte[7])
+{
+    GenerationPlateauCartes(_rendu);
+    for(int i=0; i<7; i++) GenerationCartes(_rendu, _carte[i], i);
+}
+
+void GenerationPlateauCartes(SDL_Renderer* _rendu)
+{
+    SDL_Texture *tex_plateau = NULL;
+    SDL_Surface *image = NULL;
+    
+    SDL_Rect Plateau;
+    InitialiseRect(&Plateau, LARGEUR_FENETRE/2-600, HAUTEUR_FENETRE-200, 1000, 200);
+    image = SDL_LoadBMP("src/Img/Carte/Plateau.bmp"); 
+    tex_plateau = SDL_CreateTextureFromSurface(_rendu, image);
+    if (tex_plateau == NULL)Erreur(2);
+
+    SDL_FreeSurface(image);
+
+    if (SDL_QueryTexture(tex_plateau, NULL, NULL, &Plateau.w, &Plateau.h) != 0)Erreur(3);
+    if (SDL_RenderCopy(_rendu, tex_plateau, NULL, &Plateau) != 0)Erreur(4);
+
+    SDL_RenderPresent(_rendu);
+}
+
+void GenerationCartes(SDL_Renderer* _rendu, Carte _carte, int i)
+{
+    SDL_Texture *tex_carte = NULL;
+    SDL_Surface *image = NULL;
+
+    SDL_Rect Carte;
+    InitialiseRect(&Carte, LARGEUR_FENETRE/2-525+(125*i), HAUTEUR_FENETRE-175, 100 , 150);
+    char fichier_carte[]="src/Img/Carte/Carte_9.bmp";                                        //On implementera les effets plus tard si on a le temps
+
+    fichier_carte[20] = IntEnChar(_carte.couleur);
+
+    image = SDL_LoadBMP(fichier_carte); 
+    TextureRendu(image, tex_carte, _rendu, &Carte);
+}
+
+//-----------------------------------------------------------------------------//
+
+void MajNiveaux(SDL_Renderer* _rendu, Joueur _joueur[4])
+{
+    GenerationTableauNiveau(_rendu);
+    for(int i=0; i<4; i++) GenerationNiveauJoueur( _rendu, _joueur[i]);
+}
+
+void GenerationTableauNiveau(SDL_Renderer* _rendu)
+{
+    SDL_Texture *tex_tableau = NULL;
+    SDL_Surface *image = NULL;
+    
+    SDL_Rect Tableau;
+    InitialiseRect(&Tableau, LARGEUR_FENETRE-200, 0, 200, 1100);
+    image = SDL_LoadBMP("src/Img/Niveau/Tableau.bmp"); 
+    tex_tableau = SDL_CreateTextureFromSurface(_rendu, image);
+    if (tex_tableau == NULL)Erreur(2);
+
+    SDL_FreeSurface(image);
+
+    if (SDL_QueryTexture(tex_tableau, NULL, NULL, &Tableau.w, &Tableau.h) != 0)Erreur(3);
+    if (SDL_RenderCopy(_rendu, tex_tableau, NULL, &Tableau) != 0)Erreur(4);
+
+    SDL_RenderPresent(_rendu);
+}
+
+void GenerationNiveauJoueur(SDL_Renderer* _rendu, Joueur _joueur)
+{
+    SDL_Texture *tex_niveau = NULL;
+    SDL_Surface *image = NULL;
+    
+    SDL_Rect Niveau;
+    InitialiseRect(&Niveau, LARGEUR_FENETRE-189+46*(_joueur.couleur-1), 100+95*(_joueur.niveau_joueur.niveau), DIM_PION, DIM_PION);
+    char fichier_niveau[]="src/Img/Niveau/Niveau_9.bmp";
+
+    fichier_niveau[22] = IntEnChar(_joueur.couleur);
+
+    image = SDL_LoadBMP(fichier_niveau); 
+    
+    TextureRendu(image, tex_niveau, _rendu, &Niveau);
+}
+
+//-----------------------------------------------------------------------------//
+
+void GenerationVictoire(SDL_Renderer* _rendu, int _gagnant)
+{
+    SDL_Texture *tex_victoire = NULL;
+    SDL_Surface *image = NULL;
+
+
+    SDL_Rect Victoire;
+    InitialiseRect(&Victoire, LARGEUR_FENETRE/2-400, HAUTEUR_FENETRE/2-200, 800, 400);
+    
+    char fichier_ville[]="src/Img/Victoire/Victoire_9.bmp";
+    fichier_ville[26] = IntEnChar(_gagnant);
+    
+    image = SDL_LoadBMP(fichier_ville);
+    TextureRendu(image, tex_victoire, _rendu, &Victoire);
+}
+
+//-----------------------------------------------------------------------------//
+
 void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _rendu, SDL_Rect *Hex)
 {
     SDL_SetColorKey(_image, SDL_TRUE, SDL_MapRGB(_image->format, 255, 255, 255));    
@@ -272,4 +274,24 @@ void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _ren
         SDL_RenderPresent(_rendu);
 }
 
+void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur)
+{
+    _Rectangle->x = _x;
+    _Rectangle->y = _y;
+    _Rectangle->w = _largeur;
+    _Rectangle->h = _hauteur;
+}
+
+void AfficherVersionSDL()
+{
+    SDL_version nb;
+    SDL_VERSION(&nb);
+    printf("Votre version de SDL est %d.%d.%d\n", nb.major, nb.minor, nb.patch);
+}
+
+void Erreur(int error)
+{
+    printf("\nErreur %d, %s\n", error, SDL_GetError());
+    exit(EXIT_FAILURE);
+}
 

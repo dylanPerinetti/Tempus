@@ -27,29 +27,41 @@ Dernière modifications par dylanPerinetti le 22/03/2022
 
 int AfficherFenetre(Tuile _map[10][10], Joueur tableau_joueur[4], SDL_Renderer *_rendu, SDL_Window *_fenetre);					//Génération de la Map initiale a partir du tableau de tuile
 
-void AfficherVersionSDL();		//Affiche la version de sdl
-void Erreur(int error);			//Message d'erreur SDL (UNIQUEMENT)
 
-void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu);            //Reset une case a une certaine coordonnée, avec le type de cases, le nombre de pions et de villes (ça fait tout enft)
 
-void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur);        //Initialise les Rectangles SDL 
+//----------------------------------------------------------------------------//
 
-void GenerationOcean(SDL_Renderer* _rendu);                                                           //Génère le fond océan
-void GenerationHexagone(unsigned char _terrain, SDL_Renderer* _rendu, SDL_Rect *Hex);			           //Crée un Hexagone a partir d'un fichier bmp																		
+void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu);            //Rafraichit une case a une certaine coordonnée, avec le type de cases, le nombre de pions et de villes et le curseur
+
+void GenerationOcean(SDL_Renderer* _rendu);                                                                 //Génère le fond océan
+void GenerationHexagone(unsigned char _terrain, SDL_Renderer* _rendu, SDL_Rect *Hex);			            //Crée un Hexagone a partir d'un fichier bmp																		
 void GenerationVille(unsigned char _taille, unsigned char _couleur, SDL_Renderer* _rendu, SDL_Rect *Hex);	//Crée une Ville a partir d'un fichier bmp
-void GenerationPion(unsigned char _nombre, unsigned char _couleur, SDL_Renderer* _rendu, SDL_Rect *Hex);    //Crée une Pion a partir d'un fichier bmp
-void GenerationCurseur(int _curseur, SDL_Renderer* _rendu, SDL_Rect *Hex);
+void GenerationPion(unsigned char _nombre, unsigned char _couleur, SDL_Renderer* _rendu, SDL_Rect *Hex);    //Crée un Pion a partir d'un fichier bmp
+void GenerationCurseur(int _curseur, SDL_Renderer* _rendu, SDL_Rect *Hex);                                  //Crée le Curseur sur sa case a partir d'un fichier bmp
 
-void MajCartes(SDL_Renderer* _rendu, Carte _carte[7]);
-void GenerationPlateauCartes(SDL_Renderer* _rendu);
-void GenerationCartes(SDL_Renderer* _rendu, Carte _carte, int i);
+//----------------------------------------------------------------------------//
 
-void MajNiveaux(SDL_Renderer* _rendu, Joueur _joueur[4]);
-void GenerationTableauNiveau(SDL_Renderer* _rendu);
-void GenerationNiveauJoueur(SDL_Renderer* _rendu, Joueur _joueur);
+void MajCartes(SDL_Renderer* _rendu, Carte _carte[7]);                         //Rafraichir le plateau de cartes pour chaque joueur
 
-void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _rendu, SDL_Rect *Hex);	//Applique une texture qu'on lui envoie sur le rendu         
+void GenerationPlateauCartes(SDL_Renderer* _rendu);                            //Crée le plateau de cartes en bois en bas de l'écran a partir d'un fichier bmp
+void GenerationCartes(SDL_Renderer* _rendu, Carte _carte, int i);              //Génère une carte sur le plateau du joueur a partir d'un fichier bmp
 
+//----------------------------------------------------------------------------//
 
+void MajNiveaux(SDL_Renderer* _rendu, Joueur _joueur[4]);                      //Met a jour l'avancée des joueurs dans leurs niveaux
+
+void GenerationTableauNiveau(SDL_Renderer* _rendu);                             //Génère le fond des niveaux a partir d'un fichier bmp
+void GenerationNiveauJoueur(SDL_Renderer* _rendu, Joueur _joueur);				//Génère les pions d'avancements du niveaux des joueurs a partir d'un fichier bmp
+
+//----------------------------------------------------------------------------//
+
+void GenerationVictoire(SDL_Renderer* _rendu, int _gagnant);     				//Génère l'ecran de victoire a partir d'un fichier bmp
+
+//----------------------------------------------------------------------------//
+
+void TextureRendu(SDL_Surface* _image, SDL_Texture* _texture, SDL_Renderer* _rendu, SDL_Rect *Hex);	  //Applique une texture qu'on lui envoie sur le rendu, en rendant transparente la partie blanche 
+void InitialiseRect(SDL_Rect* _Rectangle, int _x, int _y, int _largeur,int _hauteur);                 //Initialise les Rectangles SDL 
+void AfficherVersionSDL();																			  //Affiche la version de sdl
+void Erreur(int error);																				  //Message d'erreur SDL (UNIQUEMENT)
 #endif
 

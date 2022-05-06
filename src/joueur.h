@@ -72,5 +72,6 @@ int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur);
 
 void RangerCartes(Joueur* _joueur);
 void MeilleurJoueurAge(Tuile _map[10][10], Joueur _joueur[4], int _age);
+int JouerCarte(Joueur* _joueur, int couleur);
 
 #endif

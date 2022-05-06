@@ -174,7 +174,7 @@ int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)
 	{
 		for(int j=0; j<10; j++)
 		{
-			if(_map[i][j].type_terrain=='0' && IntEnChar(_joueur->couleur) ==_map[i][j].couleur && IntEnChar(_joueur->niveau_joueur.nbre_pion_max)>_map[i][j].nombre_pion) return 1;
+			if(_map[i][j].type_terrain=='3' && IntEnChar(_joueur->couleur) ==_map[i][j].couleur && IntEnChar(_joueur->niveau_joueur.nbre_pion_max)>_map[i][j].nombre_pion) return 1;
 		}
 	}
 	return 0;
@@ -198,10 +198,13 @@ void MeilleurJoueurAge(Tuile _map[10][10], Joueur _joueur[4], int _age)
 		{
 			for(int k=0; k<10; k++)
 			{
-				if(IntEnChar(TableauEpoque[_age])==_map[j][k].type_terrain&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pjoueur[i]++;
+				if(IntEnChar(TableauEpoque[_age])==_map[j][k].type_terrain&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pjoueur[i]=pjoueur[i]+_map[j][k].nombre_pion-48;
 				if(_map[j][k].taille_ville>IntEnChar(0)&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pjoueur[i]++;
 			}
 		}
+
+		printf("\nJoueur %s, vous allez desormais pouvoir jouer vos cartes idees correspondant a la couleur de l'age pour pouvoir plus de chance de passer a l'age superieur\n", _joueur[i].pseudo);
+		pjoueur[i]=pjoueur[i]+JouerCarte(&_joueur[i], TableauEpoque[_age]);
 
 		if(pjoueur[i]>=pjoueur[0] && pjoueur[i]>=pjoueur[1] && pjoueur[i]>=pjoueur[2] && pjoueur[i]>=pjoueur[3]) max_point=pjoueur[i];
 	}
@@ -215,4 +218,39 @@ void MeilleurJoueurAge(Tuile _map[10][10], Joueur _joueur[4], int _age)
 			system("PAUSE");
 		}
 	}
+}
+
+//------------------------------------------------------------------------//
+
+int JouerCarte(Joueur* _joueur, int couleur)
+{
+	int nbre_carte_joue=0;
+	
+
+	for(int i=0; i<7; i++)
+	{
+		int choix=0;
+		if(_joueur->carte_joueur[i].couleur==couleur) 
+		{
+			switch(couleur)
+			{
+				case 0: printf("Vous possedez une carte de prairie, voulez-vous la jouer ? Entrez 1 si oui.\n\n"); break;
+				case 1: printf("Vous possedez une carte de montagne, voulez-vous la jouer ? Entrez 1 si oui.\n\n"); break;
+				case 2: printf("Vous possedez une carte de foret, voulez-vous la jouer ? Entrez 1 si oui.\n\n"); break;
+				case 3: printf("Vous possedez une carte de champs, voulez-vous la jouer ? Entrez 1 si oui.\n\n"); break;
+				case 4: printf("Vous possedez une carte de collines, voulez-vous la jouer ? Entrez 1 si oui.\n\n"); break;
+			}
+			scanf("%d", &choix);
+			
+			if(choix==1) 
+			{
+				_joueur->carte_joueur[i].couleur=7;
+				_joueur->carte_joueur[i].effet=7;
+				nbre_carte_joue++;
+			}
+		}
+		
+	}
+	if(nbre_carte_joue==0)printf("Vous n'avez pas de cartes de la couleur du nouvel age\n\n");
+	return nbre_carte_joue;
 }

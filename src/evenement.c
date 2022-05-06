@@ -68,16 +68,29 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 		
 		char u;
 		printf("\n\n--------TOUS LES JOUEURS N'ONT PLUS DE POINTS D'ACTIONS, FIN DE L'AGE------------");
-		printf("\nTous les joueurs atteignent l'age %d\n", age);
-		system("PAUSE");
-
+		
 		for(i=0;i<4;i++) 
 		{
 			if(_joueur[i].niveau_joueur.niveau<age) AugmenterNiveauJoueur(&_joueur[i]);
 		}
 		
+		printf("\nTous les joueurs atteignent l'age %d\n", age);
+		MajNiveaux(_rendu, _joueur);
+		system("PAUSE");
+
 		MeilleurJoueurAge(_map, _joueur, age);
 		MajNiveaux(_rendu, _joueur);
+
+		if(age==1) //10
+		{
+			int gagnant;
+			gagnant=FinPartie(_map, _joueur);
+			
+			printf("\n\nLE GAGNANT EST %s, BIEN JOUE !", _joueur[gagnant].pseudo);
+			GenerationVictoire(_rendu, gagnant);
+			system("PAUSE");
+			exit(EXIT_FAILURE);
+		} 
 	}
 }
 
@@ -223,3 +236,78 @@ int CurseurGauche(Tuile _map[10][10], SDL_Renderer* _rendu)
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+void RechercheCurseur(Tuile _map[10][10], int *_coordx, int *_coordy)
+{
+	for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(_map[i][j].curseur==1)
+            {
+            	*_coordx=i;
+            	*_coordy=j;
+            }
+        }
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+int ChoixAction()  
+{	
+	int choix;
+	printf("\n\n--------- Que voulez vous faire ? -----------");
+	printf("\n1 : Deplacer des pions");
+	printf("\n2 : Avoir des Enfants");
+	printf("\n3 : Combattre");
+	printf("\n4 : Avoir une idee");
+	printf("\n5 : Construire une cite\n");
+	
+	do
+	{
+	printf("\n");
+	scanf("%d",&choix);
+	if(choix>5||choix<1) printf("\nVous devez choisir une valeur entre 1 et 5");
+	}while(choix>5||choix<1);
+	return choix;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+int FinPartie(Tuile _map[10][10], Joueur _joueur[4])
+{
+	int pjoueur[4];
+	int ppions=0; int pvilles=0; int page=0;
+	int pmax;
+	pjoueur[0]=0; pjoueur[1]=0; pjoueur[2]=0; pjoueur[3]=0;
+
+	for(int i=0; i<4; i++)
+	{
+		ppions=0; pvilles=0; page=0;
+		
+		for(int j=0; j<10; j++)
+		{
+			for(int k=0; k<10; k++)
+			{
+				if(_map[j][k].nombre_pion>IntEnChar(0)&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) ppions++;
+				if(_map[j][k].taille_ville>IntEnChar(0)&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pvilles=pvilles+_map[j][k].taille_ville-48;
+			}
+		}
+		
+		if(_joueur[i].niveau_joueur.niveau==10) page=page+3;
+
+		pjoueur[i]=ppions+pvilles+page;
+
+		printf("\nLe joueur %s comptabilise %d points :  %d grace a ses pions,  %d grace a ses villes", _joueur[i].pseudo, pjoueur[i], ppions, pvilles);
+		
+		if(page!=0) printf(" et 3 car il a atteint le dernier age.");
+		
+		if(pjoueur[i]>=pjoueur[0]&&pjoueur[i]>=pjoueur[1]&&pjoueur[i]>=pjoueur[2]&&pjoueur[i]>=pjoueur[3]) pmax=pjoueur[i];
+	}
+
+	for(int i=0; i<4; i++)
+	{
+		if(pjoueur[i]==pmax) return i;                           //Au cas ou yait une égalité
+	}
+}
