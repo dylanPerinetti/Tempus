@@ -56,10 +56,10 @@ void MajCase(Tuile _map[10][10], int i, int j, SDL_Renderer* _rendu)
     SDL_Rect Hexagone;
     SDL_Rect Pion;
     
-    unsigned char type=_map[i][j].type_terrain;
-    unsigned char nombre=_map[i][j].nombre_pion;
-    unsigned char couleur=_map[i][j].couleur;                               
-    unsigned char taille=_map[i][j].taille_ville;
+    unsigned char type=IntEnChar(_map[i][j].type_terrain);
+    unsigned char nombre=IntEnChar(_map[i][j].nombre_pion);
+    unsigned char couleur=IntEnChar(_map[i][j].couleur);                               
+    unsigned char taille=IntEnChar(_map[i][j].taille_ville);
     int curseur=_map[i][j].curseur;                                      
 
     int coordgraphx=DEPART_X+(UNITE_X*i);
@@ -294,4 +294,5 @@ void Erreur(int error)
     printf("\nErreur %d, %s\n", error, SDL_GetError());
     exit(EXIT_FAILURE);
 }
+
 

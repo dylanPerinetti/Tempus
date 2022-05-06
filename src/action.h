@@ -29,6 +29,9 @@ int TestDeplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int 
 int PlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur *_joueur, SDL_Window *_fenetre);
 int TestPlacementPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur *_joueur);
 
+int CombatPions(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coordy, Joueur _joueur[4], int attaquant, SDL_Window *_fenetre);
+int TestCombat(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coordy, int attaquant, Joueur _joueur[4]);
+
 int FaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur);
 int TestFaireEnfant(Tuile _map[10][10], SDL_Renderer* _rendu, int *_coordx, int *_coordy, Joueur *_joueur);
 

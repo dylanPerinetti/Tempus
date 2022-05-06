@@ -43,11 +43,11 @@ typedef struct Tuile
 
 }Tuile;
 
-void CreeMapTuile(Tuile _map[10][10]);								//	InitialiserCoordonneesTuile( <&Tuiles>) par defaut il sont a 99.
-char RandomizeTuile();
+void CreeMapTuile(Tuile _map[10][10]);           //Génère les cases de la carte de tuiles
+char RandomizeTuile();                           //Renvoie un nombre aléatoire pour chaques tuiles de la fonction ci dessus
 
-void InitialiserCurseur(Tuile* _tuile, int bool);
-int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion, unsigned char _couleur);
+void InitialiserCurseur(Tuile* _tuile, int bool);      //Initialise le curseur a certaines coordonées
+int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion, unsigned char _couleur);     
 int ChangerTypeTerrainTuile(Tuile* _tuile, unsigned char _type_terrain);
 int ChangerCouleurTuile(Tuile* _tuile, unsigned char _couleur);
 int ChangerTailleVilleTuile(Tuile* _tuile, unsigned char _taille_ville);
@@ -57,9 +57,9 @@ int LectureTuilesBinaire();				//	LectureBinaire()
 
 
 void AfficherErreurEvenement(int _erreur);
-int CaseInterdite(int i, int j);
-int CaseAdjacente(int departx, int departy, int arriveex, int arriveey);
+int CaseInterdite(int i, int j);                                            //Renvoie 1 si la case envoyée est une case d'océan (bord de la cartes inaccessibles)
+int CaseAdjacente(int departx, int departy, int arriveex, int arriveey);      //Renvoie 1 si la seconde case envoyée est adjacente a la première
 
-int IntEnChar(int Entier);
+int IntEnChar(int Entier);                                                 //Transforme un entier en char utilisable pour les fichiers
 
 #endif

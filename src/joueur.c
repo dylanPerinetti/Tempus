@@ -60,7 +60,7 @@ void InitialiserNiveauJoueur(Joueur* _joueur)
 	_joueur->niveau_joueur.voyage_naval=0;
 	_joueur->niveau_joueur.carte_pioche=1;
 	_joueur->niveau_joueur.carte_max=5;
-	_joueur->niveau_joueur.actions=1;  //3
+	_joueur->niveau_joueur.actions=3;  //3
 }
 
 /*--------------------------------------------------------------------------*/
@@ -174,7 +174,7 @@ int CaseNaissanceDispo(Tuile _map[10][10], Joueur* _joueur)
 	{
 		for(int j=0; j<10; j++)
 		{
-			if(_map[i][j].type_terrain=='3' && IntEnChar(_joueur->couleur) ==_map[i][j].couleur && IntEnChar(_joueur->niveau_joueur.nbre_pion_max)>_map[i][j].nombre_pion) return 1;
+			if(_map[i][j].type_terrain==3 && (_joueur->couleur) ==_map[i][j].couleur && (_joueur->niveau_joueur.nbre_pion_max)>_map[i][j].nombre_pion) return 1;
 		}
 	}
 	return 0;
@@ -198,8 +198,8 @@ void MeilleurJoueurAge(Tuile _map[10][10], Joueur _joueur[4], int _age)
 		{
 			for(int k=0; k<10; k++)
 			{
-				if(IntEnChar(TableauEpoque[_age])==_map[j][k].type_terrain&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pjoueur[i]=pjoueur[i]+_map[j][k].nombre_pion-48;
-				if(_map[j][k].taille_ville>IntEnChar(0)&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pjoueur[i]++;
+				if(TableauEpoque[_age]==_map[j][k].type_terrain&&_joueur[i].couleur==_map[j][k].couleur) pjoueur[i]=pjoueur[i]+_map[j][k].nombre_pion;
+				if(_map[j][k].taille_ville>0&&_joueur[i].couleur==_map[j][k].couleur) pjoueur[i]++;
 			}
 		}
 
@@ -251,6 +251,8 @@ int JouerCarte(Joueur* _joueur, int couleur)
 		}
 		
 	}
-	if(nbre_carte_joue==0)printf("Vous n'avez pas de cartes de la couleur du nouvel age\n\n");
+	if(nbre_carte_joue==0) printf("Vous n'avez pas de cartes de la bonne couleur\n\n");
+	else RangerCartes(_joueur);
+	
 	return nbre_carte_joue;
 }

@@ -27,14 +27,14 @@ void CreeMapTuile(Tuile _map[10][10])
 		{
 			InitialiserCurseur(&_map[i][j], 0);
 			ChangerTypeTerrainTuile(&_map[i][j], RandomizeTuile());
-			ChangerNombresPionsTuile(&_map[i][j],'0','0');
-			ChangerCouleurTuile(&_map[i][j],'0');
-			ChangerTailleVilleTuile(&_map[i][j],'0');
-			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %c | Couleur de la Tuile = %c |", i, j, _map[i][j].type_terrain,_map[i][j].couleur);
-			printf("\n|Nombre de pion = %c | Taille de la Ville = %c | Curseur = %d\n",_map[i][j].nombre_pion,_map[i][j].taille_ville,_map[i][j].curseur);
+			ChangerNombresPionsTuile(&_map[i][j], 0, 0);
+			ChangerCouleurTuile(&_map[i][j], 0);
+			ChangerTailleVilleTuile(&_map[i][j], 0);
+			printf("\nInitialisation de la tuiles x = %u | y = %u | Type de terrain = %d | Couleur de la Tuile = %d |", i, j, _map[i][j].type_terrain,_map[i][j].couleur);
+			printf("\n|Nombre de pion = %d | Taille de la Ville = %d | Curseur = %d\n",_map[i][j].nombre_pion,_map[i][j].taille_ville,_map[i][j].curseur);
 			if(CaseInterdite(i,j)==1)
 			{
-					ChangerTypeTerrainTuile(&_map[i][j], '7');
+					ChangerTypeTerrainTuile(&_map[i][j], 7);
 			}
 		}
 	}
@@ -52,7 +52,7 @@ int ChangerNombresPionsTuile(Tuile* _tuile, unsigned char _nombre_pion, unsigned
 	_tuile->nombre_pion = _nombre_pion;
 	if(_nombre_pion==0)
 	{
-		ChangerCouleurTuile(_tuile,'0');
+		ChangerCouleurTuile(_tuile, 0);
 	}
 	else ChangerCouleurTuile(_tuile, _couleur); 
 	return 0;
@@ -138,12 +138,12 @@ char RandomizeTuile()
 {
 	
 	int random = rand()%101;
-    if (random<PRCT_PRAIRIE)return '0';
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE)return '1';
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET)return '2'; 
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return '3'; 
-    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return '4'; 
-    else return '5';
+    if (random<PRCT_PRAIRIE)return 0;
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE)return 1;
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET)return 2; 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE)return 3; 
+    else if (random<PRCT_PRAIRIE+PRCT_MONTAGNE+PRCT_FORET+PRCT_COLLINE+PRCT_CHAMP)return 4; 
+    else return 5;
 }
 
 int CaseInterdite(int i, int j)

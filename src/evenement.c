@@ -81,7 +81,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 		MeilleurJoueurAge(_map, _joueur, age);
 		MajNiveaux(_rendu, _joueur);
 
-		if(age==1) //10
+		if(age==10)
 		{
 			int gagnant;
 			gagnant=FinPartie(_map, _joueur);
@@ -138,7 +138,7 @@ int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL
 	int action;
 	RechercheCurseur(_map, &coordx, &coordy);
 
-	if(_map[coordx][coordy].nombre_pion!='0'&&_map[coordx][coordy].couleur==IntEnChar(_joueur->couleur))      
+	if(_map[coordx][coordy].nombre_pion!=0&&_map[coordx][coordy].couleur==(_joueur->couleur))      
     {
 		printf("\nVous avez selectionne le pion sur la case %d %d",coordx,coordy);       
         action=ChoixAction();
@@ -146,12 +146,12 @@ int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL
         {
             case 1: printf("\nVous avez choisis de deplacer vos pions"); Deplacement(_map, _rendu, &coordx, &coordy, *_joueur, _fenetre); return 1; break;
             case 2: printf("\nVous avez choisis de faire un enfant"); return FaireEnfant(_map, _rendu, &coordx, &coordy, _joueur); break;
-            case 3: printf("\nVous avez choisis %d", action); break;
+            case 3: printf("\nVous avez choisis %d", action); /*return CombatPions(_map, _rendu, _coordx, _coordy, _joueur, int attaquant, SDL_Window *_fenetre)*/break;
             case 4: printf("\nVous avez choisis d'avoir une idee"); return PiocherCarte(_rendu, _joueur); break;
             case 5: printf("\nVous avez choisis de construire une ville"); return PlacementVille(_map, _rendu, &coordx, &coordy, _joueur);break;
 		}
 	}
-	else printf("\nVous n'avez pas selectionne un de vos pions %d %c %d %c", IntEnChar(_joueur->couleur), IntEnChar(_joueur->couleur), _map[coordx][coordy].couleur, _map[coordx][coordy].couleur); return 0;
+	else printf("\nVous n'avez pas selectionne un de vos pions %d %c %d %c", (_joueur->couleur), (_joueur->couleur), _map[coordx][coordy].couleur, _map[coordx][coordy].couleur); return 0;
 
 }
 
@@ -290,8 +290,8 @@ int FinPartie(Tuile _map[10][10], Joueur _joueur[4])
 		{
 			for(int k=0; k<10; k++)
 			{
-				if(_map[j][k].nombre_pion>IntEnChar(0)&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) ppions++;
-				if(_map[j][k].taille_ville>IntEnChar(0)&&IntEnChar(_joueur[i].couleur)==_map[j][k].couleur) pvilles=pvilles+_map[j][k].taille_ville-48;
+				if(_map[j][k].nombre_pion>(0)&&(_joueur[i].couleur)==_map[j][k].couleur) ppions++;
+				if(_map[j][k].taille_ville>(0)&&(_joueur[i].couleur)==_map[j][k].couleur) pvilles=pvilles+_map[j][k].taille_ville;
 			}
 		}
 		
@@ -308,6 +308,29 @@ int FinPartie(Tuile _map[10][10], Joueur _joueur[4])
 
 	for(int i=0; i<4; i++)
 	{
-		if(pjoueur[i]==pmax) return i;                           //Au cas ou yait une égalité
+		if(pjoueur[i]==pmax) return i;                           //Faire le cas ou yait une égalité
 	}
 }
+
+/*int Egalite(Joueur _joueur[4], int gagnants[4])
+{
+	int VeritableGagnant=7;
+
+	for(int i=0;i<4;i++)
+	{
+		if(gagnants[i]==1)
+		{
+			if(VeritableGagnant!=7)
+			{
+				if(_joueur[i].)
+
+
+
+
+
+			}
+			
+			else VeritableGagnant=i;
+		}
+	}
+}*/
