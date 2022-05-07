@@ -56,7 +56,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 				if(_joueur[i].niveau_joueur.actions>0) 
 				{
 					printf("\nIl vous reste %d actions pour cet age", _joueur[i].niveau_joueur.actions); 
-					SelectionCase(_map, _rendu, &_joueur[i], _fenetre);
+					SelectionCase(_map, _rendu, &_joueur[i], _joueur, _fenetre);
 					_joueur[i].niveau_joueur.actions=_joueur[i].niveau_joueur.actions-1;
 				}
 				
@@ -97,7 +97,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 /*-----------------------------------------------------------------------------------------------------------------*/
 
 
-int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL_Window *_fenetre)
+int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, Joueur tab_joueur[4], SDL_Window *_fenetre)
 {
 	int fin_tour=0;
 	SDL_bool programme_lance = SDL_TRUE;
@@ -116,7 +116,7 @@ int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL
 					case SDLK_UP: CurseurHaut(_map, _rendu); continue;
 					case SDLK_RIGHT: CurseurDroite(_map, _rendu); continue;
 					case SDLK_LEFT: CurseurGauche(_map, _rendu); continue;
-					case SDLK_SPACE: fin_tour=SelectionPion(_map, _rendu, _joueur, _fenetre); continue;
+					case SDLK_SPACE: fin_tour=SelectionPion(_map, _rendu, _joueur, tab_joueur, _fenetre); continue;
 
 					default : continue;
 				}
@@ -131,7 +131,7 @@ int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL
 /*-----------------------------------------------------------------------------------------------------------------*/
 
 
-int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL_Window *_fenetre)
+int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, Joueur tab_joueur[4], SDL_Window *_fenetre)
 {
 	int coordx;
 	int coordy;
@@ -146,7 +146,7 @@ int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL
         {
             case 1: printf("\nVous avez choisis de deplacer vos pions"); Deplacement(_map, _rendu, &coordx, &coordy, *_joueur, _fenetre); return 1; break;
             case 2: printf("\nVous avez choisis de faire un enfant"); return FaireEnfant(_map, _rendu, &coordx, &coordy, _joueur); break;
-            case 3: printf("\nVous avez choisis %d", action); /*return CombatPions(_map, _rendu, _coordx, _coordy, _joueur, int attaquant, SDL_Window *_fenetre)*/break;
+            case 3: printf("\nVous avez choisis %d", action); return CombatPions(_map, _rendu, coordx, coordy, tab_joueur, _joueur, _fenetre); break;
             case 4: printf("\nVous avez choisis d'avoir une idee"); return PiocherCarte(_rendu, _joueur); break;
             case 5: printf("\nVous avez choisis de construire une ville"); return PlacementVille(_map, _rendu, &coordx, &coordy, _joueur);break;
 		}

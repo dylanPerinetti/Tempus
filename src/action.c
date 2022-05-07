@@ -121,7 +121,7 @@ int TestDeplacement(Tuile _map[10][10], SDL_Renderer *_rendu, int *_coordx, int 
 
 /*-----------------------------------------------------------------------------------------------------------------*/
 
-int CombatPions(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coordy, Joueur _joueur[4], int attaquant, SDL_Window *_fenetre)
+int CombatPions(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coordy, Joueur _joueur[4], Joueur* attaquant, SDL_Window *_fenetre)
 {
 	SDL_bool programme_lance = SDL_TRUE;
 
@@ -150,7 +150,7 @@ int CombatPions(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coor
 	 }
 }
 
-int TestCombat(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coordy, int attaquant, Joueur _joueur[4])
+int TestCombat(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coordy, Joueur* attaquant, Joueur _joueur[4])
 {
 	int ncoordx;
 	int ncoordy;
@@ -161,35 +161,44 @@ int TestCombat(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coord
 
 	if(CaseAdjacente(_coordx, _coordy, ncoordx, ncoordy)==1)
 	{
-		if(_map[ncoordx][ncoordy].nombre_pion>(0)&&_map[ncoordx][ncoordy].couleur!=(attaquant))
+		if(_map[ncoordx][ncoordy].nombre_pion>0&&_map[ncoordx][ncoordy].couleur!=attaquant->couleur)
 		{
-			defenseur=_map[ncoordx][ncoordy].couleur;
+			defenseur=_map[ncoordx][ncoordy].couleur-1;
 			if(_joueur[defenseur].pions_possede<4) {printf("\nVous ne pouvez pas attaquer un joueur possédant trois pions ou moins"); return 0;}
 			else 
 			{
-				printf("\nJoueur %s, vous etes l'attaquant, vous pouvez donc choisir combien de cartes vous allez jouer",_joueur[attaquant].pseudo);
-				point_attaquant=point_attaquant+JouerCarte(&_joueur[attaquant], _map[ncoordx][ncoordy].type_terrain);
+				printf("\nJoueur %s, vous etes l'attaquant, vous pouvez donc choisir combien de cartes vous allez jouer\n",attaquant->pseudo);
+				point_attaquant=point_attaquant+JouerCarte(attaquant, _map[ncoordx][ncoordy].type_terrain);
 
 				point_attaquant=point_attaquant+_map[_coordx][_coordy].nombre_pion;
 
-				printf("\nJoueur %s, vous etes le defenseur, vous allez pouvoir choisir en second combien de cartes vous allez jouer",_joueur[defenseur].pseudo);
+				printf("%d", defenseur);
+
+				printf("\nJoueur %s vous etes le defenseur, vous allez pouvoir choisir en second combien de cartes vous allez jouer", _joueur[defenseur].pseudo);
 				point_defenseur=point_defenseur+JouerCarte(&_joueur[defenseur], _map[ncoordx][ncoordy].type_terrain);
 
 				point_defenseur=point_defenseur+_map[ncoordx][ncoordy].nombre_pion;
+
+				system("PAUSE");
 
 				if(point_attaquant<=point_defenseur) 
 				{
 					
 					printf("\nLES DEFENSEURS ONT GAGNES");
-					if(_map[_coordx][_coordy].nombre_pion-point_defenseur+point_attaquant>=0) 
+					if(point_defenseur==point_attaquant)
 					{
-						_joueur[attaquant].pions_possede = _joueur[attaquant].pions_possede+point_defenseur-point_attaquant;
-						_map[_coordx][_coordy].nombre_pion = _map[_coordx][_coordy].nombre_pion-point_defenseur+point_attaquant; 
+						_map[_coordx][_coordy].nombre_pion--;
+					}
+
+					else if(_map[_coordx][_coordy].nombre_pion-point_defenseur+point_attaquant>=0) 
+					{
+						attaquant->pions_possede = attaquant->pions_possede+point_defenseur-point_attaquant;
+						_map[_coordx][_coordy].nombre_pion = _map[_coordx][_coordy].nombre_pion-point_defenseur+point_attaquant;
 					}
 					
 					else
 					{
-						_joueur[attaquant].pions_possede = _joueur[attaquant].pions_possede+_map[_coordx][_coordy].nombre_pion;
+						attaquant->pions_possede = attaquant->pions_possede+_map[_coordx][_coordy].nombre_pion;
 						_map[_coordx][_coordy].nombre_pion = 0;
 					}
 
@@ -206,13 +215,19 @@ int TestCombat(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coord
 					}while((choix)>_map[_coordx][_coordy].nombre_pion||choix<1);
 
 					_map[ncoordx][ncoordy].nombre_pion=0;
-					DeplacementPion(_map, _rendu, _coordx, _coordy, ncoordx, ncoordy, _joueur[attaquant].couleur, choix);
+					DeplacementPion(_map, _rendu, _coordx, _coordy, ncoordx, ncoordy, attaquant->couleur, choix);
 				}
+				
+				MajCase(_map, _coordx, _coordy, _rendu);
+				MajCase(_map, ncoordx, ncoordy, _rendu);
+				system("PAUSE");
+
 				return 1;
 			}
 		}
+		else printf("\nVous devez selectionner une case appartenant a un de vos adversaires avec au moins un pion dessus");
 
-		if(_map[ncoordx][ncoordy].taille_ville!=(0)&&_map[ncoordx][ncoordy].couleur!=(attaquant))
+		if(_map[ncoordx][ncoordy].taille_ville!=(0)&&_map[ncoordx][ncoordy].couleur!=attaquant->couleur)
 		{
 
 			//ATTAQUE VILLE

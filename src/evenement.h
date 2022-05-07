@@ -25,8 +25,8 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 
 
 
-int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, SDL_Window *_fenetre);
-int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur,SDL_Window *_fenetre);
+int SelectionCase(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, Joueur tab_joueur[4], SDL_Window *_fenetre);
+int SelectionPion(Tuile _map[10][10], SDL_Renderer* _rendu, Joueur* _joueur, Joueur tab_joueur[4], SDL_Window *_fenetre);
 
 int CurseurBas(Tuile _map[10][10], SDL_Renderer* _rendu);
 int CurseurHaut(Tuile _map[10][10], SDL_Renderer* _rendu);
