@@ -225,13 +225,59 @@ int TestCombat(Tuile _map[10][10], SDL_Renderer *_rendu, int _coordx, int _coord
 				return 1;
 			}
 		}
-		else printf("\nVous devez selectionner une case appartenant a un de vos adversaires avec au moins un pion dessus");
 
-		if(_map[ncoordx][ncoordy].taille_ville!=(0)&&_map[ncoordx][ncoordy].couleur!=attaquant->couleur)
+		else if(_map[ncoordx][ncoordy].taille_ville!=0 && _map[ncoordx][ncoordy].couleur!=attaquant->couleur)
 		{
+			int terrain;
+			defenseur=_map[ncoordx][ncoordy].couleur-1;
+			printf("\nJoueur %s, vous controlez la ville qui se defend, vous pouvez donc choisir le terrain de l'affrontement :", _joueur[defenseur].pseudo);
+			printf("\n1: Prairie\n2: Montagne\n3: Foret\n4: Champs\n5: Colline");
+			do
+			{
+				scanf("%d", &terrain);
+				if(terrain<1||terrain>5) printf("\nVeuillez entrer une valeur entre 1 et 5");
+			}while(terrain<1||terrain>5);
 
-			//ATTAQUE VILLE
+			printf("\nJoueur %s, vous etes l'attaquant, vous pouvez donc choisir combien de cartes vous allez jouer\n",attaquant->pseudo);
+			point_attaquant=point_attaquant+JouerCarte(attaquant, terrain-1);
+
+			point_attaquant=point_attaquant+_map[_coordx][_coordy].nombre_pion;
+
+			printf("%d", defenseur);
+
+			printf("\nJoueur %s vous etes le defenseur, vous allez pouvoir choisir en second combien de cartes vous allez jouer", _joueur[defenseur].pseudo);
+			point_defenseur=point_defenseur+JouerCarte(&_joueur[defenseur], terrain-1);
+
+			point_defenseur=point_defenseur+_map[ncoordx][ncoordy].taille_ville;
+			if(point_attaquant<=point_defenseur) 
+			{
+					
+				printf("\nLES DEFENSEURS ONT GAGNES");
+				if(point_defenseur==point_attaquant)
+				{
+					_map[_coordx][_coordy].nombre_pion--;
+				}
+
+				else if(_map[_coordx][_coordy].nombre_pion-point_defenseur+point_attaquant>=0) 
+				{
+					attaquant->pions_possede = attaquant->pions_possede+point_defenseur-point_attaquant;
+					_map[_coordx][_coordy].nombre_pion = _map[_coordx][_coordy].nombre_pion-point_defenseur+point_attaquant;
+				}
+					
+				else
+				{
+					attaquant->pions_possede = attaquant->pions_possede+_map[_coordx][_coordy].nombre_pion;
+					_map[_coordx][_coordy].nombre_pion = 0;
+				}
+
+			}
+			else
+			{
+				printf("\nLES ATTAQUANTS ONT GAGNES, VOUS PRENEZ DONC LA VILLE");
+				_map[ncoordx][ncoordy].couleur=attaquant->couleur;
+			}
 		}
+		else printf("\nVous devez selectionner une case appartenant a un de vos adversaires avec au moins un pion dessus, ou une ville");
 	}
 	else printf("\nVous devez selectionner une case adjacente"); return 0;
 }

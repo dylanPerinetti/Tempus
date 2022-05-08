@@ -60,7 +60,7 @@ void InitialiserNiveauJoueur(Joueur* _joueur)
 	_joueur->niveau_joueur.voyage_naval=0;
 	_joueur->niveau_joueur.carte_pioche=1;
 	_joueur->niveau_joueur.carte_max=5;
-	_joueur->niveau_joueur.actions=3;  //3
+	_joueur->niveau_joueur.actions=1;  //3
 }
 
 /*--------------------------------------------------------------------------*/

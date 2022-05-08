@@ -81,7 +81,7 @@ void LancementPartie(Tuile _map[10][10], Joueur _joueur[4], SDL_Renderer* _rendu
 		MeilleurJoueurAge(_map, _joueur, age);
 		MajNiveaux(_rendu, _joueur);
 
-		if(age==10)
+		if(age==1)
 		{
 			int gagnant;
 			gagnant=FinPartie(_map, _joueur);
@@ -277,14 +277,14 @@ int ChoixAction()
 
 int FinPartie(Tuile _map[10][10], Joueur _joueur[4])
 {
-	int pjoueur[4];
-	int ppions=0; int pvilles=0; int page=0;
-	int pmax;
+	float pjoueur[4];
+	float ppions; float pvilles; float page; float pcartes; float pvilles2;
+	float pmax;
 	pjoueur[0]=0; pjoueur[1]=0; pjoueur[2]=0; pjoueur[3]=0;
 
 	for(int i=0; i<4; i++)
 	{
-		ppions=0; pvilles=0; page=0;
+		ppions=0; pvilles=0; page=0; pcartes=0; pvilles2=0;
 		
 		for(int j=0; j<10; j++)
 		{
@@ -292,14 +292,20 @@ int FinPartie(Tuile _map[10][10], Joueur _joueur[4])
 			{
 				if(_map[j][k].nombre_pion>(0)&&(_joueur[i].couleur)==_map[j][k].couleur) ppions++;
 				if(_map[j][k].taille_ville>(0)&&(_joueur[i].couleur)==_map[j][k].couleur) pvilles=pvilles+_map[j][k].taille_ville;
+				if(_map[j][k].taille_ville>(0)&&(_joueur[i].couleur)==_map[j][k].couleur) pvilles2=pvilles2+0.01;
 			}
 		}
 		
 		if(_joueur[i].niveau_joueur.niveau==10) page=page+3;
+		
+		for(int j=0; j<7; j++)
+		{
+			if(_joueur[i].carte_joueur[j].couleur!=7) pcartes=pcartes+0.1;
+		}
 
-		pjoueur[i]=ppions+pvilles+page;
+		pjoueur[i]=ppions+pvilles+page+pcartes+pvilles2;
 
-		printf("\nLe joueur %s comptabilise %d points :  %d grace a ses pions,  %d grace a ses villes", _joueur[i].pseudo, pjoueur[i], ppions, pvilles);
+		printf("\nLe joueur %s comptabilise %.0f points :  %.0f grace a ses pions,  %.0f grace a ses villes", _joueur[i].pseudo, pjoueur[i], ppions, pvilles);
 		
 		if(page!=0) printf(" et 3 car il a atteint le dernier age.");
 		
@@ -308,29 +314,7 @@ int FinPartie(Tuile _map[10][10], Joueur _joueur[4])
 
 	for(int i=0; i<4; i++)
 	{
-		if(pjoueur[i]==pmax) return i;                           //Faire le cas ou yait une égalité
-	}
+		if(pjoueur[i]==pmax) return i;     
+	} 
 }
 
-/*int Egalite(Joueur _joueur[4], int gagnants[4])
-{
-	int VeritableGagnant=7;
-
-	for(int i=0;i<4;i++)
-	{
-		if(gagnants[i]==1)
-		{
-			if(VeritableGagnant!=7)
-			{
-				if(_joueur[i].)
-
-
-
-
-
-			}
-			
-			else VeritableGagnant=i;
-		}
-	}
-}*/
